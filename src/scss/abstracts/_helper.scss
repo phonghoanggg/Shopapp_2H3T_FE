@@ -1,0 +1,33 @@
+// Typography
+._text-center {
+  text-align: center;
+}
+
+._text-uppercase {
+  text-transform: uppercase;
+}
+
+._text-lowercase {
+  text-transform: lowercase;
+}
+
+._text-capitalize {
+  text-transform: capitalize;
+}
+
+._text-transform-unset {
+  text-transform: unset;
+}
+
+._color-success-light {
+  color: $success-light-color;
+}
+
+// font size
+._fz {
+  @each $size, $value in $font-size {
+    &-#{$size} {
+      font-size: $value;
+    }
+  }
+}
