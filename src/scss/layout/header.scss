@@ -2,6 +2,7 @@
 	background: $white;
 	display: block;
 	position: sticky;
+	z-index: 10000;
 	top: 0;
 
 	@include breakpoint-down(smalldesktop) {
