@@ -1,3 +1,10 @@
+.site-header {
+  display: block;
+  @include breakpoint-down(smalldesktop) {
+    display: none;
+  }
+}
+
 .search-site {
   @include flex-center-ver;
   justify-content: space-between;

@@ -31,3 +31,20 @@
     }
   }
 }
+
+// overlay
+._overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba($color: $black, $alpha: 0.4);
+  z-index: 20;
+}
+
+// border
+
+._border-bottom {
+  border-bottom: 1px solid $brown-light-color;
+}
+._border-top {
+  border-top: 1px solid $brown-light-color;
+}

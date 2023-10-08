@@ -5,7 +5,7 @@ interface IPropsBanner {
   title: string;
   description: string;
   footer?: string;
-  classname?: string;
+  className?: string;
 }
 
 export default function BannerSection({
@@ -13,10 +13,10 @@ export default function BannerSection({
   title,
   description,
   footer,
-  classname,
+  className,
 }: IPropsBanner) {
   return (
-    <section className={`home-banner-section _text-center ${classname}`}>
+    <section className={`home-banner-section _text-center ${className}`}>
       <p className="subtitle _text-uppercase">{subtitle}</p>
       <h3 className="title _text-uppercase">{title}</h3>
       <p className="description">{description}</p>
