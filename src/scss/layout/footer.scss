@@ -1,9 +1,10 @@
 .site-footer {
-	margin-block: 72px;
+	margin-top: 72px;
 	background: $brown-light-color;
-	padding-block: 28px;
+	padding-block: 60px;
 	@include breakpoint-down(smalldesktop) {
 		margin-block: 36px;
+		padding-block: 30px;
 	}
 }
 
@@ -11,11 +12,16 @@
 	> .contact {
 		@include flex-center-ver;
 		justify-content: space-between;
-		padding-inline: 40px;
+		padding-inline: 72px;
 		font-size: $fz-sm;
+		padding-bottom: 32px;
 		@include breakpoint-down(smalldesktop) {
 			gap: 24px;
 			flex-wrap: wrap;
+			padding-bottom: 16px;
+		}
+		@include breakpoint-down(phone) {
+			padding-inline: 0;
 		}
 
 		> .sale {
@@ -55,6 +61,44 @@
 			width: 200px;
 			@include breakpoint-down(smalldesktop) {
 				width: 100%;
+			}
+		}
+	}
+}
+
+.footer-wrapper {
+	> .menu-list {
+		@include flex-center-ver;
+		justify-content: start;
+		flex-wrap: wrap;
+		gap: 100px;
+		height: 100%;
+		border-top: 1px solid $black;
+		padding-block: 48px;
+		@include breakpoint-down(smalldesktop) {
+			padding-block: 24px;
+			gap: 32px;
+		}
+		@include breakpoint-down(mediumphone) {
+			gap: 24px;
+		}
+		> .item {
+			height: 100%;
+			@include flex-column;
+			gap: 16px;
+			font-size: $fz-sm;
+			line-height: $fz-sm;
+			> .title {
+				display: block;
+				font-weight: $fw-bold;
+				color: $black;
+				padding-bottom: 8px;
+			}
+			.link {
+				color: $brown-color;
+				&:hover {
+					color: $black;
+				}
 			}
 		}
 	}
