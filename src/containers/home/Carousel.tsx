@@ -24,6 +24,7 @@ const Carousel = () => {
 							className="image"
 						>
 							<Image
+								className="item"
 								width={600}
 								height={500}
 								alt="Carousel"

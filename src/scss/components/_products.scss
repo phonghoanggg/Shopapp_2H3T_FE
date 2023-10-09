@@ -1,0 +1,60 @@
+.site-products {
+	margin-bottom: 32px;
+	@include breakpoint-down(phone) {
+		margin-bottom: 16px;
+	}
+	> .title {
+		margin-block: 50px;
+		font-size: $fz-2xl;
+		color: $dark;
+		font-family: $heading-font;
+		font-weight: $fw-bold;
+		letter-spacing: 3.2px;
+		@include breakpoint-down(phone) {
+			font-size: $fz-lg;
+			margin-block: 24px;
+			letter-spacing: 0;
+		}
+	}
+	> .product-list {
+		> .item > .desc {
+			color: $dark;
+
+			> .name {
+				font-size: $fz-base;
+				line-height: $leading-sm;
+				margin-block: 12px;
+				@include breakpoint-down(phone) {
+					font-size: $fz-sm;
+					margin-block: 6px;
+				}
+			}
+			> .new-price {
+				font-size: $fz-sm;
+				line-height: $leading-sm;
+				font-weight: $fw-bold;
+			}
+		}
+	}
+}
+
+.product {
+	> .desc {
+		color: $dark;
+
+		> .name {
+			font-size: $fz-base;
+			line-height: $leading-sm;
+			margin-block: 12px;
+			@include breakpoint-down(phone) {
+				font-size: $fz-sm;
+				margin-block: 6px;
+			}
+		}
+		> .new-price {
+			font-size: $fz-sm;
+			line-height: $leading-sm;
+			font-weight: 600;
+		}
+	}
+}

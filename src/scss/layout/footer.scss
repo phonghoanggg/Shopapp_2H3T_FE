@@ -1,0 +1,61 @@
+.site-footer {
+	margin-block: 72px;
+	background: $brown-light-color;
+	padding-block: 28px;
+	@include breakpoint-down(smalldesktop) {
+		margin-block: 36px;
+	}
+}
+
+.footer-wrapper {
+	> .contact {
+		@include flex-center-ver;
+		justify-content: space-between;
+		padding-inline: 40px;
+		font-size: $fz-sm;
+		@include breakpoint-down(smalldesktop) {
+			gap: 24px;
+			flex-wrap: wrap;
+		}
+
+		> .sale {
+			font-family: $heading-font;
+			font-size: $fz-lg;
+			font-weight: 800;
+			line-height: $leading-md;
+			width: 20vw;
+			@include breakpoint-down(smalldesktop) {
+				width: 100%;
+			}
+		}
+		> .content {
+			font-size: $fz-sm;
+			line-height: $leading-sm;
+			width: 16vw;
+			@include breakpoint-down(smalldesktop) {
+				width: 100%;
+			}
+		}
+		> .field {
+			@include flex-column;
+			@include breakpoint-down(smalldesktop) {
+				width: 100%;
+			}
+			> .input {
+				width: 308px;
+				padding-block: 8px;
+				border-bottom: 1px solid $black;
+				@include breakpoint-down(smalldesktop) {
+					width: 100%;
+				}
+			}
+		}
+		> .button {
+			@include flex-center;
+			width: 200px;
+			@include breakpoint-down(smalldesktop) {
+				width: 100%;
+			}
+		}
+	}
+}

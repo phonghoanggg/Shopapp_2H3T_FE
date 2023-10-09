@@ -211,26 +211,36 @@
 		gap: 48px;
 		grid-template-columns: repeat(4, 1fr);
 		@include breakpoint-down(smalldesktop) {
-			grid-template-columns: repeat(2, 1fr);
-
+			grid-template-columns: repeat(3, 1fr);
 			padding-block: 16px;
 			gap: 12px;
 		}
-	}
-}
-.item {
-	@include flex-column;
-	gap: 16px;
-	@include breakpoint-down(smalldesktop) {
-		gap: 8px;
-	}
+		@include breakpoint-down(phone) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		> .item {
+			@include flex-column;
+			gap: 16px;
+			@include breakpoint-down(smalldesktop) {
+				gap: 8px;
+			}
+			> .image {
+				overflow: hidden;
+				aspect-ratio: auto;
+				&:hover > .item {
+					transition: transform 0.4s linear;
+					transform: scale(1.02);
+				}
+			}
 
-	> .desc {
-		color: $black;
-		font-size: $fz-sm;
-		line-height: $leading-sm;
-	}
-	> .desc span {
-		font-weight: $fw-bold;
+			> .desc {
+				color: $black;
+				font-size: $fz-sm;
+				line-height: $leading-sm;
+			}
+			> .desc span {
+				font-weight: $fw-bold;
+			}
+		}
 	}
 }
