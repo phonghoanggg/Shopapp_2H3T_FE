@@ -29,7 +29,7 @@ const Product = ({ image, name, price, oldPrice }: IProductProps) => {
 			>
 				<p className="name _text-capitalize">{name}</p>
 				<span className="new-price">
-					{price} <del className="old-price">{oldPrice}</del>
+					${price} <del className="old-price">${oldPrice}</del>
 				</span>
 			</Link>
 		</div>
