@@ -20,7 +20,7 @@ const Carousel = () => {
 						key={`carousel-${id}`}
 					>
 						<Link
-							href="#"
+							href="/"
 							className="image"
 						>
 							<Image
@@ -32,7 +32,7 @@ const Carousel = () => {
 							/>
 						</Link>
 						<Link
-							href="#"
+							href="/"
 							className="desc"
 						>
 							<span>Shop/</span>

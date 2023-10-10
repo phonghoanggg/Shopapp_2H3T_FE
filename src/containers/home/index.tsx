@@ -1,3 +1,4 @@
+import { IconButton } from '@/compound/DemoButton';
 import BannerSection from './BannerSection';
 import Carousel from './Carousel';
 import Content from './Content';
@@ -8,6 +9,8 @@ import ProductsStyles from './ProductsStyles';
 export default function Home() {
 	return (
 		<main className="home-page">
+			<IconButton></IconButton>
+
 			<BannerSection
 				className="bg-light-orang"
 				title="30-70% OFF + FREE SHIPPING"

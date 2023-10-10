@@ -13,7 +13,7 @@ const Product = ({ image, name, price, oldPrice }: IProductProps) => {
 	return (
 		<div className="product">
 			<Link
-				href="#"
+				href="/"
 				className="image"
 			>
 				<Image
@@ -24,7 +24,7 @@ const Product = ({ image, name, price, oldPrice }: IProductProps) => {
 				/>
 			</Link>
 			<Link
-				href="#"
+				href="/"
 				className="desc"
 			>
 				<p className="name _text-capitalize">{name}</p>

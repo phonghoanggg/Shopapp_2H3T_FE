@@ -3,7 +3,7 @@ import Link from 'next/link';
 const ButtonLink = () => {
 	return (
 		<Link
-			href="#"
+			href="/"
 			className="site-button-link"
 		>
 			Shop Kids

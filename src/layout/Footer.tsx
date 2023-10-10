@@ -1,5 +1,13 @@
-import Button from '@/compound/button/Button';
+// base
 import Link from 'next/link';
+// components
+import Button from '@/compound/button/Button';
+// contains
+import { FOOTER_LIST } from './constains';
+// lodash
+import { map } from 'lodash';
+
+// looix gi ne
 
 export const Footer = () => {
 	return (
@@ -31,171 +39,23 @@ export const Footer = () => {
 				</div>
 				{/* navigation footer */}
 				<ul className="menu-list">
-					<li className="item">
-						<h6 className="title">Special Discounts</h6>
-						<Link
-							className="link"
-							href="#"
+					{map(FOOTER_LIST, ({ label, link }) => (
+						<li
+							className="item"
+							key={`footer-${label}`}
 						>
-							Teacher Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Military Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Medical & First Responder
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Student Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Red Tab™ Member Program
-						</Link>
-					</li>
-					<li className="item">
-						<h6 className="title">Support</h6>
-						<Link
-							className="link"
-							href="#"
-						>
-							Help
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Returns & Exchanges
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Shipping
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Payments Accepted
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Track Order
-						</Link>
-					</li>
-					<li className="item">
-						<h6 className="title">Company</h6>
-						<Link
-							className="link"
-							href="#"
-						>
-							Teacher Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Military Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Medical & First Responder
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Student Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Red Tab™ Member Program
-						</Link>
-					</li>
-					<li className="item">
-						<h6 className="title">Store</h6>
-						<Link
-							className="link"
-							href="#"
-						>
-							Teacher Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Military Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Medical & First Responder
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Student Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Red Tab™ Member Program
-						</Link>
-					</li>
-					<li className="item">
-						<h6 className="title">Our Brand</h6>
-						<Link
-							className="link"
-							href="#"
-						>
-							Teacher Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Military Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Medical & First Responder
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Student Discount
-						</Link>
-						<Link
-							className="link"
-							href="#"
-						>
-							Red Tab™ Member Program
-						</Link>
-					</li>
+							<h6 className="title">{label}</h6>
+							{map(link, ({ pathname }) => (
+								<Link
+									key={`footer-link-${pathname}`}
+									className="link"
+									href="/"
+								>
+									{pathname}
+								</Link>
+							))}
+						</li>
+					))}
 				</ul>
 			</div>
 		</footer>

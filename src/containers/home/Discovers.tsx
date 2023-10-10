@@ -1,11 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef } from 'react';
 
 const Discovers = () => {
-	const videoRef = useRef<HTMLVideoElement | null>(null);
-
 	return (
 		<section className="site-discover container">
 			<div className="discover-wrapper ">
@@ -14,10 +11,10 @@ const Discovers = () => {
 						controls
 						width={500}
 						height={500}
-						ref={videoRef}
 						autoPlay
 						loop
 						muted
+						playsInline
 					>
 						<source
 							src="https://lscoecomm.scene7.com/is/content/lscoecomm/23-September-US---501-Vogue-Content_SITE_V2-0x1080-4991k"
@@ -33,8 +30,8 @@ const Discovers = () => {
 						beliefs and personalities.
 					</p>
 					<div className="links">
-						<Link href="#">Shop Now</Link>
-						<Link href="#">Discover more</Link>
+						<Link href="/">Shop Now</Link>
+						<Link href="/">Discover more</Link>
 					</div>
 				</div>
 			</div>
@@ -44,10 +41,10 @@ const Discovers = () => {
 						controls
 						width={500}
 						height={500}
-						ref={videoRef}
 						autoPlay
 						loop
 						muted
+						playsInline
 					>
 						<source
 							src="https://lscoecomm.scene7.com/is/content/lscoecomm/23-September-US---501-Vogue-Content_SITE_V2-0x1080-4991k"
@@ -63,8 +60,8 @@ const Discovers = () => {
 						beliefs and personalities.
 					</p>
 					<div className="links">
-						<Link href="#">Shop Now</Link>
-						<Link href="#">Discover more</Link>
+						<Link href="/">Shop Now</Link>
+						<Link href="/">Discover more</Link>
 					</div>
 				</div>
 			</div>

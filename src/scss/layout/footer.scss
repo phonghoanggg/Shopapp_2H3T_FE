@@ -1,6 +1,6 @@
 .site-footer {
 	margin-top: 72px;
-	background: $brown-light-color;
+	background: $brown-white;
 	padding-block: 60px;
 	@include breakpoint-down(smalldesktop) {
 		margin-block: 36px;
@@ -68,7 +68,7 @@
 
 .footer-wrapper {
 	> .menu-list {
-		@include flex-center-ver;
+		display: flex;
 		justify-content: start;
 		flex-wrap: wrap;
 		gap: 100px;
