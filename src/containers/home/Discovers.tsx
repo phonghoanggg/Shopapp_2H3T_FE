@@ -1,8 +1,23 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 
 const Discovers = () => {
+	const videoRef1 = useRef<HTMLVideoElement | null>(null);
+	const videoRef2 = useRef<HTMLVideoElement | null>(null);
+
+	useEffect(() => {
+		if (videoRef1.current) {
+			const playEvent = new Event('play', { bubbles: true, cancelable: true });
+			videoRef1.current.dispatchEvent(playEvent);
+		}
+		if (videoRef2.current) {
+			const playEvent = new Event('play', { bubbles: true, cancelable: true });
+			videoRef2.current.dispatchEvent(playEvent);
+		}
+	}, []);
+
 	return (
 		<section className="site-discover container">
 			<div className="discover-wrapper ">
@@ -13,6 +28,7 @@ const Discovers = () => {
 						height={500}
 						autoPlay
 						loop
+						ref={videoRef1}
 						muted
 						playsInline
 					>
@@ -42,6 +58,7 @@ const Discovers = () => {
 						width={500}
 						height={500}
 						autoPlay
+						ref={videoRef2}
 						loop
 						muted
 						playsInline
