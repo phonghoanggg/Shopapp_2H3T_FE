@@ -1,5 +1,7 @@
 'use client';
+// components
 import Logo from '@/compound/logo/Logo';
+// icons
 import { CgSearch, GrFormClose, HiOutlineMenuAlt4, HiOutlineShoppingBag, TbHeart } from '../compound/icons/index';
 // base
 import Link from 'next/link';
@@ -8,11 +10,11 @@ import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
 import { Autoplay, Navigation } from 'swiper/modules';
-// pullic json
+// public json
 import Saler from '../../public/saler.json';
 // lodash
 import { map } from 'lodash';
-// constain
+// contains
 import { MENU_LIST } from './constains';
 
 interface IPropsSaler {

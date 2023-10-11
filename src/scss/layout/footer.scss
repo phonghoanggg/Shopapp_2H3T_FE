@@ -11,7 +11,7 @@
 .footer-wrapper {
 	> .contact {
 		@include flex-center-ver;
-		justify-content: space-between;
+		justify-content: space-around;
 		padding-inline: 72px;
 		font-size: $fz-sm;
 		padding-bottom: 32px;
@@ -19,48 +19,69 @@
 			gap: 24px;
 			flex-wrap: wrap;
 			padding-bottom: 16px;
-		}
-		@include breakpoint-down(phone) {
 			padding-inline: 0;
 		}
 
-		> .sale {
-			font-family: $heading-font;
-			font-size: $fz-lg;
-			font-weight: 800;
-			line-height: $leading-md;
-			width: 20vw;
-			@include breakpoint-down(smalldesktop) {
-				width: 100%;
+		> .sale-box {
+			display: flex;
+			align-items: flex-start;
+			width: 100%;
+			gap: 24px;
+			@include breakpoint-down(phone) {
+				@include flex-column;
+				gap: 12px;
 			}
-		}
-		> .content {
-			font-size: $fz-sm;
-			line-height: $leading-sm;
-			width: 16vw;
-			@include breakpoint-down(smalldesktop) {
-				width: 100%;
+			> .sale {
+				font-family: $heading-font;
+				font-size: $fz-lg;
+				font-weight: 800;
+				line-height: $leading-md;
+				width: 14vw;
+				@include breakpoint-down(smalldesktop) {
+					width: 100%;
+				}
 			}
-		}
-		> .field {
-			@include flex-column;
-			@include breakpoint-down(smalldesktop) {
-				width: 100%;
-			}
-			> .input {
-				width: 308px;
-				padding-block: 8px;
-				border-bottom: 1px solid $black;
+			> .content {
+				font-size: $fz-sm;
+				line-height: $leading-sm;
+				width: 14vw;
+
 				@include breakpoint-down(smalldesktop) {
 					width: 100%;
 				}
 			}
 		}
-		> .button {
-			@include flex-center;
-			width: 200px;
+
+		> .field-box {
+			display: flex;
+			align-items: flex-start;
+			gap: 24px;
+
 			@include breakpoint-down(smalldesktop) {
+				@include flex-column;
 				width: 100%;
+				gap: 12px;
+			}
+			> .field {
+				@include flex-column;
+				@include breakpoint-down(smalldesktop) {
+					width: 100%;
+				}
+				> .input {
+					width: 300px;
+					padding-block: 8px;
+					border-bottom: 1px solid $black;
+					@include breakpoint-down(smalldesktop) {
+						width: 100%;
+					}
+				}
+			}
+			> .button {
+				@include flex-center;
+				width: 200px;
+				@include breakpoint-down(smalldesktop) {
+					width: 100%;
+				}
 			}
 		}
 	}

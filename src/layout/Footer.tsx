@@ -15,27 +15,31 @@ export const Footer = () => {
 			<div className="footer-wrapper container">
 				{/* contact footer */}
 				<div className="contact">
-					<p className="sale">20% OFF + FREE SHIPPING</p>
-					<p className="content">For All New SonTruong&#39;s® Email Subscribers.</p>
-					<div className="field">
-						<label
-							htmlFor="singUp"
-							className="label"
-						>
-							Email*
-						</label>
-						<input
-							className="input"
-							type="text"
-						/>
+					<div className="sale-box">
+						<p className="sale">20% OFF + FREE SHIPPING</p>
+						<p className="content">For All New SonTruong&#39;s® Email Subscribers.</p>
 					</div>
-					<Button
-						color="primary"
-						className="button _text-capitalize _text-center"
-						type="button"
-					>
-						Sign Up
-					</Button>
+					<div className="field-box">
+						<div className="field">
+							<label
+								htmlFor="singUp"
+								className="label"
+							>
+								Email*
+							</label>
+							<input
+								className="input"
+								type="text"
+							/>
+						</div>
+						<Button
+							color="primary"
+							className="button _text-capitalize _text-center"
+							type="button"
+						>
+							Sign Up
+						</Button>
+					</div>
 				</div>
 				{/* navigation footer */}
 				<ul className="menu-list">

@@ -21,6 +21,7 @@ const Product = ({ image, name, price, oldPrice }: IProductProps) => {
 					height={500}
 					src={image}
 					alt="product-item"
+					loading="lazy"
 				/>
 			</Link>
 			<Link
