@@ -14,11 +14,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<body>
-				<Header />
 				<ReactQueryProvider>
-					<ReduxProvider>{children}</ReduxProvider>
+					<ReduxProvider>
+						<Header />
+						<main>{children}</main>
+						<Footer />
+					</ReduxProvider>
 				</ReactQueryProvider>
-				<Footer />
 			</body>
 		</html>
 	);

@@ -1,21 +1,21 @@
-// cartSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const cartSlice = createSlice({
 	name: 'cart',
 	initialState: {
-		isCartVisible: false,
+		isOpen: false,
+		cartItems: [],
 	},
 	reducers: {
-		showCart: (state) => {
-			state.isCartVisible = true;
+		openCart: (state) => {
+			state.isOpen = true;
 		},
-		hideCart: (state) => {
-			state.isCartVisible = false;
+		closeCart: (state) => {
+			state.isOpen = false;
 		},
 	},
 });
 
-export const { showCart, hideCart } = cartSlice.actions;
+export const { openCart, closeCart } = cartSlice.actions;
 
-export default cartSlice.reducer;
+export default cartSlice;

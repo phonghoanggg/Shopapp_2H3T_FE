@@ -34,7 +34,7 @@
 	.top-menu {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		height: 40px;
+		height: $top-menu-height;
 
 		> .slides {
 			@include flex-center;
@@ -71,17 +71,17 @@
 	color: $primary-color;
 	> span {
 		text-transform: capitalize;
-		font-weight: 700;
+		font-weight: $fw-bold;
 		margin-left: 4px;
 		text-decoration: underline;
 	}
 }
 
 .main-menu {
-	padding-block: 14px;
 	@include flex-center-ver;
 	justify-content: space-between;
 	font-family: $heading-font;
+	height: $main-menu-height;
 
 	> .nav > .wrapper {
 		@include flex-center-ver;

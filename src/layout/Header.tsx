@@ -1,6 +1,7 @@
 'use client';
 // base
 import Link from 'next/link';
+import { Fragment } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
@@ -11,10 +12,13 @@ import Saler from '../../public/saler.json';
 import { map } from 'lodash';
 // components
 import Logo from '@/compound/logo/Logo';
-//  icons
-import { Fragment } from 'react';
-import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } from '../compound/icons/index';
+import BagCart from './BagCart';
 import HeaderMobile from './Header-mobile';
+//  icons
+import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } from '../compound/icons/index';
+// contains
+import { openCart } from '@/redux/cart/slice';
+import { useAppDispatch } from '@/redux/hook';
 import { MENU_LIST } from './constains';
 
 interface IPropsSaler {
@@ -23,6 +27,8 @@ interface IPropsSaler {
 }
 
 export const Header = () => {
+	const dispatch = useAppDispatch();
+
 	const DataSaler = Saler.saler;
 
 	return (
@@ -105,18 +111,22 @@ export const Header = () => {
 								type="button"
 								className="header-icon-item"
 							>
-								<HiOutlineShoppingBag size={24} />
+								<TbHeart size={24} />
 							</button>
+							{/* để chuột vào đây thì show */}
 							<button
 								type="button"
-								className="header-icon-item"
+								className="header-icon-item z-index-10000"
+								id="shopping-bag-anchor"
+								onMouseEnter={() => dispatch(openCart())}
 							>
-								<TbHeart size={24} />
+								<HiOutlineShoppingBag size={24} />
 							</button>
 						</div>
 					</div>
 				</div>
 			</header>
+			<BagCart />
 		</Fragment>
 	);
 };
