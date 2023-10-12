@@ -5,11 +5,12 @@ interface IProductProps {
 	id?: number;
 	image: string;
 	name: string;
-	price: string;
-	oldPrice?: string;
+	price: number;
+	oldPrice?: number;
+	brand?: string;
 }
 
-const Product = ({ image, name, price, oldPrice }: IProductProps) => {
+const Product = ({ image, name, price, oldPrice, brand }: IProductProps) => {
 	return (
 		<div className="product">
 			<Link
@@ -32,6 +33,7 @@ const Product = ({ image, name, price, oldPrice }: IProductProps) => {
 				<span className="new-price">
 					${price} <del className="old-price">${oldPrice}</del>
 				</span>
+				<span className="brand">{brand}</span>
 			</Link>
 		</div>
 	);

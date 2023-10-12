@@ -2,7 +2,7 @@
 	$box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	@include hidden;
 	@include square(100%);
-	@include transition(400ms, 50ms);
+	@include transition(450ms, 100ms);
 	@include position(fixed, 0, 0, null, null);
 	max-width: $cart-drawer-width;
 	background: $white;
@@ -35,7 +35,7 @@
 		font-size: $fz-base;
 		line-height: $leading-md;
 		font-weight: $fw-bold;
-		padding-right: 40px;
+		padding-right: 67px;
 	}
 
 	.title-box > .sub-title {
@@ -59,9 +59,25 @@
 .cart-inner {
 	@include flex-column;
 	padding-left: 40px;
-	height: 460px;
 	overflow-y: auto;
-	padding-bottom: 20px;
+
+	@include breakpoint-up(mediumdesktop) {
+		height: 464px;
+		padding-bottom: 84px;
+	}
+	@include breakpoint-up(largedesktop) {
+		padding-bottom: 206px;
+		height: 650px;
+	}
+	@include breakpoint-up(xlargedesktop) {
+		padding-bottom: 186px;
+		height: 710px;
+	}
+	@include breakpoint-up(xxlargedesktop) {
+		padding-bottom: 186px;
+		height: 1000px;
+	}
+
 	> .title {
 		border-top: 1px solid $brown-light-color;
 
@@ -124,6 +140,11 @@
 }
 
 .total-wrapper {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: $white;
 	border-top: 1px solid $brown-light-color;
 	padding: 20px 40px;
 	font-size: $fz-base;

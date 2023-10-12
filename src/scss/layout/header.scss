@@ -101,7 +101,7 @@
 		color: $primary-color;
 		text-transform: uppercase;
 		&::before {
-			@include size(0, 2px);
+			@include size(0, 1.5px);
 			content: '';
 			position: absolute;
 			background: $primary-color;

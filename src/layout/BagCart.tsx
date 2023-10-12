@@ -1,6 +1,7 @@
 // base
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect } from 'react';
 // components
 import Button from '@/compound/button/Button';
 // icon
@@ -9,7 +10,6 @@ import { GiFireworkRocket, HiOutlineShoppingBag } from '../compound/icons/index'
 import { selectIsOpenCartDrawer } from '@/redux/cart/selectors';
 import { closeCart } from '@/redux/cart/slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { useEffect } from 'react';
 
 const BagCart = () => {
 	const dispatch = useAppDispatch();
@@ -57,6 +57,70 @@ const BagCart = () => {
 					<h4 className="title">Ship</h4>
 					{/* list products cart */}
 					<div className="cart-list">
+						<div className="cart-item">
+							<Link
+								href="/"
+								className="image"
+							>
+								<Image
+									width={500}
+									height={500}
+									loading="lazy"
+									src="https://lsco.scene7.com/is/image/lsco/D75910003-alt1-pdp-lse?$grid_desktop_full$"
+									alt="product cart item"
+								/>
+							</Link>
+							<Link
+								href="/"
+								className="desc"
+							>
+								<p className="name">Wedgie Icon Fit Ankle Women&#39;s Jeans</p>
+								<p className="sub-name">Wild Bunch - Medium Wash</p>
+
+								<p className="price">
+									$79.45 <del className="old-price">89.15</del>
+								</p>
+								<div className="type-wrapper">
+									<p className="size">M</p>
+									<div className="quantity">Qty: 1</div>
+								</div>
+								<div className="sub-title">
+									Subtotal: <span>$79.45</span>
+								</div>
+							</Link>
+						</div>
+						<div className="cart-item">
+							<Link
+								href="/"
+								className="image"
+							>
+								<Image
+									width={500}
+									height={500}
+									loading="lazy"
+									src="https://lsco.scene7.com/is/image/lsco/D75910003-alt1-pdp-lse?$grid_desktop_full$"
+									alt="product cart item"
+								/>
+							</Link>
+							<Link
+								href="/"
+								className="desc"
+							>
+								<p className="name">Wedgie Icon Fit Ankle Women&#39;s Jeans</p>
+								<p className="sub-name">Wild Bunch - Medium Wash</p>
+
+								<p className="price">
+									$79.45 <del className="old-price">89.15</del>
+								</p>
+								<div className="type-wrapper">
+									<p className="size">M</p>
+									<div className="quantity">Qty: 1</div>
+								</div>
+								<div className="sub-title">
+									Subtotal: <span>$79.45</span>
+								</div>
+							</Link>
+						</div>
 						<div className="cart-item">
 							<Link
 								href="/"

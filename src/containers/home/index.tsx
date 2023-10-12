@@ -1,14 +1,15 @@
+import SectionProducts from '@/components/SectionProducts';
 import BannerSection from './BannerSection';
 import Carousel from './Carousel';
 import Content from './Content';
 import Discovers from './Discovers';
-import ProductBestSeller from './ProductBestSeller';
-import ProductsStyles from './ProductsStyles';
+import { PRODUCT_LIST } from './constains';
 
 export default function Home() {
 	return (
 		<main className="home-page">
 			<BannerSection
+				footer="Discount auto-applied at checkout. Online & in select stores."
 				className="bg-light-orang"
 				title="30-70% OFF + FREE SHIPPING"
 				subtitle="THE FRIENDS & FAMILY EVENT"
@@ -21,9 +22,15 @@ export default function Home() {
 				description="These savings burn fast and burn bright. Get them now before they’re gone."
 				footer="Auto-applied at checkout. Online only."
 			/>
-			<ProductsStyles />
+			<SectionProducts
+				title="STYLES YOU MAY LIKE"
+				productList={PRODUCT_LIST}
+			/>
 			<Discovers />
-			<ProductBestSeller />
+			<SectionProducts
+				title="BESTSELLERS WE RECOMMEND"
+				productList={PRODUCT_LIST}
+			/>
 			<Carousel />
 		</main>
 	);

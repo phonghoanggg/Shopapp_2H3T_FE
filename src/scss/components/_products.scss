@@ -42,20 +42,27 @@
 .product {
 	> .desc {
 		color: $dark;
+		@include flex-column;
 
 		> .name {
 			font-size: $fz-base;
 			line-height: $leading-sm;
-			margin-block: 12px;
+			margin-block: 6px;
 			@include breakpoint-down(phone) {
 				font-size: $fz-sm;
-				margin-block: 6px;
+				margin-block: 3px;
 			}
 		}
 		> .new-price {
 			font-size: $fz-sm;
 			line-height: $leading-sm;
 			font-weight: 600;
+		}
+		> .brand {
+			font-size: $fz-xs;
+			line-height: $leading-sm;
+			color: $error-color;
+			font-weight: $fw-bold;
 		}
 	}
 }

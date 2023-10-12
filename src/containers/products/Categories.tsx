@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Scrollbar } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-export const Categories = () => {
+export default function Categories() {
 	return (
 		<section className="site-categories">
 			<h4 className="content _text-center">
@@ -178,4 +178,4 @@ export const Categories = () => {
 			</div>
 		</section>
 	);
-};
+}

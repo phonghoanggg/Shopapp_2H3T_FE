@@ -30,7 +30,7 @@ $breakpoints: (
 		max-width: 1535.98px,
 	),
 	'mediumdesktop': (
-		max-width: 1439.98px,
+		max-width: 1420.98px,
 	),
 	'desktop': (
 		max-width: 1199.98px,
@@ -81,17 +81,20 @@ $breakpoints: (
 //   }
 // }
 $breakpoints-up: (
+	'xxlargedesktop': (
+		min-width: 1899.98px,
+	),
 	'xlargedesktop': (
-		min-width: 1920px,
+		min-width: 1700px,
 	),
 	'largedesktop': (
-		min-width: 1536px,
+		min-width: 1535px,
 	),
 	'mediumdesktop': (
-		min-width: 1440px,
+		min-width: 1395px,
 	),
 	'desktop': (
-		min-width: 1200px,
+		min-width: 1279.98px,
 	),
 	'smalldesktop': (
 		min-width: 1024px,
