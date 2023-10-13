@@ -4,12 +4,12 @@ import { VideoSection } from '@/components/VideoSection';
 // lodash
 import { map } from 'lodash';
 // contains
-import { VIDEOSECTIONS } from './constains';
+import { VIDEO_SECTIONS } from './constains';
 
 const Discovers = () => {
 	return (
 		<section className="site-discover container">
-			{map(VIDEOSECTIONS, (section, index) => (
+			{map(VIDEO_SECTIONS, (section, index) => (
 				<VideoSection
 					key={index}
 					{...section}

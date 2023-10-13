@@ -116,7 +116,7 @@ export const Header = () => {
 							{/* để chuột vào đây thì show */}
 							<button
 								type="button"
-								className="header-icon-item z-index-10000"
+								className="header-icon-item "
 								id="shopping-bag-anchor"
 								onMouseEnter={() => dispatch(openCart())}
 							>

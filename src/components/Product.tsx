@@ -8,23 +8,31 @@ interface IProductProps {
 	price: number;
 	oldPrice?: number;
 	brand?: string;
+	button?: string;
 }
 
-const Product = ({ image, name, price, oldPrice, brand }: IProductProps) => {
+const Product = ({ id, image, name, price, oldPrice, brand, button }: IProductProps) => {
 	return (
-		<div className="product">
-			<Link
-				href="/"
-				className="image"
-			>
+		<div
+			className="product"
+			key={id}
+		>
+			<div className="image">
 				<Image
+					className="image-item"
 					width={500}
 					height={500}
 					src={image}
-					alt="product-item"
+					alt="image-item"
 					loading="lazy"
 				/>
-			</Link>
+				<Link
+					href="#"
+					className="btn"
+				>
+					{button}
+				</Link>
+			</div>
 			<Link
 				href="/"
 				className="desc"

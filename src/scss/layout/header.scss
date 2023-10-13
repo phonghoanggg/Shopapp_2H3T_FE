@@ -2,9 +2,9 @@
 	background: $white;
 	display: block;
 	position: sticky;
-	z-index: 10000;
 	top: 0;
 
+	z-index: 100;
 	@include breakpoint-down(smalldesktop) {
 		display: none;
 	}
@@ -25,6 +25,9 @@
 	> .icons {
 		@include flex-center-ver;
 		gap: 32px;
+		> #shopping-bag-anchor {
+			z-index: 10000 !important;
+		}
 	}
 }
 

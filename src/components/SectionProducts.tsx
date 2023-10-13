@@ -1,7 +1,6 @@
 'use client';
-
 import Product from '@/components/Product';
-import { map, rest } from 'lodash';
+import { map } from 'lodash';
 import { FreeMode } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -10,7 +9,7 @@ interface ProductData {
 	name: string;
 	image: string;
 	price: number;
-	oldPrice: number;
+	oldPrice?: number;
 }
 
 interface ProductListProps {
@@ -43,7 +42,6 @@ const SectionProducts: React.FC<ProductListProps> = ({ title, productList }) => 
 				spaceBetween: 32,
 			},
 		},
-		...rest,
 	};
 	return (
 		<section className="site-products">

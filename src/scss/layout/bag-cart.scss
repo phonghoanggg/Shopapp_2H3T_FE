@@ -7,7 +7,7 @@
 	max-width: $cart-drawer-width;
 	background: $white;
 	box-shadow: $box-shadow;
-	z-index: 10000;
+	z-index: 101;
 	transform: translateX(100%);
 	will-change: transform opacity visibility;
 	transition-timing-function: ease-in-out;
@@ -80,7 +80,6 @@
 
 	> .title {
 		border-top: 1px solid $brown-light-color;
-
 		font-family: $heading-font;
 		font-size: $fz-base;
 		padding: 20px 40px 20px 0;
@@ -140,10 +139,7 @@
 }
 
 .total-wrapper {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	@include position(absolute, null, 0, 0, 0);
 	background: $white;
 	border-top: 1px solid $brown-light-color;
 	padding: 20px 40px;

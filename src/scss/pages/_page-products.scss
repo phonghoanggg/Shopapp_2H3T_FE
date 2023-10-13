@@ -1,3 +1,13 @@
+.products-wrapper {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+	margin-top: 16px;
+	@include breakpoint-down(smalldesktop) {
+		display: block;
+	}
+}
+
 .site-categories {
 	> .content {
 		@include flex-center;
@@ -50,6 +60,129 @@
 		@include breakpoint-down(smalldesktop) {
 			font-size: $fz-sm;
 			line-height: $leading-sm;
+		}
+	}
+}
+
+//  Products list
+
+.main-section-products {
+	position: relative;
+}
+
+.filter-wrapper {
+	margin-top: 32px;
+	position: sticky;
+	top: 0;
+	height: $top-filter-height;
+	background: $white;
+	@include flex-center-ver;
+	justify-content: space-between;
+	> .total-products {
+		font-size: $fz-xs;
+		line-height: $leading-sm;
+		color: rgb(110, 110, 110);
+	}
+}
+
+.filters-inner {
+	@include flex-center-ver;
+	gap: 32px;
+	font-size: $fz-xs;
+	line-height: $leading-sm;
+	@include breakpoint-down(smalldesktop) {
+		gap: 16px;
+	}
+	> .filter {
+		@include flex-center-ver;
+		gap: 8px;
+		color: $black;
+
+		font-weight: $fw-bold;
+		padding-right: 4px;
+	}
+	> .filter > .filter-select-products {
+		font-weight: $fw-normal;
+		padding: 8px;
+	}
+}
+
+.main-products-list {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	padding-bottom: 30px;
+	gap: 50px 48px;
+	@include breakpoint-down(smalldesktop) {
+		gap: 25px 32px;
+	}
+	@include breakpoint-down(phone) {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
+	}
+	> .product {
+		cursor: pointer;
+		> .image {
+			position: relative;
+			@include flex-center;
+
+			> .btn {
+				@include flex-center;
+				position: absolute;
+				bottom: 20px;
+				width: 85%;
+				margin-left: auto;
+				margin-right: auto;
+				background: $secondary-color;
+				color: $white;
+				padding: 14px 16px;
+				font-size: $fz-base;
+				font-weight: $fw-bold;
+				transition: 0.2s ease-in-out;
+				@include hidden;
+				&:hover {
+					background: rgba($color: $secondary-color, $alpha: 0.8);
+				}
+			}
+		}
+		&:hover > .image > .btn {
+			@include visible;
+		}
+	}
+}
+
+.pagination-wrapper {
+	@include flex-center-ver;
+	justify-content: space-between;
+	padding-block: 30px;
+	border-top: 2px solid $brown-light-color;
+	> .pagination-list {
+		@include flex-center-ver;
+		gap: 12px;
+		> .item {
+			@include flex-center;
+			color: $black;
+			width: 40px;
+			height: 40px;
+			font-size: $fz-xs;
+			line-height: $leading-sm;
+			&:hover {
+				border: 1px solid $brown-light-color;
+			}
+			&.-active {
+				border: 1px solid $black;
+			}
+		}
+	}
+	> .button {
+		@include flex-center-ver;
+		gap: 8px;
+		font-size: $fz-sm;
+		line-height: $leading-sm;
+		> .label {
+			display: block;
+			@include breakpoint-down(smalldesktop) {
+				display: none;
+			}
 		}
 	}
 }
