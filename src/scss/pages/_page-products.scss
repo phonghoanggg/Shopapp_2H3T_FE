@@ -76,6 +76,7 @@
 	top: 0;
 	height: $top-filter-height;
 	background: $white;
+	z-index: 100;
 	@include flex-center-ver;
 	justify-content: space-between;
 	> .total-products {
