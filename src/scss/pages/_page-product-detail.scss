@@ -1,0 +1,750 @@
+.detail {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 40px;
+	margin-top: 5px;
+
+	.detail-slide {
+		width: 60%;
+
+		> .swiper {
+			width: 300px;
+			height: 300px;
+		}
+
+		> .swiper-slide {
+			text-align: center;
+			font-size: 18px;
+			background: #fff;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		> .swiper-slide {
+			> img {
+				display: block;
+				width: 20px;
+				height: 40px;
+				object-fit: cover;
+			}
+		}
+	}
+
+	.detail-info {
+		width: 40%;
+
+		.detail-title {
+			width: 100%;
+			padding-bottom: 16px;
+			border-bottom: 1px solid $brown-light-color;
+			h3 {
+				font-size: $fz-base;
+				text-transform: uppercase;
+				font-weight: 800;
+				margin-bottom: 10px;
+			}
+
+			.detail-icons {
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
+				gap: 3px;
+
+				.detail-icon {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					gap: 2px;
+				}
+
+				span {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+
+			.detail-price {
+				color: $black;
+				font-size: 20px;
+				line-height: $leading-md;
+				font-weight: $fw-bold;
+				padding: 8px 0;
+			}
+
+			.detail-content {
+				width: 100%;
+				color: $black;
+				font-size: $fz-xs;
+				line-height: $leading-sm;
+				color: $error-color;
+			}
+		}
+	}
+}
+
+.detail-size {
+	padding-top: 12px;
+	@include flex-column;
+	gap: 12px;
+	> .title {
+		font-size: $fz-sm;
+		line-height: $leading-sm;
+		color: $black;
+		font-weight: $fw-bold;
+	}
+	> .size-list {
+		@include flex-center-ver;
+		gap: 12px;
+	}
+	> .size-list > .item {
+		color: $black;
+		font-size: $fz-sm;
+		line-height: $leading-sm;
+		padding: 4px 10px;
+		border-radius: 4px;
+
+		&:hover {
+			background-color: $brown-white;
+			border-color: $brown-white;
+			cursor: pointer;
+		}
+	}
+}
+
+.detail-quantity {
+	@include flex-center-ver;
+	justify-content: space-between;
+	padding-top: 12px;
+	border-top: 1px solid $brown-white;
+	margin-top: 12px;
+
+	> .title {
+		font-size: $fz-sm;
+		line-height: $leading-sm;
+		color: $black;
+		font-weight: $fw-bold;
+	}
+	> .action {
+		@include flex-center-ver;
+		gap: 24px;
+	}
+	> .action > * {
+		font-weight: $fw-bold;
+	}
+}
+.detail-payment-method-list {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16px;
+	margin-top: 12px;
+	padding-top: 12px;
+	border-top: 1px solid $brown-white;
+
+	> .item {
+		border: 2px solid $brown-c9;
+		border-radius: 6px;
+		padding: 14px 16px;
+	}
+	> .item {
+		> .title {
+			font-weight: $fw-bold;
+			color: $black;
+			font-size: $fz-sm;
+			line-height: $leading-sm;
+			margin-bottom: 4px;
+		}
+		> .description {
+			font-size: 12px;
+			line-height: $leading-sm;
+			color: $brown-color;
+		}
+	}
+}
+
+.active-payment-method {
+	border: 2px solid $black;
+}
+
+.detail-disable {
+	border-bottom: 0.1em solid $brown-color;
+
+	> .item {
+		font-size: $fz-sm;
+		margin-top: 16px;
+		color: $brown-color;
+	}
+}
+
+.detail-click {
+	@include flex-center-ver;
+	background-color: $secondary-color;
+	width: full;
+	justify-content: center;
+	margin-top: 16px;
+	padding: 16px 0 16px;
+	> .item {
+		@include flex-center-ver;
+		justify-content: center;
+		color: $brown-light-color;
+		font-weight: 700;
+	}
+
+	&:hover {
+		background-color: $dark;
+		transition: 0.225s ease-in-out;
+		cursor: pointer;
+	}
+}
+
+.detail-note {
+	@include flex-center-ver;
+	gap: 8px;
+	margin-top: 16px;
+	> .icon {
+		margin-bottom: 2px;
+		height: 14px;
+		width: 16px;
+	}
+
+	> span {
+		font-size: $fz-sm;
+		font-weight: 700;
+	}
+
+	p {
+		font-size: $fz-sm;
+	}
+
+	> .icons {
+		cursor: pointer;
+	}
+}
+
+.detail-description {
+	color: #000;
+	font-size: 20px;
+	line-height: $leading-lg;
+	margin-top: 16px;
+
+	> ul {
+		align-items: center;
+		list-style-type: disc;
+
+		li::before {
+			content: '\2022';
+			margin-right: 0.5em;
+			color: #000;
+		}
+	}
+}
+
+.detail-nature {
+	font-size: $fz-sm;
+	margin-top: 16px;
+	color: $brown-color;
+
+	> .items {
+		margin-top: 8px;
+	}
+}
+
+.evaluate {
+	margin-top: 50px;
+
+	> .title {
+		font-size: $fz-base;
+		font-weight: 700;
+	}
+
+	> .rank {
+		color: $dark;
+		margin-top: 30px;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		padding-bottom: 12px;
+		border-bottom: 1px solid $brown-light-color;
+
+		> .item1 {
+			> .title {
+				margin-top: 12px;
+				font-size: $fz-sm;
+				color: $dark;
+			}
+
+			> .filter {
+				padding-left: 20px;
+				margin-top: 12px;
+
+				> .title {
+					font-size: $fz-sm;
+				}
+
+				> .star {
+					@include flex-center-ver;
+					margin-top: 12px;
+					gap: 6px;
+
+					> p {
+						font-size: $fz-sm;
+					}
+
+					> .filter {
+						height: 12px;
+						border: 1px solid $brown-color;
+						border-radius: 8px;
+						width: 300px;
+
+						display: flex;
+
+						> .action {
+							background-color: $black;
+							border-radius: 8px;
+							width: 70%;
+						}
+						> .icon {
+							background-color: $brown-light-color;
+							border-radius: 8px;
+							width: 30%;
+						}
+					}
+					> .span {
+						font-size: $fz-sm;
+					}
+				}
+			}
+		}
+
+		> .item2 {
+			> .title {
+				margin-top: 12px;
+				font-size: $fz-sm;
+				color: $dark;
+			}
+
+			> .filter {
+				padding-left: 12px;
+
+				> .item {
+					@include flex-center-ver;
+					margin-top: 12px;
+					gap: 8px;
+
+					> .title {
+						font-size: 50px;
+						font-weight: 400;
+					}
+
+					> .rank {
+						> .star {
+							@include flex-center-ver;
+							gap: 2px;
+						}
+						> button {
+							margin-top: 12px;
+							color: $dark;
+							font-size: $fz-sm;
+
+							&:hover {
+								border-bottom: 1px solid $dark;
+								display: inline-block;
+							}
+						}
+					}
+				}
+				> .note {
+					margin-top: 12px;
+					font-size: $fz-sm;
+					color: $dark;
+				}
+			}
+		}
+		> .item3 {
+			> .title {
+				margin-top: 12px;
+				font-size: $fz-sm;
+				color: $dark;
+			}
+
+			> .filter {
+				padding-left: 12px;
+
+				> .item {
+					@include flex-center-ver;
+					margin-top: 12px;
+					gap: 8px;
+					cursor: pointer;
+
+					> .items {
+						padding: 14px 16px;
+						border-radius: 6px;
+						border: 1px solid $black;
+						font-size: $fz-lg;
+
+						&:hover {
+							background-color: $dark;
+							color: $brown-white;
+						}
+					}
+				}
+				> .note {
+					margin-top: 12px;
+					font-size: $fz-sm;
+					color: $dark;
+				}
+			}
+		}
+	}
+}
+
+.size {
+	margin: 20px 0;
+	padding-bottom: 20px;
+	border-bottom: 1px solid $brown-light-color;
+
+	> .title {
+		font-size: $fz-sm;
+		color: $brown-color;
+		text-align: center;
+	}
+
+	> .action {
+		padding: 0px 5px;
+		width: auto;
+		min-width: 70px;
+
+		> .title {
+			margin: 12px;
+			width: auto;
+			padding-right: 150px;
+			@include flex-center-hoz;
+			align-items: flex-start;
+		}
+
+		> .filter {
+			@include flex-center-ver;
+			flex-direction: column;
+			justify-content: center;
+
+			> .column {
+				@include flex-center-ver;
+				height: 16px;
+				border: 1px solid $brown-c9;
+				width: 159px;
+
+				> .item1 {
+					background-color: $brown-c9;
+					border: 1px solid $brown-color;
+					height: 16px;
+					width: 24px;
+				}
+				> .item2 {
+					background-color: $brown-c9;
+					border: 1px solid $brown-color;
+					height: 16px;
+					width: 24px;
+				}
+				> .item3 {
+					background-color: $brown-c9;
+					border: 1px solid $brown-color;
+					height: 16px;
+					width: 24px;
+				}
+				> .item4 {
+					background-color: $dark;
+					border: 1px solid $dark;
+					height: 16px;
+					width: 14px;
+				}
+				> .item5 {
+					background-color: $brown-c9;
+					border: 1px solid $brown-color;
+					height: 16px;
+					width: 24px;
+				}
+				> .item6 {
+					background-color: $brown-c9;
+					border: 1px solid $brown-color;
+					height: 16px;
+					width: 24px;
+				}
+				> .item7 {
+					background-color: $brown-c9;
+					border: 1px solid $brown-color;
+					height: 16px;
+					width: 24px;
+				}
+			}
+
+			> .size-text {
+				@include flex-center-ver;
+				margin-top: 8px;
+				justify-content: space-between;
+				gap: 46px;
+				> p {
+					font-size: $fz-sm;
+					color: $dark;
+				}
+			}
+		}
+	}
+}
+
+.custom {
+	> .title {
+		font-size: $fz-sm;
+		color: $dark;
+		text-align: center;
+	}
+
+	> .filter {
+		margin-top: 12px;
+		@include flex-center-ver;
+		justify-content: center;
+
+		> .item {
+			padding: 2px;
+			> .items {
+				cursor: pointer;
+				height: 160px;
+				width: 180px;
+
+				> Image {
+					max-width: 100%;
+					max-height: 100%;
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					cursor: pointer;
+					transition: all 0.3s ease-in-out 0s;
+				}
+			}
+		}
+	}
+}
+
+.comment {
+	margin-top: 46px;
+
+	> .search {
+		@include flex-center-ver;
+		justify-content: space-between;
+		border-bottom: 1px solid $brown-light-color;
+		padding-bottom: 18px;
+		> p {
+			font-size: $fz-sm;
+			color: $dark;
+		}
+		> .action {
+			padding: 14px;
+			padding-right: 40px;
+			border-radius: 6px;
+			font-size: $fz-sm;
+			color: $dark;
+		}
+	}
+
+	> .person {
+		padding: 24px 24px;
+		@include flex-center-ver;
+		justify-content: flex-start;
+		gap: 50px;
+		border-bottom: 1px solid $brown-light-color;
+
+		> .info {
+			margin-top: 16px;
+			> .check {
+				@include flex-center-ver;
+				margin-top: 24px;
+				gap: 8px;
+				font-size: $fz-sm;
+
+				> .icon {
+					font-size: $fz-lg;
+				}
+
+				> p {
+					color: $brown-color;
+				}
+			}
+
+			> .review {
+				@include flex-center-ver;
+				margin-top: 24px;
+				justify-content: flex-start;
+				gap: 8px;
+				font-size: $fz-sm;
+				color: $dark;
+
+				> .strongText {
+					color: $black;
+					font-weight: 700;
+				}
+			}
+
+			> .votes {
+				@include flex-center-ver;
+				margin-top: 24px;
+				gap: 8px;
+				font-size: $fz-sm;
+				color: $dark;
+
+				> .strongText {
+					color: $black;
+					font-weight: 700;
+				}
+			}
+
+			> .weight {
+				@include flex-center-ver;
+				margin-top: 28px;
+				gap: 8px;
+				font-size: $fz-sm;
+				color: $dark;
+
+				> .strongText {
+					color: $black;
+					font-weight: 700;
+				}
+			}
+		}
+
+		> .description {
+			@include flex-center-ver;
+			justify-content: flex-start;
+			gap: 10em;
+			padding-left: 150px;
+
+			> .star {
+				> .item1 {
+					> .stars {
+						@include flex-inline-center-ver;
+					}
+
+					> .title {
+						margin-top: 12px;
+						font-size: $fz-base;
+						color: $dark;
+						font-weight: 600;
+					}
+				}
+
+				> .item2 {
+					color: $brown-color;
+					font-size: $fz-sm;
+					margin-top: 16px;
+				}
+
+				> .item3 {
+					color: $dark;
+					font-size: $fz-sm;
+					margin-top: 16px;
+				}
+
+				> .item4 {
+					@include flex-center-ver;
+					justify-content: flex-start;
+					margin-top: 16px;
+					gap: 6px;
+
+					> .icons {
+						font-size: $fz-base;
+					}
+					> p {
+						font-size: $fz-sm;
+					}
+				}
+			}
+
+			> .filter {
+				@include flex-center-ver;
+				flex-direction: column;
+				justify-content: center;
+
+				> .column {
+					@include flex-center-ver;
+					height: 16px;
+					border: 1px solid $brown-c9;
+					width: 300px;
+
+					> .item1 {
+						background-color: $brown-c9;
+						border: 1px solid $brown-color;
+						height: 16px;
+						width: 50px;
+					}
+					> .item2 {
+						background-color: $brown-c9;
+						border: 1px solid $brown-color;
+						height: 16px;
+						width: 50px;
+					}
+					> .item3 {
+						background-color: $brown-c9;
+						border: 1px solid $brown-color;
+						height: 16px;
+						width: 50px;
+					}
+					> .item4 {
+						background-color: $dark;
+						border: 1px solid $dark;
+						height: 16px;
+						width: 14px;
+					}
+					> .item5 {
+						background-color: $brown-c9;
+						border: 1px solid $brown-color;
+						height: 16px;
+						width: 50px;
+					}
+					> .item6 {
+						background-color: $brown-c9;
+						border: 1px solid $brown-color;
+						height: 16px;
+						width: 50px;
+					}
+					> .item7 {
+						background-color: $brown-c9;
+						border: 1px solid $brown-color;
+						height: 16px;
+						width: 50px;
+					}
+				}
+
+				> .size-text {
+					@include flex-center-ver;
+					margin-top: 8px;
+					justify-content: space-between;
+					gap: 180px;
+					> p {
+						font-size: $fz-sm;
+						color: $dark;
+					}
+				}
+			}
+		}
+	}
+}
+
+.button-search {
+	@include flex-center-ver;
+	justify-content: center;
+	text-align: center;
+	height: 50px;
+	margin: 0 600px;
+	padding: 12px 12px;
+	border: 1px solid $black;
+	color: $brown-white;
+	background-color: $black;
+	font-weight: 700;
+	cursor: pointer;
+	outline: none;
+	margin-top: 16px;
+
+	&:hover {
+		background-color: $dark;
+	}
+}
