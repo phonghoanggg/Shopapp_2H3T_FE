@@ -1,10 +1,10 @@
 export const LIMIT = {
 	THUMB_MOBILE: 6,
-	THUMB_SMALLDESKTOP: 3,
+	THUMB_SMALL_DESKTOP: 5,
 	THUMB_DESKTOP: 5,
-};
+} as const;
 
-export const thumbsImages = [
+export const THUMBS_IMAGES = [
 	{
 		id: 1,
 		src: 'https://lsco.scene7.com/is/image/lsco/005010115-dynamic1-pdp?fmt=avif&qlt=40&resMode=bisharp&fit=crop,0&op_usm=0.6,0.6,8&wid=880&hei=968',
@@ -36,5 +36,16 @@ export const thumbsImages = [
 	{
 		id: 8,
 		src: 'https://lsco.scene7.com/is/image/lsco/005010115-front-pdp-ld?fmt=avif&qlt=40&resMode=bisharp&fit=crop,0&op_usm=0.6,0.6,8&wid=880&hei=968',
+	},
+];
+
+export const PAYMENT_METHOD = [
+	{
+		title: 'Pickup in store',
+		content: 'Select size to see if item is in stock',
+	},
+	{
+		title: 'Ship',
+		content: 'In stock to ship',
 	},
 ];

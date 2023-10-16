@@ -6,7 +6,7 @@ import Sidebar from './Sidebar';
 import SectionProducts from '@/components/SectionProducts';
 import { Fragment } from 'react';
 import { BsFilterLeft } from '../../compound/icons/index';
-import { PRODUCT_LIST_SAME } from '../home/constains';
+import { PRODUCT_LIST_SAME } from '../home/constants';
 
 const PageProducts = () => {
 	return (

@@ -3,7 +3,7 @@ import BannerSection from './BannerSection';
 import Carousel from './Carousel';
 import Content from './Content';
 import Discovers from './Discovers';
-import { PRODUCT_LIST } from './constains';
+import { PRODUCT_LIST } from './constants';
 
 export default function Home() {
 	return (

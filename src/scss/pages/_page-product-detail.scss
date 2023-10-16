@@ -1,11 +1,16 @@
+.site-detail {
+	position: relative;
+}
+
 .detail {
 	display: grid;
 	grid-template-columns: 1.5fr 1fr;
 	position: relative;
 	padding-bottom: 60px;
 	gap: 30px;
+	margin-block: 30px;
 	border-bottom: 1px solid $brown-light-color;
-	@include breakpoint-down(phone) {
+	@include breakpoint-down(smalldesktop) {
 		@include flex-column;
 		gap: 12px;
 		padding-bottom: 0;
@@ -23,12 +28,13 @@
 				padding-bottom: 6px;
 				font-weight: $fw-bold;
 			}
-			h3 {
+			> .name {
 				font-family: $heading-font;
 				font-size: $fz-base;
 				text-transform: uppercase;
 				font-weight: 800;
 				margin-bottom: 8px;
+				letter-spacing: 0.02em;
 			}
 
 			.detail-icons {
@@ -57,6 +63,9 @@
 				line-height: $leading-md;
 				font-weight: $fw-bold;
 				padding: 8px 0 16px 0;
+				@include breakpoint-down(smalldesktop) {
+					padding-bottom: 6px;
+				}
 			}
 
 			.detail-content {
@@ -73,14 +82,18 @@
 .gallery-product-detail {
 	height: 740px !important;
 	@include breakpoint-down(phone) {
-		height: auto !important;
+		height: 100px !important;
 	}
 }
 .gallery-product-detail-item {
 	width: 100% !important;
 	height: 100% !important;
-	max-height: 120px !important;
 	max-width: 120px !important;
+	max-height: 120px !important;
+	@include breakpoint-down(phone) {
+		max-width: 100px !important;
+		max-height: 100px !important;
+	}
 }
 
 .detail-slide {
@@ -92,6 +105,14 @@
 	@include breakpoint-down(phone) {
 		display: flex;
 		flex-direction: column-reverse;
+		gap: 8px;
+	}
+}
+
+.product-detail-actions {
+	display: block;
+	@include breakpoint-down(smalldesktop) {
+		display: none;
 	}
 }
 
@@ -99,7 +120,13 @@
 	width: 100% !important;
 	max-width: 680px !important;
 	@include breakpoint-down(mediumdesktop) {
-		max-width: 650px !important;
+		max-width: 570px !important;
+	}
+	@include breakpoint-down(smalldesktop) {
+		max-width: 80% !important;
+	}
+	@include breakpoint-down(phone) {
+		max-width: 100% !important;
 	}
 }
 
@@ -109,12 +136,10 @@
 		@include breakpoint-down(phone) {
 			height: 580px;
 		}
+		@include breakpoint-down(smallphone) {
+			height: 500px;
+		}
 	}
-}
-
-.main-slide-image-product-detail {
-	// width: 600px !important;
-	// height: 740px !important;
 }
 
 .gallery-product-detail-item {
@@ -154,14 +179,42 @@
 	}
 }
 
+.actions-fixed {
+	display: none;
+	@include breakpoint-down(smalldesktop) {
+		@include flex-center;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		padding: 8px 24px;
+		background: $white;
+		border-radius: 2px;
+		gap: 4px;
+		width: 100%;
+	}
+	> .button-add-favorite {
+		@include flex-center;
+		width: 55px;
+		height: 48px;
+		border-radius: inherit;
+		background: #000;
+		background: $secondary-color;
+		color: $white;
+		font-size: 24px;
+	}
+	> .button-add-product {
+		border-radius: inherit;
+		background: $secondary-color;
+	}
+}
+
 .detail-size {
 	padding-block: 20px;
 	@include flex-column;
 	gap: 12px;
-	@include breakpoint-down(phone) {
-		padding-block: 10px;
-		gap: 4px;
-	}
+
 	> .title {
 		font-size: $fz-sm;
 		line-height: $leading-sm;
@@ -173,16 +226,23 @@
 		gap: 12px;
 	}
 	> .size-list > .item {
+		@include flex-center;
 		color: $black;
-		font-size: $fz-sm;
+		font-size: $fz-xs;
 		line-height: $leading-sm;
-		padding: 4px 10px;
 		border-radius: 4px;
-
+		width: 40px;
+		height: 40px;
+		padding: 4px;
 		&:hover {
 			background-color: $brown-white;
 			border-color: $brown-white;
 			cursor: pointer;
+		}
+
+		@include breakpoint-down(smalldesktop) {
+			border: 1px solid $brown-light-color;
+			border-radius: unset;
 		}
 	}
 }
@@ -192,9 +252,7 @@
 	justify-content: space-between;
 	padding-block: 24px;
 	border-top: 1px solid $brown-white;
-	@include breakpoint-down(phone) {
-		padding-block: 12px;
-	}
+
 	> .title {
 		font-size: $fz-sm;
 		line-height: $leading-sm;
@@ -215,14 +273,15 @@
 	gap: 16px;
 	padding-block: 24px;
 	border-top: 1px solid $brown-white;
-	@include breakpoint-down(phone) {
-		padding-block: 12px;
-	}
+
 	> .item {
 		border: 1.5px solid $brown-c9;
 		border-radius: 6px;
 		padding: 14px 16px;
 		cursor: pointer;
+		&.-active {
+			border: 2px solid $dark;
+		}
 	}
 	> .item {
 		> .title {
@@ -247,9 +306,6 @@
 		line-height: $leading-sm;
 		color: $black;
 		font-weight: $fw-bold;
-		@include breakpoint-down(phone) {
-			margin-top: 10px;
-		}
 	}
 }
 
@@ -275,13 +331,16 @@
 		@include flex-center-ver;
 		justify-content: center;
 		color: $brown-light-color;
-		font-weight: 700;
+		font-weight: $fw-bold;
 	}
 
 	&:hover {
 		background-color: $dark;
 		transition: 0.225s ease-in-out;
 		cursor: pointer;
+	}
+	@include breakpoint-down(smalldesktop) {
+		display: none;
 	}
 }
 
@@ -291,6 +350,14 @@
 	margin-top: 16px;
 	font-size: $fz-xs;
 	font-weight: $fw-bold;
+	@include breakpoint-down(smalldesktop) {
+		@include flex-column;
+		align-items: flex-start;
+	}
+	> div {
+		@include flex-center-ver;
+		gap: 8px;
+	}
 
 	p {
 		color: $brow-light-75-color;

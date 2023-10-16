@@ -3,7 +3,7 @@ import Link from 'next/link';
 // components
 import Button from '@/compound/button/Button';
 // contains
-import { FOOTER_LIST } from './constains';
+import { FOOTER_LIST } from './constants';
 // lodash
 import { map } from 'lodash';
 
@@ -22,12 +22,13 @@ export const Footer = () => {
 					<div className="field-box">
 						<div className="field">
 							<label
-								htmlFor="singUp"
+								htmlFor="email"
 								className="label"
 							>
 								Email*
 							</label>
 							<input
+								id="email"
 								className="input"
 								type="text"
 							/>

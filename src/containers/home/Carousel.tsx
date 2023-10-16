@@ -1,7 +1,7 @@
 import { map } from 'lodash';
 import { default as Image } from 'next/image';
 import Link from 'next/link';
-import { CAROUSEL } from './constains';
+import { CAROUSEL } from './constants';
 
 interface ICarouselProps {
 	id: number;

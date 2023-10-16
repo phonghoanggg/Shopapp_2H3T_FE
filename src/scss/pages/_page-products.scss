@@ -137,10 +137,10 @@
 				padding: 14px 16px;
 				font-size: $fz-base;
 				font-weight: $fw-bold;
-				transition: 0.2s ease-in-out;
+				transition: 0.3s ease-in-out;
 				@include hidden;
 				&:hover {
-					background: rgba($color: $secondary-color, $alpha: 0.8);
+					background: $dark;
 				}
 			}
 		}

@@ -19,7 +19,7 @@ import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } fro
 // contains
 import { openCart } from '@/redux/cart/slice';
 import { useAppDispatch } from '@/redux/hook';
-import { MENU_LIST } from './constains';
+import { MENU_LIST } from './constants';
 
 interface IPropsSaler {
 	id: number;

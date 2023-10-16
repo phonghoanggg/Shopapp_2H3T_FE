@@ -1,6 +1,6 @@
 import Product from '@/components/Product';
 import { map } from 'lodash';
-import { PRODUCT_LIST } from '../home/constains';
+import { PRODUCT_LIST } from '../home/constants';
 import Pagination from './Pagination';
 
 export default function ProductsList() {

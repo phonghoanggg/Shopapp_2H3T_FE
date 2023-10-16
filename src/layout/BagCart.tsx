@@ -10,6 +10,7 @@ import { GiFireworkRocket, HiOutlineShoppingBag } from '../compound/icons/index'
 import { selectIsOpenCartDrawer } from '@/redux/cart/selectors';
 import { closeCart } from '@/redux/cart/slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import { ROUTER } from '@/utils/routes/routes';
 
 const BagCart = () => {
 	const dispatch = useAppDispatch();
@@ -47,7 +48,7 @@ const BagCart = () => {
 						20% off new Son&#39;s® subscribers.
 						<Link
 							className="link "
-							href="/"
+							href={ROUTER.PRODUCT_DETAIL}
 						>
 							Sign Up
 						</Link>
@@ -71,7 +72,7 @@ const BagCart = () => {
 								/>
 							</Link>
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="desc"
 							>
 								<p className="name">Wedgie Icon Fit Ankle Women&#39;s Jeans</p>
@@ -91,7 +92,7 @@ const BagCart = () => {
 						</div>
 						<div className="cart-item">
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="image"
 							>
 								<Image
@@ -103,7 +104,7 @@ const BagCart = () => {
 								/>
 							</Link>
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="desc"
 							>
 								<p className="name">Wedgie Icon Fit Ankle Women&#39;s Jeans</p>
@@ -123,7 +124,7 @@ const BagCart = () => {
 						</div>
 						<div className="cart-item">
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="image"
 							>
 								<Image
@@ -135,7 +136,7 @@ const BagCart = () => {
 								/>
 							</Link>
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="desc"
 							>
 								<p className="name">Wedgie Icon Fit Ankle Women&#39;s Jeans</p>
@@ -155,7 +156,7 @@ const BagCart = () => {
 						</div>
 						<div className="cart-item">
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="image"
 							>
 								<Image
@@ -167,7 +168,7 @@ const BagCart = () => {
 								/>
 							</Link>
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="desc"
 							>
 								<p className="name">Wedgie Icon Fit Ankle Women&#39;s Jeans</p>
@@ -187,7 +188,7 @@ const BagCart = () => {
 						</div>
 						<div className="cart-item">
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="image"
 							>
 								<Image
@@ -199,7 +200,7 @@ const BagCart = () => {
 								/>
 							</Link>
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="desc"
 							>
 								<p className="name">Wedgie Icon Fit Ankle Women&#39;s Jeans</p>
@@ -219,7 +220,7 @@ const BagCart = () => {
 						</div>
 						<div className="cart-item">
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="image"
 							>
 								<Image
@@ -231,7 +232,7 @@ const BagCart = () => {
 								/>
 							</Link>
 							<Link
-								href="/"
+								href={ROUTER.PRODUCT_DETAIL}
 								className="desc"
 							>
 								<p className="name">Wedgie Icon Fit Ankle Women&#39;s Jeans</p>
@@ -259,7 +260,7 @@ const BagCart = () => {
 					<p className="total-number">$129.53</p>
 				</div>
 				<Link
-					href="/"
+					href={ROUTER.PRODUCT_DETAIL}
 					className="button"
 				>
 					<Button className="item">Checkout</Button>

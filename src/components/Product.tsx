@@ -1,3 +1,4 @@
+import { ROUTER } from '@/utils/routes/routes';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -17,7 +18,10 @@ const Product = ({ id, image, name, price, oldPrice, brand, button }: IProductPr
 			className="product"
 			key={id}
 		>
-			<div className="image">
+			<Link
+				href={ROUTER.PRODUCT_DETAIL}
+				className="image"
+			>
 				<Image
 					className="image-item"
 					width={500}
@@ -27,14 +31,14 @@ const Product = ({ id, image, name, price, oldPrice, brand, button }: IProductPr
 					loading="lazy"
 				/>
 				<Link
-					href="#"
+					href={ROUTER.PRODUCT_DETAIL}
 					className="btn"
 				>
 					{button}
 				</Link>
-			</div>
+			</Link>
 			<Link
-				href="/"
+				href={ROUTER.PRODUCT_DETAIL}
 				className="desc"
 			>
 				<p className="name _text-capitalize">{name}</p>

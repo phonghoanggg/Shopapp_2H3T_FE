@@ -15,7 +15,7 @@ import Saler from '../../public/saler.json';
 // lodash
 import { map } from 'lodash';
 // contains
-import { MENU_LIST } from './constains';
+import { MENU_LIST } from './constants';
 
 interface IPropsSaler {
 	id: number;

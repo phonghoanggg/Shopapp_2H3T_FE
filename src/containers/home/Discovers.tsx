@@ -4,7 +4,7 @@ import { VideoSection } from '@/components/VideoSection';
 // lodash
 import { map } from 'lodash';
 // contains
-import { VIDEO_SECTIONS } from './constains';
+import { VIDEO_SECTIONS } from './constants';
 
 const Discovers = () => {
 	return (
