@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
-import { Autoplay, Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper';
 // pullic json
 import Saler from '../../public/saler.json';
 // lodash

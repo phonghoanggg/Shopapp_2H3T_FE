@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
-import { Autoplay, Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper';
 // public json
 import Saler from '../../public/saler.json';
 // lodash

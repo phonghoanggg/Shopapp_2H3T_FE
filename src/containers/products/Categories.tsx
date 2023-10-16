@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 // swiper
-import { Scrollbar } from 'swiper/modules';
+import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function Categories() {

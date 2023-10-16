@@ -1,7 +1,7 @@
 'use client';
 import Product from '@/components/Product';
 import { map } from 'lodash';
-import { FreeMode } from 'swiper/modules';
+import { FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 interface ProductData {

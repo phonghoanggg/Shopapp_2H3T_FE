@@ -16,9 +16,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			<body>
 				<ReactQueryProvider>
 					<ReduxProvider>
-						<Header />
-						<main>{children}</main>
-						<Footer />
+						<main className="root">
+							<Header />
+							{children}
+							<Footer />
+						</main>
 					</ReduxProvider>
 				</ReactQueryProvider>
 			</body>
