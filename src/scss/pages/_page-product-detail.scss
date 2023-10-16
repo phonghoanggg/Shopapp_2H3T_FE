@@ -13,6 +13,7 @@
 	@include breakpoint-down(smalldesktop) {
 		@include flex-column;
 		gap: 12px;
+		margin-top: 0;
 		padding-bottom: 0;
 		border-bottom: unset;
 	}
