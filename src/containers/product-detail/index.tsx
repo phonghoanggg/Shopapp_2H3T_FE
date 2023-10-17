@@ -23,7 +23,7 @@ import { Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // constants
 import Button from '@/compound/button/Button';
-import { BREAKPOINTS } from '@/utils/constants';
+import { BREAKPOINTS } from '@/utils/breakpoints/constants';
 import { PRODUCT_LIST } from '../home/constants';
 import { LIMIT, PAYMENT_METHOD, THUMBS_IMAGES } from './constants';
 

@@ -1,3 +1,4 @@
+'use client';
 // base
 import Image from 'next/image';
 import Link from 'next/link';
