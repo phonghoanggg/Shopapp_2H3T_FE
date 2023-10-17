@@ -266,7 +266,7 @@ const BagCart = () => {
 					<p className="total-number">$129.53</p>
 				</div>
 				<Link
-					href={ROUTER.PRODUCT_DETAIL}
+					href={ROUTER.CART}
 					className="button"
 				>
 					<Button className="item">Checkout</Button>
