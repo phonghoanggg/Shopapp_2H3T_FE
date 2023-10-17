@@ -30,18 +30,18 @@ const Product = ({ id, image, name, price, oldPrice, brand, button }: IProductPr
 					alt="image-item"
 					loading="lazy"
 				/>
-				<Link
-					href={ROUTER.PRODUCT_DETAIL}
+				<button
+					type="button"
 					className="btn"
 				>
 					{button}
-				</Link>
+				</button>
 			</Link>
 			<Link
 				href={ROUTER.PRODUCT_DETAIL}
 				className="desc"
 			>
-				<p className="name _text-capitalize">{name}</p>
+				<span className="name _text-capitalize">{name}</span>
 				<span className="new-price">
 					${price} <del className="old-price">${oldPrice}</del>
 				</span>

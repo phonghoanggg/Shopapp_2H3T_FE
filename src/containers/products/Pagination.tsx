@@ -39,8 +39,11 @@ const Pagination = () => {
 					5
 				</Link>
 			</div>
-			<button className="button">
-				<p className="label">Next</p> <GrFormNext size={20} />
+			<button
+				type="button"
+				className="button"
+			>
+				<span className="label">Next</span> <GrFormNext size={20} />
 			</button>
 		</div>
 	);

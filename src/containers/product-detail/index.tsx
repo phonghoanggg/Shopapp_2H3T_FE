@@ -134,7 +134,6 @@ const PageProductDetail = () => {
 										<Image
 											width={600}
 											height={740}
-											style={{ width: '100%', height: '100%', objectFit: 'cover' }}
 											src={it?.src}
 											alt=""
 										/>

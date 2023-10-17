@@ -3,7 +3,6 @@
 	display: block;
 	position: sticky;
 	top: 0;
-
 	z-index: 100;
 	@include breakpoint-down(smalldesktop) {
 		display: none;
