@@ -39,10 +39,15 @@ const BagCart = () => {
 				<div className="title-box">
 					<h4 className="title _text-uppercase">
 						your bag
-						<HiOutlineShoppingBag
+						<Link
 							className="icon"
-							size={24}
-						/>
+							href={ROUTER.CART}
+						>
+							<HiOutlineShoppingBag
+								color="#000"
+								size={24}
+							/>
+						</Link>
 					</h4>
 					<div className="sub-title ">
 						<GiFireworkRocket />

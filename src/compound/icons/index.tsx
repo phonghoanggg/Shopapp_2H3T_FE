@@ -5,7 +5,7 @@ import { GrFormClose, GrFormNext, GrFormPrevious, GrLocationPin } from 'react-ic
 import { HiMinus, HiOutlineMenuAlt4, HiOutlineMinusSm, HiOutlineShoppingBag } from 'react-icons/hi';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { IoLocationSharp } from 'react-icons/io5';
-import { MdOutlineAdd, MdReportGmailerrorred } from 'react-icons/md';
+import { MdKeyboardArrowDown, MdOutlineAdd, MdReportGmailerrorred } from 'react-icons/md';
 import { PiShoppingBagOpenBold } from 'react-icons/pi';
 import { TbHeart } from 'react-icons/tb';
 import { VscBell } from 'react-icons/vsc';
@@ -27,6 +27,7 @@ export {
 	IoIosArrowDown,
 	IoIosArrowUp,
 	IoLocationSharp,
+	MdKeyboardArrowDown,
 	MdOutlineAdd,
 	MdReportGmailerrorred,
 	PiShoppingBagOpenBold,

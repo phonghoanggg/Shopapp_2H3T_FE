@@ -16,9 +16,11 @@ import BagCart from './BagCart';
 import HeaderMobile from './Header-mobile';
 //  icons
 import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } from '../compound/icons/index';
+// redux
+import { useAppDispatch } from '@/redux/hook';
 // contains
 import { openCart } from '@/redux/cart/slice';
-import { useAppDispatch } from '@/redux/hook';
+import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST } from './constants';
 
 interface IPropsSaler {
@@ -113,15 +115,18 @@ export const Header = () => {
 							>
 								<TbHeart size={24} />
 							</button>
-							{/* để chuột vào đây thì show */}
-							<button
-								type="button"
+
+							<Link
+								href={ROUTER.CART}
 								className="header-icon-item "
 								id="shopping-bag-anchor"
 								onMouseEnter={() => dispatch(openCart())}
 							>
-								<HiOutlineShoppingBag size={24} />
-							</button>
+								<HiOutlineShoppingBag
+									color="#000"
+									size={24}
+								/>
+							</Link>
 						</div>
 					</div>
 				</div>

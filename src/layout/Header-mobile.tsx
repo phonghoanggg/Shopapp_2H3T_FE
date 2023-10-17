@@ -15,6 +15,7 @@ import Saler from '../../public/saler.json';
 // lodash
 import { map } from 'lodash';
 // contains
+import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST } from './constants';
 
 interface IPropsSaler {
@@ -67,7 +68,12 @@ const HeaderMobile = () => {
 				<Logo />
 				<div className="actions">
 					<CgSearch size={22} />
-					<HiOutlineShoppingBag size={22} />
+					<Link href={ROUTER.CART}>
+						<HiOutlineShoppingBag
+							color="#000"
+							size={24}
+						/>
+					</Link>
 					<TbHeart size={22} />
 				</div>
 			</div>
