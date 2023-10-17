@@ -237,8 +237,16 @@
 	.button-checkout {
 		position: sticky;
 		top: 0;
+		height: 50px;
+		color: $white;
+		font-weight: $fw-bold;
+		background: $secondary-color;
 		@include flex-center;
 		width: 100%;
+		@include transition(450ms);
+		&:hover {
+			background: $dark;
+		}
 	}
 }
 
