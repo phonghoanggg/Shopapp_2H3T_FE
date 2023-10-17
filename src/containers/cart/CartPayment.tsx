@@ -1,4 +1,5 @@
-import Button from '@/compound/button/Button';
+import { ROUTER } from '@/utils/routes/routes';
+import Link from 'next/link';
 
 const CartPayment = () => {
 	return (
@@ -25,7 +26,12 @@ const CartPayment = () => {
 				<h5 className="sub-title">Total</h5>
 				<p className="content">$152.48</p>
 			</div>
-			<Button className="button-checkout">Checkout</Button>
+			<Link
+				href={ROUTER.ORDER}
+				className="button-checkout"
+			>
+				Checkout
+			</Link>
 		</div>
 	);
 };

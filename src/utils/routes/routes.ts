@@ -1,7 +1,7 @@
 export const ROUTER = {
 	HOME: '/',
 	PRODUCT_DETAIL: '/products/1',
-	ORDER: '/oder',
+	ORDER: '/order',
 	FAVORITE: '/favorite',
 	CART: '/cart',
 } as const;
