@@ -39,7 +39,10 @@ export const Footer = () => {
 								onClick={() => toggleCollapse(label)}
 							>
 								{label}
-								<MdKeyboardArrowDown size={24} />
+								<MdKeyboardArrowDown
+									className="icon"
+									size={24}
+								/>
 							</h6>
 							{map(link, ({ pathname }) => (
 								<div className={`link ${activeH6 === label ? '-show' : ''}`}>
