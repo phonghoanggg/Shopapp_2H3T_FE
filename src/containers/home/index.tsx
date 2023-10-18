@@ -10,7 +10,7 @@ export default function Home() {
 		<main className="home-page">
 			<BannerSection
 				footer="Discount auto-applied at checkout. Online & in select stores."
-				className="bg-light-orang"
+				className="bg-light-orange"
 				title="30-70% OFF + FREE SHIPPING"
 				subtitle="THE FRIENDS & FAMILY EVENT"
 				description="Friendship, family and fantastic deals—your circle deserves it all. Online & in select stores. Prices as marked."

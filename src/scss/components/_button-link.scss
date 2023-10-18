@@ -1,0 +1,17 @@
+.site-button-link {
+	position: relative;
+	color: $white;
+	&::before {
+		@include transition;
+		position: absolute;
+		content: '';
+		width: 100%;
+		height: 2px;
+		bottom: -8px;
+		border-radius: 4px;
+		background: $white;
+	}
+	&:hover::before {
+		bottom: -6px;
+	}
+}

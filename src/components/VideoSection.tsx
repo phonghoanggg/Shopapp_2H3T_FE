@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import ButtonLink from '@/compound/demo-button/button-link/ButtonLink';
 import { useEffect, useRef } from 'react';
 
 interface VideoSectionProps {
@@ -41,8 +41,8 @@ export const VideoSection = ({ videoSrc, title, content }: VideoSectionProps) =>
 				<h4 className="title _text-uppercase">{title}</h4>
 				<p className="content">{content}</p>
 				<div className="links">
-					<Link href="/">Shop Now</Link>
-					<Link href="/">Discover more</Link>
+					<ButtonLink>Shop Men</ButtonLink>
+					<ButtonLink>Shop Women</ButtonLink>
 				</div>
 			</div>
 		</div>

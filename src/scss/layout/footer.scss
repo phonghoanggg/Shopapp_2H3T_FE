@@ -3,7 +3,6 @@
 	background: $brown-white;
 	padding-block: 60px;
 	@include breakpoint-down(smalldesktop) {
-		margin-block: 36px;
 		padding-block: 30px;
 	}
 }
@@ -89,36 +88,60 @@
 
 .footer-wrapper {
 	> .menu-list {
-		display: flex;
-		justify-content: flex-start;
-		flex-wrap: wrap;
-		gap: 100px;
-		height: 100%;
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
 		border-top: 1px solid $black;
 		padding-block: 48px;
 		@include breakpoint-down(smalldesktop) {
-			padding-block: 24px;
-			gap: 32px;
+			grid-template-columns: 1fr;
 		}
-		@include breakpoint-down(mediumphone) {
-			gap: 24px;
-		}
+
 		> .item {
-			height: 100%;
 			@include flex-column;
 			gap: 16px;
 			font-size: $fz-sm;
 			line-height: $fz-sm;
+			@include breakpoint-down(smalldesktop) {
+				gap: 0;
+				border-bottom: 1px solid $brown-light-color;
+			}
 			> .title {
-				display: block;
 				font-weight: $fw-bold;
 				color: $black;
 				padding-bottom: 8px;
+				@include breakpoint-down(smalldesktop) {
+					@include flex-center-ver;
+					width: 100%;
+					justify-content: space-between;
+					padding-block: 24px;
+				}
+
+				> .icon {
+					display: none;
+					@include breakpoint-down(smalldesktop) {
+						display: block;
+					}
+				}
 			}
-			.link {
+			> .link {
 				color: $brown-color;
-				&:hover {
-					color: $black;
+				@include breakpoint-down(smalldesktop) {
+					@include flex-column;
+					@include hidden;
+					gap: 16px;
+					height: 0;
+				}
+				&.-show {
+					@include visible;
+					height: auto;
+				}
+				> a {
+					color: $brown-color;
+					padding-bottom: 12px;
+					&:hover {
+						color: $black;
+					}
 				}
 			}
 		}

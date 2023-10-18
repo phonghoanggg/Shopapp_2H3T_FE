@@ -2,7 +2,7 @@
 // components
 import Logo from '@/compound/logo/Logo';
 // icons
-import { CgSearch, GrFormClose, HiOutlineMenuAlt4, HiOutlineShoppingBag, TbHeart } from '../compound/icons/index';
+import { CgSearch, GrFormClose, HiOutlineMenuAlt4, HiOutlineShoppingBag, TbHeart } from '../../compound/icons/index';
 // base
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -11,12 +11,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
 import { Autoplay, Navigation } from 'swiper';
 // public json
-import Saler from '../../public/saler.json';
+import Saler from '../../../public/saler.json';
 // lodash
 import { map } from 'lodash';
 // contains
 import { ROUTER } from '@/utils/routes/routes';
-import { MENU_LIST } from './constants';
+import { MENU_LIST } from '../constants';
 
 interface IPropsSaler {
 	id: number;

@@ -1,4 +1,4 @@
-import Button from '@/compound/button/Button';
+import Button from '@/compound/demo-button/button/Button';
 import Image from 'next/image';
 
 const Content = () => {

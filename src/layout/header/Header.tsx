@@ -7,21 +7,21 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
 import { Autoplay, Navigation } from 'swiper';
 // pullic json
-import Saler from '../../public/saler.json';
+import Saler from '../../../public/saler.json';
 // lodash
 import { map } from 'lodash';
 // components
 import Logo from '@/compound/logo/Logo';
-import BagCart from './BagCart';
+import BagCart from '../BagCart';
 import HeaderMobile from './Header-mobile';
 //  icons
-import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } from '../compound/icons/index';
+import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } from '../../compound/icons/index';
 // redux
 import { useAppDispatch } from '@/redux/hook';
 // contains
 import { openCart } from '@/redux/cart/slice';
 import { ROUTER } from '@/utils/routes/routes';
-import { MENU_LIST } from './constants';
+import { MENU_LIST } from '../constants';
 
 interface IPropsSaler {
 	id: number;

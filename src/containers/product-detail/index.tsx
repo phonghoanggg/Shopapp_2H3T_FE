@@ -22,7 +22,7 @@ import {
 import { Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // constants
-import Button from '@/compound/button/Button';
+import Button from '@/compound/demo-button/button/Button';
 import { BREAKPOINTS } from '@/utils/breakpoints/constants';
 import { PRODUCT_LIST } from '../home/constants';
 import { LIMIT, PAYMENT_METHOD, THUMBS_IMAGES } from './constants';
@@ -247,6 +247,7 @@ const PageProductDetail = () => {
 					<Button className="button-add-product">Add to Bag</Button>
 				</div>
 			</section>
+			{/* section product */}
 			<SectionProducts
 				title="YOU MAY ALSO LIKE"
 				productList={PRODUCT_LIST}

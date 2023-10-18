@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
 // components
-import Button from '@/compound/button/Button';
+import Button from '@/compound/demo-button/button/Button';
 // icon
 import { GiFireworkRocket, HiOutlineShoppingBag } from '../compound/icons/index';
 // redux
