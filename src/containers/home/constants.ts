@@ -168,6 +168,7 @@ export const PRODUCT_LIST_SAME = [
 
 export const VIDEO_SECTIONS = [
 	{
+		id: 1,
 		videoSrc:
 			'https://lscoecomm.scene7.com/is/content/lscoecomm/23-September-US---501-Vogue-Content_SITE_V2-0x1080-4991k',
 		title: 'YOUR 501® STORY',
@@ -175,6 +176,7 @@ export const VIDEO_SECTIONS = [
 			'We’ve partnered with PhotoVogue to celebrate 150 years of 501®—a canvas of self expression, beliefs and personalities.',
 	},
 	{
+		id: 2,
 		videoSrc: 'https://lscoecomm.scene7.com/is/content/lscoecomm/23_OCT_LOTM_5050-0x1080-4991k',
 		title: 'LOOK OF THE MONTH',
 		content:

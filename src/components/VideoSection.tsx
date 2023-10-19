@@ -3,12 +3,13 @@ import ButtonLink from '@/compound/demo-button/button-link/ButtonLink';
 import { useEffect, useRef } from 'react';
 
 interface VideoSectionProps {
+	id?: number;
 	videoSrc: string;
 	title: string;
 	content: string;
 }
 
-export const VideoSection = ({ videoSrc, title, content }: VideoSectionProps) => {
+export const VideoSection = ({ id, videoSrc, title, content }: VideoSectionProps) => {
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 
 	useEffect(() => {
@@ -18,7 +19,10 @@ export const VideoSection = ({ videoSrc, title, content }: VideoSectionProps) =>
 	}, []);
 
 	return (
-		<div className="discover-wrapper">
+		<div
+			className="discover-wrapper"
+			key={id}
+		>
 			<div className="video">
 				<video
 					controls

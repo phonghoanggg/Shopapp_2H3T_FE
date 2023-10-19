@@ -9,10 +9,12 @@ import { VIDEO_SECTIONS } from './constants';
 const Discovers = () => {
 	return (
 		<section className="site-discover container">
-			{map(VIDEO_SECTIONS, (section, index) => (
+			{map(VIDEO_SECTIONS, ({ id, videoSrc, title, content }) => (
 				<VideoSection
-					key={index}
-					{...section}
+					key={id}
+					videoSrc={videoSrc}
+					title={title}
+					content={content}
 				/>
 			))}
 		</section>
