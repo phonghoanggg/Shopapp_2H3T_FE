@@ -1,4 +1,9 @@
+// axios
 import axios, { AxiosInstance } from 'axios';
+// lodash
+import { isEmpty } from 'lodash';
+// utils
+import { getAccessToken } from '@/utils/cookies/cookieStorage';
 
 const publicRequest: AxiosInstance = axios.create({
 	baseURL: '',
@@ -9,14 +14,24 @@ const publicRequest: AxiosInstance = axios.create({
 	},
 });
 
-publicRequest.interceptors.response.use(
-	(response) => response?.data?.data || response?.data || response,
+publicRequest.interceptors.request.use(
+	(config) => {
+		if (typeof window === undefined) {
+			return config;
+		}
+
+		const token = getAccessToken();
+		console.log(token);
+		config.headers.Authorization = !isEmpty(token) ? `Bearer ${token}` : '';
+		return config;
+	},
 	(error) => {
-		return Promise.reject({
-			statusCode: error?.response?.status,
-			message: error?.response?.data?.message || error?.response?.data?.detail || error?.response?.data,
-		});
+		return Promise.reject(error);
 	},
 );
+
+publicRequest.interceptors.response.use((response) => {
+	return response?.data || response?.data?.data || response;
+});
 
 export { publicRequest };
