@@ -16,6 +16,7 @@ const PageCart = () => {
 				<CartPayment />
 			</section>
 			<CartFavorite />
+
 			<SectionProducts
 				title="CUSTOMERS ALSO BOUGHT"
 				productList={PRODUCT_LIST}
