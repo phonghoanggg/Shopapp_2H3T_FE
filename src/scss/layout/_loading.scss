@@ -1,9 +1,9 @@
 .site-loading {
 	@include position(fixed, 0, 0, 0, 0);
 	@include flex-center;
-	background-color: $white;
 	height: 100vh;
 	z-index: 100;
+	background: rgba($color: $white, $alpha: 0.8);
 }
 
 .chaotic-orbit {
