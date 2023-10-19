@@ -205,7 +205,9 @@ const PageProductDetail = () => {
 						))}
 					</div>
 					<div className="detail-disable">
-						<p className="item">Select Your Store</p>
+						<div className="item">
+							Stock: <span className="qty-stock">30</span>
+						</div>
 					</div>
 
 					<div className="description">

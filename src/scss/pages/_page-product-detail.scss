@@ -83,7 +83,7 @@
 .gallery-product-detail {
 	height: 740px !important;
 	@include breakpoint-down(phone) {
-		height: 100px !important;
+		height: 70px !important;
 	}
 }
 .gallery-product-detail-item {
@@ -92,8 +92,8 @@
 	max-width: 120px !important;
 	max-height: 120px !important;
 	@include breakpoint-down(phone) {
-		max-width: 100px !important;
-		max-height: 100px !important;
+		max-width: 70px !important;
+		max-height: 70px !important;
 	}
 }
 
@@ -312,10 +312,15 @@
 
 .detail-disable {
 	> .item {
+		gap: 12px;
 		cursor: pointer;
-		font-size: $fz-sm;
-		color: $brown-color;
-		text-decoration: underline;
+		font-size: $fz-base;
+		color: $black;
+		font-weight: $fw-bold;
+		> .qty-stock {
+			font-size: $fz-sm;
+			font-weight: $fw-normal;
+		}
 	}
 }
 

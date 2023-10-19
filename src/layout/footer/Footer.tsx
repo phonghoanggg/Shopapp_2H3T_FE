@@ -25,12 +25,10 @@ export const Footer = () => {
 	return (
 		<footer className="site-footer">
 			<section className="footer-wrapper container">
-				{/* contact footer */}
 				<Contact />
-				{/* navigation footer */}
 				<ul className="menu-list">
 					{map(FOOTER_LIST, ({ label, link }) => (
-						<div
+						<li
 							className="item"
 							key={`footer-${label}`}
 						>
@@ -45,16 +43,14 @@ export const Footer = () => {
 								/>
 							</h6>
 							{map(link, ({ pathname }) => (
-								<div className={`link ${activeH6 === label ? '-show' : ''}`}>
-									<Link
-										key={`footer-link-${pathname}`}
-										href="/"
-									>
-										{pathname}
-									</Link>
+								<div
+									key={`footer-link-${pathname}`}
+									className={`link ${activeH6 === label ? '-show' : ''}`}
+								>
+									<Link href="/">{pathname}</Link>
 								</div>
 							))}
-						</div>
+						</li>
 					))}
 				</ul>
 			</section>
