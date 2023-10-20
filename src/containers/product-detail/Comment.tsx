@@ -19,7 +19,7 @@ const Comment = () => {
 				/>
 			</div>
 
-			{/* commented */}
+			{/* commented lists */}
 
 			<div className="comment-lists">
 				<div className="comment-item _border-bottom">
