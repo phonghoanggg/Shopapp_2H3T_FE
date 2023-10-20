@@ -38,7 +38,7 @@ const SectionProducts: React.FC<ProductListProps> = ({ title, productList }) => 
 				spaceBetween: 24,
 			},
 			1024: {
-				slidesPerView: 6.2,
+				slidesPerView: 5.9,
 				spaceBetween: 32,
 			},
 		},

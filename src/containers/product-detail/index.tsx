@@ -25,6 +25,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Button from '@/compound/demo-button/button/Button';
 import { BREAKPOINTS } from '@/utils/breakpoints/constants';
 import { PRODUCT_LIST } from '../home/constants';
+import Comment from './Comment';
 import { LIMIT, PAYMENT_METHOD, THUMBS_IMAGES } from './constants';
 
 const PageProductDetail = () => {
@@ -47,7 +48,7 @@ const PageProductDetail = () => {
 	};
 
 	return (
-		<main className="site-detail">
+		<main className="site-detail ">
 			<section className="detail container">
 				{/* slide Image product */}
 				<div className="detail-slide">
@@ -258,6 +259,8 @@ const PageProductDetail = () => {
 				title="CUSTOMERS ALSO BOUGHT"
 				productList={PRODUCT_LIST}
 			/>
+			{/* comment */}
+			<Comment />
 		</main>
 	);
 };
