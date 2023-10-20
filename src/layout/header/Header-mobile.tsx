@@ -26,7 +26,6 @@ interface IPropsSaler {
 const HeaderMobile = () => {
 	const [openNav, setOpenNav] = useState<Boolean>(false);
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
-
 	const handleOpenNav = () => {
 		setOpenNav(true);
 	};
@@ -56,8 +55,9 @@ const HeaderMobile = () => {
 	}, [openNav]);
 
 	const DataSaler = Saler.saler;
+
 	return (
-		<header className="site-header-mobile">
+		<header className={`site-header-mobile `}>
 			<div className="header-mobile-inner container">
 				<div className="menu-icon">
 					<HiOutlineMenuAlt4

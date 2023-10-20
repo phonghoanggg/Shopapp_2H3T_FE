@@ -1,6 +1,11 @@
 .site-header-mobile {
 	display: block;
+	position: sticky;
+	top: 0;
+	background-color: $white;
 	padding-block: 10px;
+	z-index: 50;
+	transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	@include breakpoint-up(smalldesktop) {
 		display: none;
 	}
