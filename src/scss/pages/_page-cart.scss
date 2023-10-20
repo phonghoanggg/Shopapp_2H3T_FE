@@ -105,6 +105,7 @@
 		gap: 40px;
 	}
 	.item-infor {
+		position: relative;
 		font-size: $fz-base;
 		line-height: $leading-lg;
 		color: $black;
@@ -133,6 +134,7 @@
 			> .qty {
 				@include flex-center-ver;
 				gap: 8px;
+				z-index: 11;
 			}
 		}
 	}
@@ -279,6 +281,32 @@
 			font-size: $fz-sm;
 			line-height: $leading-sm;
 			font-weight: $fw-bold;
+			text-decoration: underline;
+		}
+	}
+}
+
+.dropdown-inner {
+	position: absolute;
+	top: 100%;
+	padding: 64px 24px 24px;
+	left: 21px;
+	transform: translateY(-20%);
+	border: 1px solid #403e3f;
+	z-index: -100;
+	background-color: #fff;
+	text-align: left;
+	cursor: default;
+	width: 100%;
+	max-width: 120px;
+	background: $white;
+	z-index: 10;
+	> .item {
+		font-size: $fz-xs;
+		line-height: $leading-sm;
+		margin-bottom: 12px;
+		cursor: pointer;
+		&:hover {
 			text-decoration: underline;
 		}
 	}

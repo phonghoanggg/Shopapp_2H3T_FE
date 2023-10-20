@@ -390,8 +390,8 @@
 
 .comment-wrapper {
 	margin-block: 120px;
-	padding-inline: 60px;
-	@include breakpoint-down(phone) {
+	padding-inline: 160px;
+	@include breakpoint-down(smalldesktop) {
 		margin-block: 60px;
 		padding-inline: 30px;
 	}
