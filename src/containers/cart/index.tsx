@@ -15,6 +15,7 @@ const PageCart = () => {
 				</div>
 				<CartPayment />
 			</section>
+
 			<CartFavorite />
 
 			<SectionProducts

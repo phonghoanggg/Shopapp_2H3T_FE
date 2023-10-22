@@ -1,5 +1,6 @@
 import { BsFilterLeft, BsStarFill, BsStarHalf } from 'react-icons/bs';
 import { CgSearch } from 'react-icons/cg';
+import { FaHeart } from 'react-icons/fa';
 import { GiFireworkRocket } from 'react-icons/gi';
 import { GoVerified } from 'react-icons/go';
 import { GrFormClose, GrFormNext, GrFormPrevious, GrLocationPin } from 'react-icons/gr';
@@ -17,6 +18,7 @@ export {
 	BsStarFill,
 	BsStarHalf,
 	CgSearch,
+	FaHeart,
 	GiFireworkRocket,
 	GoVerified,
 	GrFormClose,

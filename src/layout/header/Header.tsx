@@ -109,12 +109,16 @@ export const Header = () => {
 							>
 								<VscBell size={24} />
 							</button>
-							<button
+							<Link
+								href={ROUTER.FAVORITE}
 								type="button"
 								className="header-icon-item"
 							>
-								<TbHeart size={24} />
-							</button>
+								<TbHeart
+									size={24}
+									color="#000"
+								/>
+							</Link>
 
 							<Link
 								href={ROUTER.CART}

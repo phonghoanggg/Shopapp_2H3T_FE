@@ -182,6 +182,7 @@
 		letter-spacing: 0.02em;
 		margin-bottom: 32px;
 		font-weight: $fw-bold;
+
 		@include breakpoint-down(smalldesktop) {
 			margin-bottom: 24px;
 		}

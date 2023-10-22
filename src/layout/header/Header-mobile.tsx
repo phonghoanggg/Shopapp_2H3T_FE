@@ -74,7 +74,12 @@ const HeaderMobile = () => {
 							size={24}
 						/>
 					</Link>
-					<TbHeart size={22} />
+					<Link href={ROUTER.FAVORITE}>
+						<TbHeart
+							size={22}
+							color="#000"
+						/>
+					</Link>
 				</div>
 			</div>
 			<div className="slides">
@@ -126,7 +131,7 @@ const HeaderMobile = () => {
 					</ul>
 					<div className="action_wrapper _text-capitalize _border-top">
 						<div className="action_list">
-							<Link href="/">Favorite</Link>
+							<Link href={ROUTER.FAVORITE}>Favorite</Link>
 							<Link href="/">Login</Link>
 							<Link href="/">Login</Link>
 							<Link href="/">Sign Up</Link>
