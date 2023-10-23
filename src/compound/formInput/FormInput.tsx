@@ -4,7 +4,7 @@ interface FormInputProps {
 	name: string;
 	label: string;
 	control?: any;
-	rules: any;
+	rules?: any;
 	type?: string;
 	errors: any;
 }

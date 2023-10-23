@@ -2,11 +2,10 @@
 // base
 import Link from 'next/link';
 import { Fragment } from 'react';
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-// import required modules
+//  Swiper
 import { Autoplay, Navigation } from 'swiper';
-// pullic json
+import { Swiper, SwiperSlide } from 'swiper/react';
+// public json
 import Saler from '../../../public/saler.json';
 // lodash
 import { map } from 'lodash';
@@ -17,10 +16,11 @@ import HeaderMobile from './Header-mobile';
 //  icons
 import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } from '../../compound/icons/index';
 // redux
+import { openCart } from '@/redux/cart/slice';
 import { useAppDispatch } from '@/redux/hook';
+import { openModalRegister } from '@/redux/modal/slice';
 // contains
 import Register from '@/modals/register/Register';
-import { openCart } from '@/redux/cart/slice';
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST } from '../constants';
 
@@ -65,8 +65,19 @@ export const Header = () => {
 							</Swiper>
 						</div>
 						<div className="actions">
-							<button className="action">Login</button>
-							<button className="action">SignUp</button>
+							<button
+								type="button"
+								className="action"
+							>
+								Login
+							</button>
+							<button
+								type="button"
+								className="action"
+								onClick={() => dispatch(openModalRegister())}
+							>
+								SignUp
+							</button>
 							<div className="action -location">
 								<IoLocationSharp />
 								VietNam
