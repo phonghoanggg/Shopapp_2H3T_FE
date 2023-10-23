@@ -19,6 +19,7 @@ import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } fro
 // redux
 import { useAppDispatch } from '@/redux/hook';
 // contains
+import Register from '@/modals/register/Register';
 import { openCart } from '@/redux/cart/slice';
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST } from '../constants';
@@ -35,6 +36,8 @@ export const Header = () => {
 
 	return (
 		<Fragment>
+			{/* modal */}
+			<Register />
 			{/* header mobile */}
 			<HeaderMobile />
 			{/* header desktop */}
