@@ -6,7 +6,7 @@ import Pagination from './Pagination';
 export default function ProductsList() {
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column' }}>
-			<section className="main-products-list">
+			<div className="main-products-list">
 				{map(PRODUCT_LIST, ({ id, name, image, price, oldPrice }) => (
 					<Product
 						key={id}
@@ -17,7 +17,7 @@ export default function ProductsList() {
 						button="Quick Add"
 					/>
 				))}
-			</section>
+			</div>
 			{/* pagination */}
 			<Pagination />
 		</div>

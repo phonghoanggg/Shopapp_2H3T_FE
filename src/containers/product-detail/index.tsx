@@ -4,6 +4,7 @@ import { useState } from 'react';
 // components
 import SectionProducts from '@/components/SectionProducts';
 import Image from 'next/image';
+import Comment from './Comment';
 // lodash
 import { map } from 'lodash';
 // icons
@@ -25,7 +26,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Button from '@/compound/demo-button/button/Button';
 import { BREAKPOINTS } from '@/utils/breakpoints/constants';
 import { PRODUCT_LIST } from '../home/constants';
-import Comment from './Comment';
 import { LIMIT, PAYMENT_METHOD, THUMBS_IMAGES } from './constants';
 
 const PageProductDetail = () => {

@@ -25,7 +25,7 @@ const OrderFormInformation = () => {
 	const {
 		control,
 		handleSubmit,
-		formState: { errors, isDirty, isValid },
+		formState: { errors },
 		trigger,
 	} = useForm({
 		resolver: yupResolver(schema),
