@@ -59,7 +59,9 @@
 	@include flex-column;
 	gap: 24px;
 	padding: 30px 40px;
+	text-align: left;
 	> * {
+		cursor: pointer;
 		font-size: $fz-base;
 		color: $brown-color;
 		line-height: $leading-md;

@@ -14,6 +14,9 @@ import { Autoplay, Navigation } from 'swiper';
 import Saler from '../../../public/saler.json';
 // lodash
 import { map } from 'lodash';
+// redux
+import { useAppDispatch } from '@/redux/hook';
+import { openModalLogin, openModalRegister } from '@/redux/modal/slice';
 // contains
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST } from '../constants';
@@ -24,8 +27,11 @@ interface IPropsSaler {
 }
 
 const HeaderMobile = () => {
+	const dispatch = useAppDispatch();
+
 	const [openNav, setOpenNav] = useState<Boolean>(false);
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
+
 	const handleOpenNav = () => {
 		setOpenNav(true);
 	};
@@ -132,9 +138,8 @@ const HeaderMobile = () => {
 					<div className="action_wrapper _text-capitalize _border-top">
 						<div className="action_list">
 							<Link href={ROUTER.FAVORITE}>Favorite</Link>
-							<Link href="/">Login</Link>
-							<Link href="/">Login</Link>
-							<Link href="/">Sign Up</Link>
+							<div onClick={() => dispatch(openModalLogin())}>Login</div>
+							<div onClick={() => dispatch(openModalRegister())}>Sign Up</div>
 						</div>
 					</div>
 				</div>

@@ -18,8 +18,9 @@ import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } fro
 // redux
 import { openCart } from '@/redux/cart/slice';
 import { useAppDispatch } from '@/redux/hook';
-import { openModalRegister } from '@/redux/modal/slice';
+import { openModalLogin, openModalRegister } from '@/redux/modal/slice';
 // contains
+import Login from '@/modals/login/Login';
 import Register from '@/modals/register/Register';
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST } from '../constants';
@@ -36,7 +37,9 @@ export const Header = () => {
 
 	return (
 		<Fragment>
-			{/* modal */}
+			{/* modal login*/}
+			<Login />
+			{/* modal register*/}
 			<Register />
 			{/* header mobile */}
 			<HeaderMobile />
@@ -68,6 +71,7 @@ export const Header = () => {
 							<button
 								type="button"
 								className="action"
+								onClick={() => dispatch(openModalLogin())}
 							>
 								Login
 							</button>

@@ -10,9 +10,9 @@ import { useForm } from 'react-hook-form';
 import { GrFormClose } from '../../compound/icons/index';
 // redux
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { selectIsToggleModalLogin } from '@/redux/modal/selector';
+import { selectIsToggleModalRegister } from '@/redux/modal/selector';
+import { closeModalRegister, openModalLogin } from '@/redux/modal/slice';
 // yup
-import { closeModalRegister } from '@/redux/modal/slice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 const schema = yup.object().shape({
@@ -31,10 +31,11 @@ interface IRegisterProps {
 
 const Register = () => {
 	// redux
-	const isOpenToggleModalOpen = useAppSelector(selectIsToggleModalLogin);
+	const isOpenToggleModalOpen = useAppSelector(selectIsToggleModalRegister);
 	const dispatch = useAppDispatch();
 	const registerInnerRef = useRef<HTMLDivElement | null>(null);
 
+	// handle click out side
 	const closeModalIfOutsideClick = (event: MouseEvent) => {
 		if (registerInnerRef.current && !registerInnerRef.current.contains(event.target as Node)) {
 			closeModal();
@@ -61,6 +62,11 @@ const Register = () => {
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
+
+	const handleOpenModalLogin = async () => {
+		await dispatch(closeModalRegister());
+		dispatch(openModalLogin());
+	};
 
 	const closeModal = () => {
 		dispatch(closeModalRegister());
@@ -91,7 +97,7 @@ const Register = () => {
 						provide a few details. It&#39;s free to join and open to all.
 					</p>
 				</div>
-				{/* form login */}
+				{/* form register */}
 				<form
 					className="form-register-inner"
 					onSubmit={handleSubmit(onSubmit)}
@@ -142,6 +148,7 @@ const Register = () => {
 					<button
 						className="btn-open-modal"
 						type="button"
+						onClick={handleOpenModalLogin}
 					>
 						Log in with an existing account
 					</button>

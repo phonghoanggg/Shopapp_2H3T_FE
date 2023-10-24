@@ -5,6 +5,8 @@ import modalSlice from './slice';
 
 const ModalStore = (state: AppState) => get(state, modalSlice.name, modalSlice.getInitialState());
 
-export const selectIsToggleModalLogin = createSelector([ModalStore], (state) =>
+export const selectIsToggleModalRegister = createSelector([ModalStore], (state) =>
 	get(state, 'isOpenModalRegister', false),
 );
+
+export const selectIsToggleModalLogin = createSelector([ModalStore], (state) => get(state, 'isOpenModalLogin', false));

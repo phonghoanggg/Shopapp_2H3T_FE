@@ -11,11 +11,13 @@
 	width: 100%;
 	max-width: 60vw;
 	background: $white;
-	padding-block: 56px;
+	padding-top: 120px;
+	padding-bottom: 56px;
 	position: relative;
 	height: 670px;
 	overflow: auto;
 	@include breakpoint-down(tablet) {
+		padding-top: 180px;
 		flex-direction: column;
 		height: 100vh;
 		max-width: 100%;
@@ -82,7 +84,7 @@
 		width: 90%;
 	}
 
-	.item {
+	> .item {
 		@include flex-column;
 		> label {
 			color: $black;
