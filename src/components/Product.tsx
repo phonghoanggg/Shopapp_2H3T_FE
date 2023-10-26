@@ -42,12 +42,12 @@ const Product = ({ id, image, name, price, oldPrice, sale, button, brand }: IPro
 				href={ROUTER.PRODUCT_DETAIL}
 				className="desc"
 			>
-				<span className="name _text-capitalize">{brand}</span>
+				<span className="brand _text-capitalize">{brand}</span>
 				<h6 className="name _text-capitalize">{name}</h6>
 				<p className="new-price">
 					${price} <del className="old-price">${oldPrice}</del>
 				</p>
-				<span className="brand">{sale}</span>
+				<span className="sale">{sale}</span>
 			</Link>
 		</div>
 	);

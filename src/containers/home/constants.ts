@@ -28,6 +28,7 @@ export const PRODUCT_LIST = [
 		image: 'https://lsco.scene7.com/is/image/lsco/228610113-front-pdp?$grid_desktop_full$',
 		price: 79.7,
 		oldPrice: 49.77,
+		brand: "son's® Premium",
 	},
 	{
 		id: 2,
@@ -35,6 +36,7 @@ export const PRODUCT_LIST = [
 		image: 'https://lsco.scene7.com/is/image/lsco/295020216-front-pdp?fmt=avif&qlt=40&resMode=bisharp&fit=crop,0&op_usm=0.6,0.6,8&wid=574&hei=766',
 		price: 79.7,
 		oldPrice: 49.77,
+		brand: "son's® Premium",
 	},
 	{
 		id: 3,
@@ -56,6 +58,7 @@ export const PRODUCT_LIST = [
 		image: 'https://lsco.scene7.com/is/image/lsco/A48930002-dynamic1-pdp?fmt=avif&qlt=40&resMode=bisharp&fit=crop,0&op_usm=0.6,0.6,8&wid=574&hei=766',
 		price: 79.7,
 		oldPrice: 49.77,
+		brand: "son's® Premium",
 	},
 	{
 		id: 6,
@@ -63,6 +66,7 @@ export const PRODUCT_LIST = [
 		image: 'https://lsco.scene7.com/is/image/lsco/A09640013-front-pdp?fmt=avif&qlt=40&resMode=bisharp&fit=crop,0&op_usm=0.6,0.6,8&wid=574&hei=766',
 		price: 79.7,
 		oldPrice: 49.77,
+		brand: "son's® Premium",
 	},
 	{
 		id: 7,
@@ -70,6 +74,7 @@ export const PRODUCT_LIST = [
 		image: 'https://lsco.scene7.com/is/image/lsco/A35030000-dynamic1-pdp?fmt=avif&qlt=40&resMode=bisharp&fit=crop,0&op_usm=0.6,0.6,8&wid=574&hei=766',
 		price: 79.7,
 		oldPrice: 49.77,
+		brand: "son's® Premium",
 	},
 	{
 		id: 8,
@@ -77,6 +82,7 @@ export const PRODUCT_LIST = [
 		image: 'https://lsco.scene7.com/is/image/lsco/A82470001-dynamic1-pdp?fmt=avif&qlt=40&resMode=bisharp&fit=crop,0&op_usm=0.6,0.6,8&wid=574&hei=766',
 		price: 79.7,
 		oldPrice: 49.77,
+		brand: "son's® Premium",
 	},
 	{
 		id: 9,

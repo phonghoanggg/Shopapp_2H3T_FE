@@ -16,7 +16,7 @@ const PageProducts = () => {
 			<main className="site-products-page container">
 				<Categories />
 				<section className="main-section-products">
-					{/* filter */}
+					{/*  sub categories */}
 					<div className="filter-wrapper">
 						<div className="filters-inner">
 							<div className="filter">

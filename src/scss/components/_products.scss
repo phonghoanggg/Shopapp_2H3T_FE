@@ -41,6 +41,7 @@
 
 .product {
 	> .image > .image-item {
+		margin-bottom: 12px;
 	}
 	> .desc {
 		color: $dark;
@@ -49,10 +50,9 @@
 		> .name {
 			font-size: $fz-base;
 			line-height: $leading-sm;
-			margin-block: 6px;
+			margin-block: 3px;
 			@include breakpoint-down(phone) {
 				font-size: $fz-sm;
-				margin-block: 3px;
 			}
 		}
 		> .new-price {
@@ -60,10 +60,16 @@
 			line-height: $leading-sm;
 			font-weight: 600;
 		}
-		> .brand {
+		> .sale {
 			font-size: $fz-xs;
 			line-height: $leading-sm;
 			color: $error-color;
+			font-weight: $fw-bold;
+		}
+		> .brand {
+			font-size: $fz-xs;
+			line-height: $leading-sm;
+			color: $brown-color;
 			font-weight: $fw-bold;
 		}
 	}

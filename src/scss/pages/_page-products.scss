@@ -66,6 +66,9 @@
 
 //  Products list
 
+.wrapper-product-list {
+	@include flex-column;
+}
 .main-section-products {
 	position: relative;
 }
