@@ -1,4 +1,4 @@
-const loading = () => {
+const Loading = () => {
 	return (
 		<main className="site-loading">
 			<div className="chaotic-orbit"></div>
@@ -6,4 +6,4 @@ const loading = () => {
 	);
 };
 
-export default loading;
+export default Loading;

@@ -8,11 +8,12 @@ interface IProductProps {
 	name: string;
 	price: number;
 	oldPrice?: number;
+	sale?: string;
 	brand?: string;
 	button?: string;
 }
 
-const Product = ({ id, image, name, price, oldPrice, brand, button }: IProductProps) => {
+const Product = ({ id, image, name, price, oldPrice, sale, button, brand }: IProductProps) => {
 	return (
 		<div
 			className="product"
@@ -41,11 +42,12 @@ const Product = ({ id, image, name, price, oldPrice, brand, button }: IProductPr
 				href={ROUTER.PRODUCT_DETAIL}
 				className="desc"
 			>
-				<span className="name _text-capitalize">{name}</span>
-				<span className="new-price">
+				<span className="name _text-capitalize">{brand}</span>
+				<h6 className="name _text-capitalize">{name}</h6>
+				<p className="new-price">
 					${price} <del className="old-price">${oldPrice}</del>
-				</span>
-				<span className="brand">{brand}</span>
+				</p>
+				<span className="brand">{sale}</span>
 			</Link>
 		</div>
 	);

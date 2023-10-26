@@ -5,8 +5,6 @@ import { Fragment } from 'react';
 //  Swiper
 import { Autoplay, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// public json
-import Saler from '../../../public/saler.json';
 // lodash
 import { map } from 'lodash';
 // components
@@ -19,11 +17,12 @@ import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } fro
 import { openCart } from '@/redux/cart/slice';
 import { useAppDispatch } from '@/redux/hook';
 import { openModalLogin, openModalRegister } from '@/redux/modal/slice';
+// react-query
 // contains
 import Login from '@/modals/login/Login';
 import Register from '@/modals/register/Register';
 import { ROUTER } from '@/utils/routes/routes';
-import { MENU_LIST } from '../constants';
+import { MENU_LIST, SALE } from '../constants';
 
 interface IPropsSaler {
 	id: number;
@@ -33,11 +32,8 @@ interface IPropsSaler {
 export const Header = () => {
 	const dispatch = useAppDispatch();
 
-	const DataSaler = Saler.saler;
-
 	return (
 		<Fragment>
-			{/* modal login*/}
 			<Login />
 			{/* modal register*/}
 			<Register />
@@ -48,6 +44,7 @@ export const Header = () => {
 				<div className="top-menu-wrapper">
 					<div className="top-menu container">
 						<div />
+						{/* slide sake */}
 						<div className="slides">
 							<Swiper
 								navigation={true}
@@ -58,7 +55,7 @@ export const Header = () => {
 								}}
 								modules={[Navigation, Autoplay]}
 							>
-								{map(DataSaler, (item: IPropsSaler) => (
+								{map(SALE, (item: IPropsSaler) => (
 									<SwiperSlide key={item.id}>
 										<h6 className="top-menu-slide">
 											{item.label} <span>details</span>

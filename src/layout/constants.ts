@@ -132,3 +132,27 @@ export const FOOTER_LIST = [
 		],
 	},
 ];
+
+// sale top menu
+export const SALE = [
+	{
+		id: 1,
+		label: 'Free shipping',
+	},
+	{
+		id: 2,
+		label: 'Up to 70% off sale styles. Auto-applied at checkout. ',
+	},
+	{
+		id: 3,
+		label: 'Free Shipping & Returns on Every Order ',
+	},
+	{
+		id: 4,
+		label: 'Up to 40% Off Sitewide. Prices as Marked. ',
+	},
+	{
+		id: 5,
+		label: "The Best Of SonTruong's® - Now On Our App ",
+	},
+] as const;

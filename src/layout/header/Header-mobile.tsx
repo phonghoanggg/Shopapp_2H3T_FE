@@ -1,17 +1,16 @@
 'use client';
+// base
+import Link from 'next/link';
 // components
 import Logo from '@/compound/logo/Logo';
 // icons
 import { CgSearch, GrFormClose, HiOutlineMenuAlt4, HiOutlineShoppingBag, TbHeart } from '../../compound/icons/index';
 // base
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
 import { Autoplay, Navigation } from 'swiper';
-// public json
-import Saler from '../../../public/saler.json';
 // lodash
 import { map } from 'lodash';
 // redux
@@ -19,7 +18,7 @@ import { useAppDispatch } from '@/redux/hook';
 import { openModalLogin, openModalRegister } from '@/redux/modal/slice';
 // contains
 import { ROUTER } from '@/utils/routes/routes';
-import { MENU_LIST } from '../constants';
+import { MENU_LIST, SALE } from '../constants';
 
 interface IPropsSaler {
 	id: number;
@@ -60,8 +59,6 @@ const HeaderMobile = () => {
 		};
 	}, [openNav]);
 
-	const DataSaler = Saler.saler;
-
 	return (
 		<header className={`site-header-mobile `}>
 			<div className="header-mobile-inner container">
@@ -98,7 +95,7 @@ const HeaderMobile = () => {
 					}}
 					modules={[Navigation, Autoplay]}
 				>
-					{map(DataSaler, (item: IPropsSaler) => (
+					{map(SALE, (item: IPropsSaler) => (
 						<SwiperSlide key={item.id}>
 							<h6 className="top-menu-slide">
 								{item.label} <span>details</span>
