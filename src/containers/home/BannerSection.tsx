@@ -15,8 +15,8 @@ export default function BannerSection({ subtitle, title, description, footer, cl
 			<h3 className="title _text-uppercase">{title}</h3>
 			<p className="description">{description}</p>
 			<div className="links">
-				<ButtonLink>Shop Women</ButtonLink>
 				<ButtonLink>Shop Men</ButtonLink>
+				<ButtonLink>Shop Women</ButtonLink>
 				<ButtonLink>Shop Kids</ButtonLink>
 			</div>
 			<p className="footer _text-light-success _fz-xs">{footer}</p>
