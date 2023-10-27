@@ -12,6 +12,8 @@ import { GrFormClose } from '../../compound/icons/index';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { selectIsToggleModalRegister } from '@/redux/modal/selector';
 import { closeModalRegister, openModalLogin } from '@/redux/modal/slice';
+// custom-hook
+import useNoScrollBody from '@/custom-hook/useNoScrollBody';
 // yup
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -53,6 +55,9 @@ const Register = () => {
 			document.removeEventListener('click', closeModalIfOutsideClick);
 		};
 	}, [isOpenToggleModalOpen]);
+
+	// handle hidden scroll body
+	useNoScrollBody(isOpenToggleModalOpen);
 
 	// react hook form
 	const {

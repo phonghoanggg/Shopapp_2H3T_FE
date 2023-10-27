@@ -11,6 +11,8 @@ import { GrFormClose } from '../../compound/icons/index';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { selectIsToggleModalLogin } from '@/redux/modal/selector';
 import { closeModalLogin, openModalRegister } from '@/redux/modal/slice';
+// custom-hook
+import useNoScrollBody from '@/custom-hook/useNoScrollBody';
 
 // react-hook-form
 import { useForm } from 'react-hook-form';
@@ -50,6 +52,8 @@ const Login = () => {
 			document.removeEventListener('click', closeModalIfOutsideClick);
 		};
 	}, [isOpenToggleModalLogin]);
+	// handle hidden scroll body
+	useNoScrollBody(isOpenToggleModalLogin);
 
 	const {
 		control,

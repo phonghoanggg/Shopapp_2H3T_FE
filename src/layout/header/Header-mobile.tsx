@@ -19,6 +19,8 @@ import { openModalLogin, openModalRegister } from '@/redux/modal/slice';
 // contains
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
+// custom-hook
+import useNoScrollBody from '@/custom-hook/useNoScrollBody';
 
 interface IPropsSaler {
 	id: number;
@@ -28,7 +30,7 @@ interface IPropsSaler {
 const HeaderMobile = () => {
 	const dispatch = useAppDispatch();
 
-	const [openNav, setOpenNav] = useState<Boolean>(false);
+	const [openNav, setOpenNav] = useState<boolean>(false);
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 
 	const handleOpenNav = () => {
@@ -46,18 +48,18 @@ const HeaderMobile = () => {
 
 	useEffect(() => {
 		if (openNav) {
-			document.body.classList.add('disable-scroll');
 			document.addEventListener('mousedown', handleClickOutside);
 		} else {
-			document.body.classList.remove('disable-scroll');
 			document.removeEventListener('mousedown', handleClickOutside);
 		}
 
 		return () => {
-			document.body.classList.remove('disable-scroll');
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
 	}, [openNav]);
+	// handle hidden scroll body
+
+	useNoScrollBody(openNav);
 
 	return (
 		<header className={`site-header-mobile `}>
