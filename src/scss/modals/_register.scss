@@ -22,6 +22,9 @@
 		height: 100vh;
 		max-width: 100%;
 	}
+	@include breakpoint-down(phone) {
+		padding-top: 200px;
+	}
 	> .icon {
 		position: absolute;
 		top: 20px;
