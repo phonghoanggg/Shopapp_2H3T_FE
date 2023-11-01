@@ -1,3 +1,4 @@
+import { ROUTER } from '@/utils/routes/routes';
 import { map } from 'lodash';
 import { default as Image } from 'next/image';
 import Link from 'next/link';
@@ -20,7 +21,7 @@ const Carousel = () => {
 						key={`carousel-${id}`}
 					>
 						<Link
-							href="/"
+							href={ROUTER.PRODUCTS}
 							className="image"
 						>
 							<Image
@@ -32,7 +33,7 @@ const Carousel = () => {
 							/>
 						</Link>
 						<Link
-							href="/"
+							href={ROUTER.PRODUCTS}
 							className="desc"
 						>
 							<span>Shop/</span>
