@@ -126,9 +126,11 @@
 		> .image {
 			position: relative;
 			@include flex-center;
+			margin-bottom: 12px;
 
 			> .btn {
 				@include flex-center;
+				@include hidden;
 				position: absolute;
 				bottom: 30px;
 				width: 85%;
@@ -140,7 +142,6 @@
 				font-size: $fz-base;
 				font-weight: $fw-bold;
 				transition: 0.3s ease-in-out;
-				@include hidden;
 				&:hover {
 					background: $dark;
 				}
