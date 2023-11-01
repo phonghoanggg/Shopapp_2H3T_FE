@@ -84,6 +84,13 @@
 			@include flex-column;
 			gap: 6px;
 		}
+		> .site-button {
+			color: $white;
+			background-color: $black;
+			&:hover {
+				background: rgba($color: $black, $alpha: 0.8);
+			}
+		}
 	}
 }
 

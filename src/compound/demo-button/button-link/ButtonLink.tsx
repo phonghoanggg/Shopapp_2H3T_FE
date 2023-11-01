@@ -1,3 +1,4 @@
+import { ROUTER } from '@/utils/routes/routes';
 import Link from 'next/link';
 
 interface IButtonLinkProps {
@@ -8,7 +9,7 @@ interface IButtonLinkProps {
 const ButtonLink = ({ children, className }: IButtonLinkProps) => {
 	return (
 		<Link
-			href="/"
+			href={ROUTER.PRODUCTS}
 			className={`site-button-link ${className}`}
 		>
 			{children}

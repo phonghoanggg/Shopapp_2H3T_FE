@@ -1,4 +1,4 @@
-import Button from '@/compound/demo-button/button/Button';
+import ButtonLink from '@/compound/demo-button/button-link/ButtonLink';
 import Image from 'next/image';
 
 const Content = () => {
@@ -15,20 +15,8 @@ const Content = () => {
 
 			<p className="title _text-center">You know it. You love it. You got to have it.</p>
 			<div className="links container">
-				<Button
-					color="primary"
-					className="_text-capitalize _text-center"
-					type="button"
-				>
-					Shop Men
-				</Button>
-				<Button
-					color="primary"
-					className="_text-capitalize _text-center"
-					type="button"
-				>
-					Shop women
-				</Button>
+				<ButtonLink className="site-button _text-capitalize _text-center">Shop Men</ButtonLink>
+				<ButtonLink className="site-button _text-capitalize _text-center">Shop women</ButtonLink>
 			</div>
 		</section>
 	);
