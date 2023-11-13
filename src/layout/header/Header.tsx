@@ -18,9 +18,11 @@ import { openCart } from '@/redux/cart/slice';
 import { useAppDispatch } from '@/redux/hook';
 import { openModalLogin, openModalRegister } from '@/redux/modal/slice';
 // react-query
-// contains
+// modal
 import Login from '@/modals/login/Login';
 import Register from '@/modals/register/Register';
+import Sale from '@/modals/sale/Sale';
+// contains
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
 
@@ -34,6 +36,9 @@ export const Header = () => {
 
 	return (
 		<Fragment>
+			{/* modal sale */}
+			<Sale />
+			{/* modal login */}
 			<Login />
 			{/* modal register*/}
 			<Register />

@@ -10,3 +10,5 @@ export const selectIsToggleModalRegister = createSelector([ModalStore], (state) 
 );
 
 export const selectIsToggleModalLogin = createSelector([ModalStore], (state) => get(state, 'isOpenModalLogin', false));
+
+export const selectIsToggleModalSale = createSelector([ModalStore], (state) => get(state, 'isOpenModalSale', false));

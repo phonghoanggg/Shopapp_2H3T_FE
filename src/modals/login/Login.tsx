@@ -52,6 +52,7 @@ const Login = () => {
 			document.removeEventListener('click', closeModalIfOutsideClick);
 		};
 	}, [isOpenToggleModalLogin]);
+
 	// handle hidden scroll body
 	useNoScrollBody(isOpenToggleModalLogin);
 
@@ -65,6 +66,7 @@ const Login = () => {
 	const closeModal = () => {
 		dispatch(closeModalLogin());
 	};
+
 	const handleOpenModalRegister = async () => {
 		await dispatch(closeModalLogin());
 		dispatch(openModalRegister());

@@ -1,4 +1,5 @@
 'use client';
+import { useCategoriesQuery } from '@/query/categories/getCategories';
 // base
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,6 +8,8 @@ import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function Categories() {
+	const { data, isLoading, error } = useCategoriesQuery();
+
 	return (
 		<section className="site-categories">
 			<h4 className="content _text-center">

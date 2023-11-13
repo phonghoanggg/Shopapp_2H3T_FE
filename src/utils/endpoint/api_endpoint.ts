@@ -4,5 +4,4 @@ export const API_ENDPOINT = {
 	ORDER: '/orders',
 	CART: '/carts',
 	CATEGORIES: '/categories',
-	SUB_CATEGORIES: '/sub_categories',
 } as const;
