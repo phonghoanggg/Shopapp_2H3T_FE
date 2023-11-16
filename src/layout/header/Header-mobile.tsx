@@ -4,7 +4,7 @@ import Link from 'next/link';
 // components
 import Logo from '@/compound/logo/Logo';
 // icons
-import { CgSearch, GrFormClose, HiOutlineMenuAlt4, HiOutlineShoppingBag, TbHeart } from '../../compound/icons/index';
+import { CgSearch, GrFormClose, HiOutlineMenuAlt4, HiOutlineShoppingBag, VscBell } from '../../compound/icons/index';
 // base
 import { useEffect, useRef, useState } from 'react';
 // Import Swiper React components
@@ -15,7 +15,7 @@ import { Autoplay, Navigation } from 'swiper';
 import { map } from 'lodash';
 // redux
 import { useAppDispatch } from '@/redux/hook';
-import { openModalLogin, openModalRegister } from '@/redux/modal/slice';
+import { openModalLogin, openModalRegister, openModalSale } from '@/redux/modal/slice';
 // contains
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
@@ -73,16 +73,15 @@ const HeaderMobile = () => {
 				<Logo />
 				<div className="actions">
 					<CgSearch size={22} />
+					<VscBell
+						onClick={() => dispatch(openModalSale())}
+						size={22}
+						color="#000"
+					/>
 					<Link href={ROUTER.CART}>
 						<HiOutlineShoppingBag
 							color="#000"
 							size={24}
-						/>
-					</Link>
-					<Link href={ROUTER.FAVORITE}>
-						<TbHeart
-							size={22}
-							color="#000"
 						/>
 					</Link>
 				</div>

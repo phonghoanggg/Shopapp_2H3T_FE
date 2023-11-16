@@ -16,7 +16,7 @@ import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } fro
 // redux
 import { openCart } from '@/redux/cart/slice';
 import { useAppDispatch } from '@/redux/hook';
-import { openModalLogin, openModalRegister } from '@/redux/modal/slice';
+import { openModalLogin, openModalRegister, openModalSale } from '@/redux/modal/slice';
 // react-query
 // modal
 import Login from '@/modals/login/Login';
@@ -36,15 +36,6 @@ export const Header = () => {
 
 	return (
 		<Fragment>
-			{/* modal sale */}
-			<Sale />
-			{/* modal login */}
-			<Login />
-			{/* modal register*/}
-			<Register />
-			{/* header mobile */}
-			<HeaderMobile />
-			{/* header desktop */}
 			<header className="site-header ">
 				<div className="top-menu-wrapper">
 					<div className="top-menu container">
@@ -126,6 +117,7 @@ export const Header = () => {
 							<button
 								type="button"
 								className="header-icon-item"
+								onClick={() => dispatch(openModalSale())}
 							>
 								<VscBell size={24} />
 							</button>
@@ -155,7 +147,17 @@ export const Header = () => {
 					</div>
 				</div>
 			</header>
+			{/* modal cart */}
 			<BagCart />
+			{/* modal sale */}
+			<Sale />
+			{/* modal login */}
+			<Login />
+			{/* modal register*/}
+			<Register />
+			{/* header mobile */}
+			<HeaderMobile />
+			{/* header desktop */}
 		</Fragment>
 	);
 };

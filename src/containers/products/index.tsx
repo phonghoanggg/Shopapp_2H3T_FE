@@ -1,20 +1,30 @@
 'use client';
+import { Fragment } from 'react';
 // components
 import SectionProducts from '@/components/SectionProducts';
 import Categories from './Categories';
 import ProductsList from './ProductsList';
 import Sidebar from './Sidebar';
 // react-query
+import { useCategoriesQuery } from '@/query/categories/getCategories';
 // icons
-import { Fragment } from 'react';
 import { BsFilterLeft } from '../../compound/icons/index';
+// constants
 import { PRODUCT_LIST_SAME } from '../home/constants';
 
 const PageProducts = () => {
+	const { data, isLoading, error } = useCategoriesQuery();
+
+	console.log(data);
+
 	return (
 		<Fragment>
 			<main className="site-products-page container">
-				<Categories />
+				<Categories
+					data={data}
+					isLoading={isLoading}
+					error={error}
+				/>
 				<section className="main-section-products">
 					{/*  sub categories */}
 					<div className="filter-wrapper">

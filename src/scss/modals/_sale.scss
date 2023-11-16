@@ -1,5 +1,6 @@
 .sale-wrapper {
-	position: absolute;
+	$box-shadow-sale: 0 5px 20px #0000001a;
+	position: fixed;
 	top: 110px;
 	right: 30px;
 	padding: 1rem;
@@ -8,6 +9,7 @@
 	max-width: 360px;
 	border-radius: 3px;
 	z-index: 10;
+	box-shadow: $box-shadow-sale;
 	&::before {
 		z-index: 1;
 		content: '';
@@ -19,7 +21,11 @@
 		top: 5px;
 		margin-top: -12px;
 		margin-left: -18px;
-		right: 101px;
+		right: 160px;
+		$box-shadow-sale: 0 5px 20px #0000001a;
+		@include breakpoint-down(desktop) {
+			right: 101px;
+		}
 		@include breakpoint-down(smalldesktop) {
 			right: 27px;
 		}
@@ -74,6 +80,9 @@
 		@include flex-column;
 		gap: 4px;
 		cursor: pointer;
+		> .name {
+			color: $black;
+		}
 		> .size {
 			color: $brown-color;
 		}
