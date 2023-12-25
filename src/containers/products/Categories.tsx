@@ -31,7 +31,7 @@ export default function Categories({ data, isLoading, error }: CategoriesProps) 
 								className="category-item-skeleton"
 							>
 								<div className="skeleton-image"></div>
-								<div className="skeleton-name"></div>
+								<div className="skeleton-name">Loading...</div>
 							</div>
 						))}
 					</div>

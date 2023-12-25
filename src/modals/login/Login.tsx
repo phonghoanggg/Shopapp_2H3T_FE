@@ -8,6 +8,7 @@ import FormInput from '@/compound/formInput/FormInput';
 // icons
 import { GrFormClose } from '../../compound/icons/index';
 // redux
+import { loginWithGoogle } from '@/redux/auth/slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { selectIsToggleModalLogin } from '@/redux/modal/selector';
 import { closeModalLogin, openModalRegister } from '@/redux/modal/slice';
@@ -25,16 +26,19 @@ const schema = yup.object().shape({
 });
 
 interface ILoginProps {
-	email?: string;
-	password?: string;
+	email: string;
+	password: string;
 }
 const Login = () => {
-	// redux
+	// redux handle modal
 	const isOpenToggleModalLogin = useAppSelector(selectIsToggleModalLogin);
 	const dispatch = useAppDispatch();
-	const loginInnerRef = useRef<HTMLDivElement | null>(null);
-
+	// handle authentication Email firebase
+	const handleGoogleLogin = () => {
+		dispatch(loginWithGoogle());
+	};
 	// handle click out side
+	const loginInnerRef = useRef<HTMLDivElement | null>(null);
 	const closeModalIfOutsideClick = (event: MouseEvent) => {
 		if (loginInnerRef.current && !loginInnerRef.current.contains(event.target as Node)) {
 			closeModal();
@@ -60,21 +64,22 @@ const Login = () => {
 		control,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({
+	} = useForm<ILoginProps>({
 		resolver: yupResolver(schema),
 	});
 	const closeModal = () => {
 		dispatch(closeModalLogin());
 	};
-
+	// handle modal toggle
 	const handleOpenModalRegister = async () => {
 		await dispatch(closeModalLogin());
 		dispatch(openModalRegister());
 	};
-	const onSubmit = (data: ILoginProps) => {
-		// Handle form submission here
+	// Handle form submission here
+	const onLoginSubmit = (data: ILoginProps) => {
 		console.log(data);
 	};
+
 	return (
 		<section className={`login-wrapper _overlay ${isOpenToggleModalLogin ? '-show' : ''}`}>
 			{/* description */}
@@ -96,7 +101,7 @@ const Login = () => {
 				{/* form login */}
 				<form
 					className="form-login-inner"
-					onSubmit={handleSubmit(onSubmit)}
+					onSubmit={handleSubmit(onLoginSubmit)}
 				>
 					<FormInput
 						name="email"
@@ -134,6 +139,7 @@ const Login = () => {
 				<Button
 					type="submit"
 					className="btn-login-google"
+					onClick={handleGoogleLogin}
 				>
 					Log In With Google
 				</Button>

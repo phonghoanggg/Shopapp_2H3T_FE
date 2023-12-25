@@ -5,7 +5,7 @@ import _, { map } from 'lodash';
 import { useEffect, useRef } from 'react';
 import { GrFormClose, VscBell } from '../../compound/icons/index';
 import { PRODUCT_LIST } from '../../containers/home/constants';
-import ProductSale from './ProductSale';
+import ProductSale from './ProductSale';    
 
 const Sale = () => {
 	// slice 8 products
