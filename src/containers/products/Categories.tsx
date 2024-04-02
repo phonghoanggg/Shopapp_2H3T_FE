@@ -1,11 +1,13 @@
 'use client';
-import { map } from 'lodash';
 // base
 import Image from 'next/image';
 import Link from 'next/link';
+// lodash
+import { map } from 'lodash';
 // swiper
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+// react-loading-skeleton
 interface CategoriesProps {
 	data: any;
 	isLoading: any;
@@ -30,8 +32,12 @@ export default function Categories({ data, isLoading, error }: CategoriesProps) 
 								key={index}
 								className="category-item-skeleton"
 							>
-								<div className="skeleton-image"></div>
-								<div className="skeleton-name">Loading...</div>
+								<div className="card is-loading">
+									<div className="image"></div>
+									<div className="content">
+										<h2></h2>
+									</div>
+								</div>
 							</div>
 						))}
 					</div>

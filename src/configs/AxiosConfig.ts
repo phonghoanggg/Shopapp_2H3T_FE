@@ -1,5 +1,7 @@
 // axios
+import { getAccessToken } from '@/utils/cookies/cookieStorage';
 import axios, { AxiosInstance } from 'axios';
+import { isEmpty } from 'lodash';
 
 const publicRequest: AxiosInstance = axios.create({
 	baseURL: 'http://localhost:5000/api',
@@ -9,6 +11,22 @@ const publicRequest: AxiosInstance = axios.create({
 		'Content-Type': 'application/json',
 	},
 });
+
+// Change request data/error here
+publicRequest.interceptors.request.use(
+	(config) => {
+		if (typeof window === undefined) {
+			return config;
+		}
+		const token = getAccessToken();
+		console.log(token);
+		config.headers.Authorization = !isEmpty(token) ? `Bearer ${token}` : '';
+		return config;
+	},
+	(error) => {
+		return Promise.reject(error);
+	},
+);
 
 publicRequest.interceptors.response.use(
 	(response) => response?.data || response?.data?.data || response,

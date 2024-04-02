@@ -38,7 +38,6 @@ export const DATA_PRODUCTS = [
 		id: 2,
 		name: 'Product 1',
 		images: 'https://lsco.scene7.com/is/image/lsco/A19590012-front-pdp?fmt=avif&qlt=40&resMode=bisharp&fit=crop,0&op_usm=0.6,0.6,8&wid=880&hei=968',
-
 		price: 74.09,
 		old_price: 90.8,
 		brand: "son's® Premium",

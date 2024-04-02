@@ -5,7 +5,7 @@ import _, { map } from 'lodash';
 import { useEffect, useRef } from 'react';
 import { GrFormClose, VscBell } from '../../compound/icons/index';
 import { PRODUCT_LIST } from '../../containers/home/constants';
-import ProductSale from './ProductSale';    
+import ProductSale from './ProductSale';
 
 const Sale = () => {
 	// slice 8 products
@@ -13,7 +13,6 @@ const Sale = () => {
 	// redux
 	const dispatch = useAppDispatch();
 	const IsToggleModalSale = useAppSelector(selectIsToggleModalSale);
-	console.log(IsToggleModalSale);
 	// ref saleInner
 	const saleInnerRef = useRef<HTMLDivElement | null>(null);
 	const closeModalIfOutsideClick = (event: MouseEvent) => {

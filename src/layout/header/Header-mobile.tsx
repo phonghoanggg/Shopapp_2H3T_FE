@@ -7,14 +7,15 @@ import Logo from '@/compound/logo/Logo';
 import { CgSearch, GrFormClose, HiOutlineMenuAlt4, HiOutlineShoppingBag, VscBell } from '../../compound/icons/index';
 // base
 import { useEffect, useRef, useState } from 'react';
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-// import required modules
+// Import Swiper
 import { Autoplay, Navigation } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 // lodash
 import { map } from 'lodash';
 // redux
-import { useAppDispatch } from '@/redux/hook';
+import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
+import { logoutGoogle } from '@/redux/auth/slice';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { openModalLogin, openModalRegister, openModalSale } from '@/redux/modal/slice';
 // contains
 import { ROUTER } from '@/utils/routes/routes';
@@ -60,6 +61,8 @@ const HeaderMobile = () => {
 	// handle hidden scroll body
 
 	useNoScrollBody(openNav);
+	const inforUser = useAppSelector(selectInformationUserLoginEmail);
+	const handleLogOutGoogle = () => dispatch(logoutGoogle());
 
 	return (
 		<header className={`site-header-mobile `}>
@@ -136,8 +139,37 @@ const HeaderMobile = () => {
 					<div className="action_wrapper _text-capitalize _border-top">
 						<div className="action_list">
 							<Link href={ROUTER.FAVORITE}>Favorite</Link>
-							<div onClick={() => dispatch(openModalLogin())}>Login</div>
-							<div onClick={() => dispatch(openModalRegister())}>Sign Up</div>
+							{inforUser ? (
+								// If user is logged in
+								<>
+									<span className="action">Hello, {inforUser.displayName}</span>
+									<button
+										type="button"
+										className="action"
+										onClick={handleLogOutGoogle}
+									>
+										Logout
+									</button>
+								</>
+							) : (
+								// If user is not logged in
+								<>
+									<button
+										type="button"
+										className="action"
+										onClick={() => dispatch(openModalLogin())}
+									>
+										Login
+									</button>
+									<button
+										type="button"
+										className="action"
+										onClick={() => dispatch(openModalRegister())}
+									>
+										SignUp
+									</button>
+								</>
+							)}
 						</div>
 					</div>
 				</div>

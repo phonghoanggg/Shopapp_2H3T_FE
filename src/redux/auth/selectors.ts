@@ -1,8 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { get } from 'lodash';
 import { AppState } from '..';
-import modalSlice from '../modal/slice';
+import authSlice from '../auth/slice';
 
-const AuthenStore = (state: AppState) => get(state, modalSlice.name, modalSlice.getInitialState());
+const AuthenticationStore = (state: AppState) => get(state, authSlice.name, authSlice.getInitialState());
 
-export const selectInformationUserLoginEmail = createSelector([AuthenStore], (state) => get(state, 'user', null));
+export const selectInformationUserLoginEmail = createSelector([AuthenticationStore], (state) =>
+	get(state, 'user', null),
+);

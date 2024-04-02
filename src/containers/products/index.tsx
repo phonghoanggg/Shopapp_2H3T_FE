@@ -15,8 +15,6 @@ import { PRODUCT_LIST_SAME } from '../home/constants';
 const PageProducts = () => {
 	const { data, isLoading, error } = useCategoriesQuery();
 
-	console.log(data);
-
 	return (
 		<Fragment>
 			<main className="site-products-page container">

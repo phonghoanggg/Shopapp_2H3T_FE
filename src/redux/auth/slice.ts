@@ -1,19 +1,30 @@
 // authSlice.ts
-import { auth } from '@/configs/FireBase';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '..';
-
+import { closeModalLogin } from '../modal/slice';
+// utils cookies
+import { clearToken, setAccessToken } from '@/utils/cookies/cookieStorage';
 // firebase
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '@/configs/FireBase';
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 
 interface AuthState {
 	user: any | null;
 	loading: boolean;
 	error: string | null;
 }
+// Function to load user from local storage
+const loadUserFromLocalStorage = (): any | null => {
+	if (typeof window === 'undefined') {
+		return null;
+	}
+
+	const storedUser = localStorage.getItem('user');
+	return storedUser ? JSON.parse(storedUser) : null;
+};
 
 const initialState: AuthState = {
-	user: null,
+	user: loadUserFromLocalStorage(),
 	loading: false,
 	error: null,
 };
@@ -30,13 +41,21 @@ const authSlice = createSlice({
 		loginEmailSuccess: (state, action: PayloadAction<any>) => {
 			state.loading = false;
 			state.user = action.payload;
+			localStorage.setItem('user', JSON.stringify(action.payload));
+			const accessToken = action.payload.stsTokenManager.accessToken;
+			console.log(accessToken);
+
+			setAccessToken(accessToken);
 		},
 		loginEmailFailure: (state, action: PayloadAction<any>) => {
 			state.loading = false;
 			state.error = action.payload;
 		},
-		logOut: (state, action: PayloadAction<string>) => {
+		logoutSuccess: (state) => {
+			state.loading = false;
 			state.user = null;
+			localStorage.removeItem('user');
+			clearToken();
 		},
 	},
 });
@@ -48,12 +67,22 @@ export const loginWithGoogle = (): AppThunk => async (dispatch) => {
 		dispatch(loginEmailStart());
 		const provider = new GoogleAuthProvider();
 		const userCredential = await signInWithPopup(auth, provider);
-		dispatch(loginEmailSuccess(userCredential.user));
+		await dispatch(loginEmailSuccess(userCredential.user));
+		dispatch(closeModalLogin());
 	} catch (error) {
 		dispatch(loginEmailFailure(error));
 	}
 };
 
-export const { loginEmailStart, loginEmailSuccess, loginEmailFailure, logOut } = authSlice.actions;
+export const logoutGoogle = (): AppThunk => async (dispatch) => {
+	try {
+		await signOut(auth);
+		dispatch(logoutSuccess());
+	} catch (error) {
+		console.log('error', error);
+	}
+};
+
+export const { loginEmailStart, loginEmailSuccess, loginEmailFailure, logoutSuccess } = authSlice.actions;
 
 export default authSlice;

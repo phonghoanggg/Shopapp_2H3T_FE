@@ -14,8 +14,10 @@ import HeaderMobile from './Header-mobile';
 //  icons
 import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } from '../../compound/icons/index';
 // redux
+import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
+import { logoutGoogle } from '@/redux/auth/slice';
 import { openCart } from '@/redux/cart/slice';
-import { useAppDispatch } from '@/redux/hook';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { openModalLogin, openModalRegister, openModalSale } from '@/redux/modal/slice';
 // react-query
 // modal
@@ -33,6 +35,9 @@ interface IPropsSaler {
 
 export const Header = () => {
 	const dispatch = useAppDispatch();
+	const inforUser = useAppSelector(selectInformationUserLoginEmail);
+
+	const handleLogOutGoogle = () => dispatch(logoutGoogle());
 
 	return (
 		<Fragment>
@@ -40,7 +45,7 @@ export const Header = () => {
 				<div className="top-menu-wrapper">
 					<div className="top-menu container">
 						<div />
-						{/* slide sake */}
+						{/* slide sale */}
 						<div className="slides">
 							<Swiper
 								navigation={true}
@@ -61,20 +66,37 @@ export const Header = () => {
 							</Swiper>
 						</div>
 						<div className="actions">
-							<button
-								type="button"
-								className="action"
-								onClick={() => dispatch(openModalLogin())}
-							>
-								Login
-							</button>
-							<button
-								type="button"
-								className="action"
-								onClick={() => dispatch(openModalRegister())}
-							>
-								SignUp
-							</button>
+							{inforUser ? (
+								// If user is logged in
+								<>
+									<span className="action">Hello, {inforUser.displayName}</span>
+									<button
+										type="button"
+										className="action"
+										onClick={handleLogOutGoogle}
+									>
+										Logout
+									</button>
+								</>
+							) : (
+								// If user is not logged in
+								<>
+									<button
+										type="button"
+										className="action"
+										onClick={() => dispatch(openModalLogin())}
+									>
+										Login
+									</button>
+									<button
+										type="button"
+										className="action"
+										onClick={() => dispatch(openModalRegister())}
+									>
+										SignUp
+									</button>
+								</>
+							)}
 							<div className="action -location">
 								<IoLocationSharp />
 								VietNam
