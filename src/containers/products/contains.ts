@@ -157,3 +157,15 @@ export const DATA_PRODUCTS = [
 		brand: "son's® Premium",
 	},
 ];
+
+export const slidesPerView = {
+	base: 2.2,
+	tablet: 3.2,
+	desktop: 4.2,
+};
+
+export const spaceBetween = {
+	base: 12,
+	tablet: 16,
+	desktop: 32,
+};

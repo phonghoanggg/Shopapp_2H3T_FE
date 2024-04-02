@@ -39,8 +39,8 @@ const PageProducts = () => {
 									className="filter-select-products"
 								>
 									<option value="recommended">Recommended</option>
-									<option value="recommended">Price Low-Hight</option>
-									<option value="recommended">Price Hight-Low</option>
+									<option value="Price-Low-Hight">Price Low-Hight</option>
+									<option value="Price-Hight-Low">Price Hight-Low</option>
 								</select>
 							</div>
 						</div>

@@ -1,0 +1,9 @@
+.error-message {
+	text-align: center;
+	@include flex-center;
+	& > p {
+		font-size: $fz-lg;
+		font-weight: $fw-bold;
+		color: $primary-color;
+	}
+}
