@@ -3,5 +3,6 @@ export const API_ENDPOINT = {
 	LOGIN: '/auth/LOGIN',
 	ORDER: '/orders',
 	CART: '/carts',
-	CATEGORIES: '/categories',
+	PRODUCTS: '/product',
+	CATEGORIES: '/category',
 } as const;

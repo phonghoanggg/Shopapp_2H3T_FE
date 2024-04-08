@@ -1,4 +1,5 @@
-export interface ICategoriesProps {
-	id?: number;
-	title?: string;
+export interface Category {
+	_id: string;
+	image: string;
+	name: string;
 }

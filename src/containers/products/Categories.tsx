@@ -8,25 +8,19 @@ import { map } from 'lodash';
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // components
-import { LoadingSkeletonCategory } from './loading';
 // contains
 import { slidesPerView, spaceBetween } from './contains';
+import { LoadingSkeletonCategory } from './loading';
+// interface
+import { Category } from '@/utils/interface';
 
-interface Category {
-	id: string;
-	images: string;
-	name: string;
-}
-
-interface CategoriesProps {
-	data: {
-		data: Category[];
-	};
+interface ICategoryProps {
+	data: Category[];
 	isLoading: boolean;
 	error: any;
 }
 
-export default function Categories({ data, isLoading, error }: CategoriesProps) {
+export default function Categories({ data, isLoading, error }: ICategoryProps) {
 	return (
 		<section className="site-categories">
 			{error && (
@@ -43,7 +37,7 @@ export default function Categories({ data, isLoading, error }: CategoriesProps) 
 					</h4>
 					<p className="title _text-center">WOMEN&#39;S CLOTHES</p>
 					<div className="categories-list">
-						{isLoading ? (
+						{isLoading || !data ? (
 							<LoadingSkeletonCategory />
 						) : (
 							<Swiper
@@ -63,8 +57,8 @@ export default function Categories({ data, isLoading, error }: CategoriesProps) 
 								modules={[Scrollbar]}
 								className="swiper-categories"
 							>
-								{map(data?.data, (item) => (
-									<SwiperSlide key={item.id}>
+								{map(data, (item) => (
+									<SwiperSlide key={item._id}>
 										<div className="category-item">
 											<Link
 												href="/"
@@ -75,7 +69,7 @@ export default function Categories({ data, isLoading, error }: CategoriesProps) 
 													width={500}
 													height={500}
 													loading="lazy"
-													src={item.images}
+													src={item.image}
 												/>
 											</Link>
 											<Link

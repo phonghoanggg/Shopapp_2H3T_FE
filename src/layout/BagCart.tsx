@@ -16,7 +16,7 @@ import { ROUTER } from '@/utils/routes/routes';
 const BagCart = () => {
 	const dispatch = useAppDispatch();
 	const isOpen = useAppSelector(selectIsOpenCartDrawer);
-
+	// handle no scroll body when open bag cart
 	useEffect(() => {
 		if (isOpen) {
 			document.body.style.overflow = 'hidden';

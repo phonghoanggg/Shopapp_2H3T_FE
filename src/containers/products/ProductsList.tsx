@@ -21,7 +21,7 @@ export default function ProductsList() {
 						name={name}
 						image={image}
 						price={price}
-						oldPrice={oldPrice}
+						discount={oldPrice}
 						brand={brand}
 						sale="30% off $125+ Applied at Checkout"
 						button="Quick Add"

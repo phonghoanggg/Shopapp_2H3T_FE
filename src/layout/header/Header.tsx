@@ -59,7 +59,7 @@ export const Header = () => {
 								{map(SALE, (item: IPropsSaler) => (
 									<SwiperSlide key={item.id}>
 										<h6 className="top-menu-slide">
-											{item.label} <span>details</span>
+											{item.label} <p>details</p>
 										</h6>
 									</SwiperSlide>
 								))}

@@ -25,6 +25,7 @@ export default function PageOrder() {
 							<span>Total</span>
 							<span>$123</span>
 						</div>
+						{/* item cart order */}
 						<div className="order-list-cart-wrapper">
 							<h6 className="title">Shopping Bag</h6>
 

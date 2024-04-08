@@ -8,6 +8,5 @@ interface IPropsQuery {
 
 export function ReactQueryProvider({ children }: IPropsQuery) {
 	const queryClient = new QueryClient();
-
 	return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }

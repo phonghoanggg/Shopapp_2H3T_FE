@@ -7,13 +7,13 @@ interface IProductProps {
 	image: string;
 	name: string;
 	price: number;
-	oldPrice?: number;
+	discount?: number;
 	sale?: string;
 	brand?: string;
 	button?: string;
 }
 
-const Product = ({ id, image, name, price, oldPrice, sale, button, brand }: IProductProps) => {
+const Product = ({ id, image, name, price, discount, sale, button, brand }: IProductProps) => {
 	return (
 		<div
 			className="product"
@@ -45,7 +45,7 @@ const Product = ({ id, image, name, price, oldPrice, sale, button, brand }: IPro
 				<span className="brand _text-capitalize">{brand}</span>
 				<h6 className="name _text-capitalize">{name}</h6>
 				<p className="new-price">
-					${price} <del className="old-price">${oldPrice}</del>
+					${price} <del className="old-price">${discount}</del>
 				</p>
 				<span className="sale">{sale}</span>
 			</Link>

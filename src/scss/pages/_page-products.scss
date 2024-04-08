@@ -53,6 +53,9 @@
 	}
 	> .image {
 		height: 330px;
+		@include breakpoint-down(smalldesktop) {
+			height: 200px;
+		}
 	}
 	> .category-link {
 		-top: 20px;
@@ -162,8 +165,9 @@
 	padding-block: 30px;
 	border-top: 2px solid $brown-light-color;
 	> .pagination-list {
-		@include flex-center-ver;
+		@include flex-center;
 		gap: 12px;
+		flex-wrap: wrap;
 		> .item {
 			@include flex-center;
 			color: $black;
