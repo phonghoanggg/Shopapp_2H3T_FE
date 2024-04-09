@@ -1,5 +1,6 @@
 // components
 import Product from '@/components/Product';
+import { LoadingSkeletonProduct } from './loading';
 // lodash
 import { map } from 'lodash';
 // base
@@ -8,21 +9,38 @@ import Link from 'next/link';
 import { GrFormNext, GrFormPrevious } from '../../compound/icons/index';
 // contains
 import { ROUTER } from '@/utils/routes/routes';
-import { PRODUCT_LIST } from '../home/constants';
 import { NUMBER_PAGE } from './contains';
+// use query
+import { useProductQuery } from '@/query/products/getDataProducts';
 
 export default function ProductsList() {
+	const { data: DATA_PRODUCT, isLoading, error } = useProductQuery();
+
+	// handle loading
+	if (isLoading || !DATA_PRODUCT.products) {
+		return <LoadingSkeletonProduct />;
+	}
+	// handle error
+
+	if (error) {
+		return (
+			<div className="error-message">
+				<p>Something went wrong. Please try again later.</p>
+			</div>
+		);
+	}
+
 	return (
 		<section className="wrapper-product-list">
 			<div className="main-products-list">
-				{map(PRODUCT_LIST, ({ id, name, image, price, oldPrice, brand }) => (
+				{map(DATA_PRODUCT.products, (product) => (
 					<Product
-						key={id}
-						name={name}
-						image={image}
-						price={price}
-						discount={oldPrice}
-						brand={brand}
+						brand="Son's Premium"
+						key={product._id}
+						name={product.name}
+						images={product.images}
+						price={product.price}
+						discount={product.discount}
 						sale="30% off $125+ Applied at Checkout"
 						button="Quick Add"
 					/>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 interface IProductProps {
 	id?: number;
-	image: string;
+	images: string;
 	name: string;
 	price: number;
 	discount?: number;
@@ -13,7 +13,12 @@ interface IProductProps {
 	button?: string;
 }
 
-const Product = ({ id, image, name, price, discount, sale, button, brand }: IProductProps) => {
+const Product = ({ id, images, name, price, discount, sale, button, brand }: IProductProps) => {
+	// When the figure has a quantity greater than 2, take the first element
+	const imageUrl = images && images.length > 0 ? images[0] : '';
+	// Calculate discounted price
+	const discountedPrice = discount ? (price - (price * discount) / 100).toFixed(2) : price.toFixed(2);
+
 	return (
 		<div
 			className="product"
@@ -27,7 +32,7 @@ const Product = ({ id, image, name, price, discount, sale, button, brand }: IPro
 					className="image-item"
 					width={500}
 					height={500}
-					src={image}
+					src={imageUrl}
 					alt="image-item"
 					loading="lazy"
 				/>
@@ -43,9 +48,9 @@ const Product = ({ id, image, name, price, discount, sale, button, brand }: IPro
 				className="desc"
 			>
 				<span className="brand _text-capitalize">{brand}</span>
-				<h6 className="name _text-capitalize">{name}</h6>
+				<h6 className="name">{name}</h6>
 				<p className="new-price">
-					${price} <del className="old-price">${discount}</del>
+					${discountedPrice} <del className="old-price">${price}</del>
 				</p>
 				<span className="sale">{sale}</span>
 			</Link>

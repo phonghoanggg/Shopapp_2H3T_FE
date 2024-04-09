@@ -132,7 +132,7 @@
 		> .image {
 			position: relative;
 			@include flex-center;
-			margin-bottom: 12px;
+			margin-bottom: 8px;
 
 			> .btn {
 				@include flex-center;
@@ -155,6 +155,14 @@
 		}
 		&:hover > .image > .btn {
 			@include visible;
+		}
+		> .desc {
+			> .name {
+				text-transform: capitalize !important;
+			}
+			> .brand {
+				text-transform: capitalize !important;
+			}
 		}
 	}
 }

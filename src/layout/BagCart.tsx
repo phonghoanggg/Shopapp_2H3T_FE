@@ -52,12 +52,7 @@ const BagCart = () => {
 					<div className="sub-title ">
 						<GiFireworkRocket />
 						20% off new Son&#39;s® subscribers.
-						<Link
-							className="link "
-							href={ROUTER.PRODUCT_DETAIL}
-						>
-							Sign Up
-						</Link>
+						<div className="link">Sign Up</div>
 					</div>
 				</div>
 				<div className="cart-inner ">

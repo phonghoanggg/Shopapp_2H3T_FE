@@ -21,6 +21,7 @@
 		> .item > .desc {
 			color: $dark;
 			> .name {
+				text-transform: capitalize;
 				font-size: $fz-base;
 				line-height: $leading-sm;
 				margin-bottom: 12px;
@@ -46,7 +47,8 @@
 		@include flex-column;
 
 		> .name {
-			font-size: $fz-base;
+			text-transform: capitalize;
+			font-size: $fz-sm;
 			line-height: $leading-sm;
 			margin-bottom: 3px;
 			@include breakpoint-down(phone) {

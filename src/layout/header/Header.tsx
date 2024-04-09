@@ -28,7 +28,7 @@ import Sale from '@/modals/sale/Sale';
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
 
-interface IPropsSaler {
+interface IPropsSale {
 	id: number;
 	label: string;
 }
@@ -56,11 +56,11 @@ export const Header = () => {
 								}}
 								modules={[Navigation, Autoplay]}
 							>
-								{map(SALE, (item: IPropsSaler) => (
+								{map(SALE, (item: IPropsSale) => (
 									<SwiperSlide key={item.id}>
-										<h6 className="top-menu-slide">
+										<div className="top-menu-slide">
 											{item.label} <p>details</p>
-										</h6>
+										</div>
 									</SwiperSlide>
 								))}
 							</Swiper>
