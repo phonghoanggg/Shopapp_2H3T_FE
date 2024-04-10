@@ -34,11 +34,11 @@ export const useRegisterMutation = () => {
 
 	return useMutation(
 		API_ENDPOINT.REGISTER,
-		async (data): Promise<any> => {
+		async (fromData): Promise<any> => {
 			return await publicRequest.request({
 				method: 'POST',
 				url: API_ENDPOINT.REGISTER,
-				data: data,
+				data: fromData,
 			});
 		},
 		{

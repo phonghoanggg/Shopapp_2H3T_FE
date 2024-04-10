@@ -79,10 +79,10 @@ const Register = () => {
 	};
 
 	const { mutate: MUTATION_REGISTER, isLoading: LOADING_REGISTER } = useRegisterMutation();
-	const onSubmit = async (data: any) => {
+	const onSubmit = async (fromData: any) => {
 		try {
-			await MUTATION_REGISTER(data);
-			console.error('data:', data);
+			await MUTATION_REGISTER(fromData);
+			console.error('data:', fromData);
 		} catch (error) {
 			console.error('Register error:', error);
 		}
