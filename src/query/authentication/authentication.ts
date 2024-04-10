@@ -24,6 +24,7 @@ export const useLoginMutation = () => {
 		},
 	);
 };
+
 export const useRegisterMutation = () => {
 	const dispatch = useAppDispatch();
 

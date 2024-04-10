@@ -141,7 +141,7 @@ const Register = () => {
 						type="password"
 						errors={errors}
 					/>
-					<div className=" alert">
+					<div className="alert">
 						Passwords must be at least 8 characters and cant be easy to guess - commonly used or risky
 						passwords are not permitted.
 					</div>
@@ -154,7 +154,7 @@ const Register = () => {
 						type="submit"
 						className="btn-submit"
 					>
-						Join
+						{LOADING_REGISTER ? 'Loading...' : 'Join'}
 					</Button>
 					<button
 						className="btn-open-modal"
