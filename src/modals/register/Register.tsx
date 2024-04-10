@@ -15,6 +15,7 @@ import { closeModalRegister, openModalLogin } from '@/redux/modal/slice';
 // custom-hook
 import useNoScrollBody from '@/custom-hook/useNoScrollBody';
 // yup
+import { useRegisterMutation } from '@/query/authentication/authentication';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 const schema = yup.object().shape({
@@ -77,9 +78,14 @@ const Register = () => {
 		dispatch(closeModalRegister());
 	};
 
-	const onSubmit = (data: IRegisterProps) => {
-		// Handle form submission here
-		console.log(data);
+	const { mutate: MUTATION_REGISTER, isLoading: LOADING_REGISTER } = useRegisterMutation();
+	const onSubmit = async (data: any) => {
+		try {
+			await MUTATION_REGISTER(data);
+			console.error('data:', data);
+		} catch (error) {
+			console.error('Register error:', error);
+		}
 	};
 	return (
 		<section className={`register-wrapper _overlay ${isOpenToggleModalOpen ? '-show' : ''}`}>

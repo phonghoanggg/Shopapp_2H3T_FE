@@ -17,6 +17,8 @@ import useNoScrollBody from '@/custom-hook/useNoScrollBody';
 
 // react-hook-form
 import { useForm } from 'react-hook-form';
+// react-query
+import { useLoginMutation } from '@/query/authentication/authentication';
 // Yup
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -76,8 +78,13 @@ const Login = () => {
 		dispatch(openModalRegister());
 	};
 	// Handle form submission here
-	const onLoginSubmit = (data: ILoginProps) => {
-		console.log(data);
+	const { mutate: MUTATION_LOGIN, isLoading: LOADING_LOGIN, isError, error } = useLoginMutation();
+	const onLoginSubmit = async (data: any) => {
+		try {
+			await MUTATION_LOGIN(data);
+		} catch (error) {
+			console.error('Login error:', error);
+		}
 	};
 
 	return (

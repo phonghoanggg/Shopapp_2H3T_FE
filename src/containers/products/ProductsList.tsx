@@ -11,18 +11,22 @@ import { GrFormNext, GrFormPrevious } from '../../compound/icons/index';
 import { ROUTER } from '@/utils/routes/routes';
 import { NUMBER_PAGE } from './contains';
 // use query
-import { useProductQuery } from '@/query/products/getDataProducts';
 
-export default function ProductsList() {
-	const { data: DATA_PRODUCT, isLoading, error } = useProductQuery();
+interface IProductProps {
+	DATA_PRODUCTS: any;
+	LOADING_PRODUCT: any;
+	ERROR_PRODUCT: any;
+}
 
+export default function ProductsList({ DATA_PRODUCTS, LOADING_PRODUCT, ERROR_PRODUCT }: IProductProps) {
 	// handle loading
-	if (isLoading || !DATA_PRODUCT.products) {
+
+	if (LOADING_PRODUCT || !DATA_PRODUCTS.products) {
 		return <LoadingSkeletonProduct />;
 	}
 	// handle error
 
-	if (error) {
+	if (ERROR_PRODUCT) {
 		return (
 			<div className="error-message">
 				<p>Something went wrong. Please try again later.</p>
@@ -33,7 +37,7 @@ export default function ProductsList() {
 	return (
 		<section className="wrapper-product-list">
 			<div className="main-products-list">
-				{map(DATA_PRODUCT.products, (product) => (
+				{map(DATA_PRODUCTS.products, (product) => (
 					<Product
 						brand="Son's Premium"
 						key={product._id}

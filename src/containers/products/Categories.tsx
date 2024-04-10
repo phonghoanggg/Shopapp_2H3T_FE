@@ -15,20 +15,20 @@ import { LoadingSkeletonCategory } from './loading';
 import { Category } from '@/utils/interface';
 
 interface ICategoryProps {
-	data: Category[];
-	isLoading: boolean;
-	error: any;
+	DATA_CATEGORIES: Category[];
+	LOADING_CATEGORIES?: boolean;
+	ERROR_CATEGORIES: any;
 }
 
-export default function Categories({ data, isLoading, error }: ICategoryProps) {
+export default function Categories({ DATA_CATEGORIES, LOADING_CATEGORIES, ERROR_CATEGORIES }: ICategoryProps) {
 	return (
 		<section className="site-categories">
-			{error && (
+			{ERROR_CATEGORIES && (
 				<div className="error-message">
 					<p>Something went wrong. Please try again later.</p>
 				</div>
 			)}
-			{!error && (
+			{!ERROR_CATEGORIES && (
 				<>
 					<h4 className="content _text-center">
 						<p className="content-title">Clothing </p>
@@ -37,7 +37,7 @@ export default function Categories({ data, isLoading, error }: ICategoryProps) {
 					</h4>
 					<p className="title _text-center">WOMEN&#39;S CLOTHES</p>
 					<div className="categories-list">
-						{isLoading || !data ? (
+						{LOADING_CATEGORIES || !DATA_CATEGORIES ? (
 							<LoadingSkeletonCategory />
 						) : (
 							<Swiper
@@ -57,7 +57,7 @@ export default function Categories({ data, isLoading, error }: ICategoryProps) {
 								modules={[Scrollbar]}
 								className="swiper-categories"
 							>
-								{map(data, (item) => (
+								{map(DATA_CATEGORIES, (item) => (
 									<SwiperSlide key={item._id}>
 										<div className="category-item">
 											<Link

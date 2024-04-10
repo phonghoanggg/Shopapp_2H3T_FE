@@ -10,18 +10,23 @@ import { useCategoriesQuery } from '@/query/categories/getCategories';
 // icons
 import { BsFilterLeft } from '../../compound/icons/index';
 // constants
+import { useProductQuery } from '@/query/products/getDataProducts';
 import { PRODUCT_LIST_SAME } from '../home/constants';
 
 const PageProducts = () => {
-	const { data, isLoading, error } = useCategoriesQuery();
+	// handle get data api use react-query
+	const { data: DATA_CATEGORIES, isLoading: LOADING_CATEGORIES, error: ERROR_CATEGORIES } = useCategoriesQuery();
+	const { data: DATA_PRODUCTS, isLoading: LOADING_PRODUCT, error: ERROR_PRODUCT } = useProductQuery();
+
+	let totalProducts = DATA_PRODUCTS ? DATA_PRODUCTS.totalProducts : '?';
 
 	return (
 		<Fragment>
 			<main className="site-products-page container">
 				<Categories
-					data={data}
-					isLoading={isLoading}
-					error={error}
+					DATA_CATEGORIES={DATA_CATEGORIES}
+					LOADING_CATEGORIES={LOADING_CATEGORIES}
+					ERROR_CATEGORIES={ERROR_CATEGORIES}
 				/>
 				<section className="main-section-products">
 					{/*  sub categories */}
@@ -44,13 +49,17 @@ const PageProducts = () => {
 								</select>
 							</div>
 						</div>
-						<span className="total-products">56 items</span>
+						<span className="total-products">{totalProducts} items</span>
 					</div>
 					<div className="products-wrapper">
 						{/* sidebar filter product */}
 						<Sidebar />
 						{/* products */}
-						<ProductsList />
+						<ProductsList
+							DATA_PRODUCTS={DATA_PRODUCTS}
+							LOADING_PRODUCT={LOADING_PRODUCT}
+							ERROR_PRODUCT={ERROR_PRODUCT}
+						/>
 					</div>
 				</section>
 			</main>
