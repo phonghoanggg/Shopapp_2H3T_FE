@@ -1,6 +1,6 @@
 import { publicRequest } from '@/configs/AxiosConfig';
 import { useAppDispatch } from '@/redux/hook';
-import { openModalLogin } from '@/redux/modal/slice';
+import { closeModalRegister, openModalLogin } from '@/redux/modal/slice';
 import { API_ENDPOINT } from '@/utils/endpoint/api_endpoint';
 import { useMutation } from 'react-query';
 
@@ -16,7 +16,7 @@ export const useLoginMutation = () => {
 		},
 		{
 			onSuccess: (data) => {
-				console.log('Login successful!', data);
+				console.log('Login successful!', data.data.accessToken);
 			},
 			onError: (error: Error) => {
 				console.error('Login error:', error);
@@ -28,7 +28,8 @@ export const useLoginMutation = () => {
 export const useRegisterMutation = () => {
 	const dispatch = useAppDispatch();
 
-	const handleSuccessOpenModalLogin = () => {
+	const handleSuccessOpenModalLogin = async () => {
+		await dispatch(closeModalRegister());
 		dispatch(openModalLogin());
 	};
 

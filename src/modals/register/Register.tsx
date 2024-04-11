@@ -77,7 +77,7 @@ const Register = () => {
 	const closeModal = () => {
 		dispatch(closeModalRegister());
 	};
-
+	// handle register
 	const { mutate: MUTATION_REGISTER, isLoading: LOADING_REGISTER } = useRegisterMutation();
 	const onSubmit = async (fromData: any) => {
 		try {

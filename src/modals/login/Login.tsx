@@ -20,6 +20,7 @@ import { useForm } from 'react-hook-form';
 // react-query
 import { useLoginMutation } from '@/query/authentication/authentication';
 // Yup
+import { setAccessToken } from '@/utils/cookies/cookieStorage';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 const schema = yup.object().shape({
@@ -78,10 +79,11 @@ const Login = () => {
 		dispatch(openModalRegister());
 	};
 	// Handle form submission here
-	const { mutate: MUTATION_LOGIN, isLoading: LOADING_LOGIN, isError, error } = useLoginMutation();
+	const { mutate: MUTATION_LOGIN, isLoading: LOADING_LOGIN } = useLoginMutation();
 	const onLoginSubmit = async (data: any) => {
 		try {
 			await MUTATION_LOGIN(data);
+			setAccessToken(data.data.accessToken);
 		} catch (error) {
 			console.error('Login error:', error);
 		}
@@ -129,7 +131,7 @@ const Login = () => {
 						type="submit"
 						className="btn-submit"
 					>
-						Log In
+						{LOADING_LOGIN ? 'Loading...' : 'Log in'}
 					</Button>
 					<button
 						className="btn-open-modal"

@@ -21,7 +21,7 @@ export const LoadingSkeletonCategory = () => {
 export const LoadingSkeletonProduct = () => {
 	return (
 		<div className="loading-skeleton-product">
-			{Array.from({ length: 18 }).map((_, index) => (
+			{Array.from({ length: 9 }).map((_, index) => (
 				<div
 					key={index}
 					className="category-item-skeleton"
@@ -30,7 +30,7 @@ export const LoadingSkeletonProduct = () => {
 						<div className="image"></div>
 						<div className="content">
 							<h2></h2>
-							<p></p>
+							<h2></h2>
 						</div>
 					</div>
 				</div>

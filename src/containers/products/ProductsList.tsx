@@ -21,7 +21,7 @@ interface IProductProps {
 export default function ProductsList({ DATA_PRODUCTS, LOADING_PRODUCT, ERROR_PRODUCT }: IProductProps) {
 	// handle loading
 
-	if (LOADING_PRODUCT || !DATA_PRODUCTS.products) {
+	if (LOADING_PRODUCT || !DATA_PRODUCTS?.products) {
 		return <LoadingSkeletonProduct />;
 	}
 	// handle error
