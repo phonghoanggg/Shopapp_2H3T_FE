@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 interface IProductProps {
 	id?: number;
-	images: string;
+	images: string | string[];
 	name: string;
 	price: number;
 	discount?: number;
@@ -14,8 +14,15 @@ interface IProductProps {
 }
 
 const Product = ({ id, images, name, price, discount, sale, button, brand }: IProductProps) => {
+	// Convert images to an array if it's a string
+	const imageArray = typeof images === 'string' ? [images] : images;
+
 	// When the figure has a quantity greater than 2, take the first element
-	const imageUrl = images && images.length > 0 ? images[0] : '';
+	const imageUrl =
+		imageArray && imageArray.length > 0
+			? imageArray[0]
+			: 'https://img2.thuthuatphanmem.vn/uploads/2018/11/30/hinh-nen-trang-ban-do-the-gioi_104325245.jpg';
+
 	// Calculate discounted price
 	const discountedPrice = discount ? (price - (price * discount) / 100).toFixed(2) : price.toFixed(2);
 

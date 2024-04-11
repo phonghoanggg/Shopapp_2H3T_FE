@@ -55,7 +55,7 @@ const SectionProducts: React.FC<ProductListProps> = ({ title, productList }) => 
 						<Product
 							name={name}
 							price={price}
-							image={image}
+							images={image}
 							discount={oldPrice}
 						/>
 					</SwiperSlide>
