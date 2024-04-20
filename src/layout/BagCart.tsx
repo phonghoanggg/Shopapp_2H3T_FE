@@ -20,7 +20,6 @@ const BagCart = () => {
 	const isOpen = useAppSelector(selectIsOpenCartDrawer);
 	const itemBagCart = useAppSelector(selectCartItems);
 
-	console.log(itemBagCart);
 	// handle no scroll body when open bag cart
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
@@ -103,7 +102,7 @@ const BagCart = () => {
 									</Link>
 									<p className="sub-name">Wild Bunch - Medium Wash</p>
 									<p className="price">
-										{item.discountPrice.toFixed(2)}
+										{item.discountPrice?.toFixed(2) ?? 'N/A'}
 										<del className="old-price">${item.price?.toFixed(2)}</del>
 									</p>
 
@@ -113,7 +112,11 @@ const BagCart = () => {
 									</div>
 									<div className="sub-title">
 										Subtotal:
-										<span>${(item.discountPrice * item.quantity).toFixed(2)}</span>
+										<span>
+											{item.discountPrice && item.quantity
+												? `$${(item.discountPrice * item.quantity).toFixed(2)}`
+												: 'N/A'}
+										</span>
 									</div>
 								</div>
 							</div>
