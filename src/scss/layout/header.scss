@@ -116,3 +116,20 @@
 		}
 	}
 }
+
+.inner-cart-number {
+	position: relative;
+	& > p {
+		@include flex-center;
+		position: absolute;
+		right: -6px;
+		top: -6px;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: $error-color;
+		color: #fff;
+		font-size: 10px;
+		font-family: $heading-font;
+	}
+}

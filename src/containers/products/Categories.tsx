@@ -9,13 +9,13 @@ import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // components
 // contains
+import { Category } from '@/utils/type';
 import { slidesPerView, spaceBetween } from './contains';
 import { LoadingSkeletonCategory } from './loading';
 // interface
-import { Category } from '@/utils/interface';
 
 interface ICategoryProps {
-	DATA_CATEGORIES: Category[];
+	DATA_CATEGORIES?: Category[];
 	LOADING_CATEGORIES?: boolean;
 	ERROR_CATEGORIES: any;
 }
@@ -24,7 +24,7 @@ export default function Categories({ DATA_CATEGORIES, LOADING_CATEGORIES, ERROR_
 	return (
 		<section className="site-categories">
 			{ERROR_CATEGORIES && (
-				<div className="error-message">
+				<div className="error-message-sever">
 					<p>Something went wrong. Please try again later.</p>
 				</div>
 			)}

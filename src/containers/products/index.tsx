@@ -7,17 +7,16 @@ import ProductsList from './ProductsList';
 import Sidebar from './Sidebar';
 // react-query
 import { useCategoriesQuery } from '@/query/categories/getCategories';
+import { useProductsQuery } from '@/query/products/getDataProducts';
 // icons
 import { BsFilterLeft } from '../../compound/icons/index';
 // constants
-import { useProductQuery } from '@/query/products/getDataProducts';
 import { PRODUCT_LIST_SAME } from '../home/constants';
 
 const PageProducts = () => {
 	// handle get data api use react-query
 	const { data: DATA_CATEGORIES, isLoading: LOADING_CATEGORIES, error: ERROR_CATEGORIES } = useCategoriesQuery();
-	const { data: DATA_PRODUCTS, isLoading: LOADING_PRODUCT, error: ERROR_PRODUCT } = useProductQuery();
-
+	const { data: DATA_PRODUCTS, isLoading: LOADING_PRODUCT, error: ERROR_PRODUCT } = useProductsQuery();
 	let totalProducts = DATA_PRODUCTS ? DATA_PRODUCTS.totalProducts : '?';
 
 	return (

@@ -2,6 +2,7 @@
 
 // base
 import { useEffect, useRef } from 'react';
+
 // components
 import Button from '@/compound/demo-button/button/Button';
 import FormInput from '@/compound/formInput/FormInput';
@@ -20,7 +21,6 @@ import { useForm } from 'react-hook-form';
 // react-query
 import { useLoginMutation } from '@/query/authentication/authentication';
 // Yup
-import { setAccessToken } from '@/utils/cookies/cookieStorage';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 const schema = yup.object().shape({
@@ -83,7 +83,6 @@ const Login = () => {
 	const onLoginSubmit = async (data: any) => {
 		try {
 			await MUTATION_LOGIN(data);
-			setAccessToken(data.data.accessToken);
 		} catch (error) {
 			console.error('Login error:', error);
 		}

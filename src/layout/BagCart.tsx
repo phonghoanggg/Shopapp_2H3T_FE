@@ -8,26 +8,41 @@ import Button from '@/compound/demo-button/button/Button';
 // icon
 import { GiFireworkRocket, HiOutlineShoppingBag } from '../compound/icons/index';
 // redux
-import { selectIsOpenCartDrawer } from '@/redux/cart/selectors';
+import { selectCartItems, selectIsOpenCartDrawer } from '@/redux/cart/selectors';
 import { closeCart } from '@/redux/cart/slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { ROUTER } from '@/utils/routes/routes';
+import { Product } from '@/utils/type';
+import { map } from 'lodash';
 
 const BagCart = () => {
 	const dispatch = useAppDispatch();
 	const isOpen = useAppSelector(selectIsOpenCartDrawer);
+	const itemBagCart = useAppSelector(selectCartItems);
+
+	console.log(itemBagCart);
 	// handle no scroll body when open bag cart
 	useEffect(() => {
-		if (isOpen) {
-			document.body.style.overflow = 'hidden';
-		} else {
-			document.body.style.overflow = 'auto';
-		}
+		if (typeof window !== 'undefined') {
+			if (isOpen) {
+				document.body.style.overflow = 'hidden';
+			} else {
+				document.body.style.overflow = 'auto';
+			}
 
-		return () => {
-			document.body.style.overflow = 'auto';
-		};
+			return () => {
+				document.body.style.overflow = 'auto';
+			};
+		}
 	}, [isOpen]);
+
+	const calculateEstimatedTotal = () => {
+		let total = 0;
+		itemBagCart.forEach((item: any) => {
+			total += item.discountPrice * item.quantity; // Tính toán subtotal của mỗi mục và cộng vào tổng
+		});
+		return total.toFixed(2); // Làm tròn tổng ước lượng đến hai chữ số sau dấu thập phân
+	};
 
 	return (
 		<section
@@ -51,7 +66,7 @@ const BagCart = () => {
 					</h4>
 					<div className="sub-title ">
 						<GiFireworkRocket />
-						20% off new Son&#39;s® subscribers.
+						20% off new Sons® subscribers.
 						<div className="link">Sign Up</div>
 					</div>
 				</div>
@@ -60,46 +75,58 @@ const BagCart = () => {
 					{/* list products cart */}
 					<div className="cart-list">
 						{/* item bag cart */}
-						<div className="cart-item">
-							<Link
-								href="/"
-								className="image"
+						{map(itemBagCart, (item: Product) => (
+							<div
+								className="cart-item"
+								key={item._id}
 							>
-								<Image
-									width={500}
-									height={500}
-									loading="lazy"
-									src="https://lsco.scene7.com/is/image/lsco/D75910003-alt1-pdp-lse?$grid_desktop_full$"
-									alt="product cart item"
-								/>
-							</Link>
-							<Link
-								href={ROUTER.PRODUCT_DETAIL}
-								className="desc"
-							>
-								<p className="name">Wedgie Icon Fit Ankle Women&#39;s Jeans</p>
-								<p className="sub-name">Wild Bunch - Medium Wash</p>
+								<Link
+									href={`${ROUTER.PRODUCT_DETAIL}/${item._id}`}
+									className="image"
+								>
+									{item.images && item.images.length > 0 && (
+										<Image
+											width={500}
+											height={500}
+											loading="lazy"
+											src={item.images[0]}
+											alt="product cart item"
+										/>
+									)}
+								</Link>
+								<div className="desc">
+									<Link
+										href={`${ROUTER.PRODUCT_DETAIL}/${item._id}`}
+										className="name"
+									>
+										{item.name}
+									</Link>
+									<p className="sub-name">Wild Bunch - Medium Wash</p>
+									<p className="price">
+										{item.discountPrice.toFixed(2)}
+										<del className="old-price">${item.price?.toFixed(2)}</del>
+									</p>
 
-								<p className="price">
-									$79.45 <del className="old-price">89.15</del>
-								</p>
-								<div className="type-wrapper">
-									<p className="size">M</p>
-									<div className="quantity">Qty: 1</div>
+									<div className="type-wrapper">
+										<p className="size">{item.size}</p>
+										<div className="quantity">Qty: {item.quantity || 1}</div>
+									</div>
+									<div className="sub-title">
+										Subtotal:
+										<span>${(item.discountPrice * item.quantity).toFixed(2)}</span>
+									</div>
 								</div>
-								<div className="sub-title">
-									Subtotal: <span>$79.45</span>
-								</div>
-							</Link>
-						</div>
+							</div>
+						))}
 					</div>
 				</div>
 			</div>
 			{/* total cart */}
+
 			<div className="total-wrapper">
 				<div className="total">
 					<div className="title">Estimated Total</div>
-					<p className="total-number">$129.53</p>
+					<p className="total-number">${calculateEstimatedTotal()}</p>
 				</div>
 				<Link
 					href={ROUTER.CART}

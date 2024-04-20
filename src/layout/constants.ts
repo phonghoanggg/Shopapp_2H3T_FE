@@ -1,19 +1,19 @@
 export const MENU_LIST = [
 	{
 		label: 'Men',
-		route: { pathname: '/products', query: { gender: 'men' } },
+		route: { pathname: '/product' },
 	},
 	{
 		label: 'Women',
-		route: { pathname: '/products', query: { gender: 'women' } },
+		route: { pathname: '/product' },
 	},
 	{
 		label: 'Kids',
-		route: { pathname: '/products', query: { gender: 'kids' } },
+		route: { pathname: '/product' },
 	},
 	{
 		label: 'Sale',
-		route: { pathname: '/products', query: { discount: true } },
+		route: { pathname: '/product' },
 	},
 ] as const;
 

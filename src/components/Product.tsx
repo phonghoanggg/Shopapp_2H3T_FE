@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface IProductProps {
-	id?: number;
+	id?: string;
 	images: string | string[];
 	name: string;
 	price: number;
@@ -32,7 +32,7 @@ const Product = ({ id, images, name, price, discount, sale, button, brand }: IPr
 			key={id}
 		>
 			<Link
-				href={ROUTER.PRODUCT_DETAIL}
+				href={`${ROUTER.PRODUCT_DETAIL}/${id}`}
 				className="image"
 			>
 				<Image
@@ -51,7 +51,7 @@ const Product = ({ id, images, name, price, discount, sale, button, brand }: IPr
 				</button>
 			</Link>
 			<Link
-				href={ROUTER.PRODUCT_DETAIL}
+				href={`${ROUTER.PRODUCT_DETAIL}/${id}`}
 				className="desc"
 			>
 				<span className="brand _text-capitalize">{brand}</span>

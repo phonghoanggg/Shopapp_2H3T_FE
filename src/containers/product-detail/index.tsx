@@ -1,8 +1,10 @@
 'use client';
 // base
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 // components
 import SectionProducts from '@/components/SectionProducts';
+import Button from '@/compound/demo-button/button/Button';
 import Image from 'next/image';
 import Comment from './Comment';
 // lodash
@@ -22,16 +24,26 @@ import {
 // swiper
 import { Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+// redux
+import { useAppDispatch } from '@/redux/hook';
+
+// react-query
+import { useProductDetailQuery } from '@/query/products/getDataProducts';
 // constants
-import Button from '@/compound/demo-button/button/Button';
+import { addToCart } from '@/redux/cart/slice';
 import { BREAKPOINTS } from '@/utils/breakpoints/constants';
 import { PRODUCT_LIST } from '../home/constants';
-import { LIMIT, PAYMENT_METHOD, THUMBS_IMAGES } from './constants';
-
+import { LIMIT, PAYMENT_METHOD } from './constants';
+import SkeletonPageProductDetail from './loading';
 const PageProductDetail = () => {
+	// get query id product
+	const params = useParams();
+	const id = params.id;
+	const { data: DATA_PRODUCT_DETAIL, isLoading: LOADING_PRODUCT_DETAIL } = useProductDetailQuery(id as string);
+	const [selectedSize, setSelectedSize] = useState<string>('');
+	const [showSizeError, setShowSizeError] = useState<boolean>(false);
 	const [activeThumb, setActiveThumb] = useState<any>(null);
-	const [quantity, setQuantity] = useState(1);
-
+	const [quantity, setQuantity] = useState<number>(1);
 	const [activePaymentMethod, setActivePaymentMethod] = useState<string>('Ship');
 
 	const increaseQuantity = () => {
@@ -46,6 +58,38 @@ const PageProductDetail = () => {
 			return;
 		}
 	};
+	const handleSizeSelect = (size: string) => {
+		setSelectedSize(size);
+		setShowSizeError(false);
+	};
+
+	// handle bag cart use redux
+	const dispatch = useAppDispatch();
+	const handleAddToCart = () => {
+		if (!selectedSize) {
+			setShowSizeError(true);
+			return;
+		} else {
+			const productToAdd = {
+				id: DATA_PRODUCT_DETAIL?._id,
+				name: DATA_PRODUCT_DETAIL?.name,
+				price: DATA_PRODUCT_DETAIL?.price,
+				size: selectedSize,
+				quantity: quantity,
+				images: DATA_PRODUCT_DETAIL?.images,
+				discountPrice: discountedPrice,
+			};
+			dispatch(addToCart(productToAdd));
+		}
+	};
+	if (LOADING_PRODUCT_DETAIL) {
+		return <SkeletonPageProductDetail />;
+	}
+
+	if (!DATA_PRODUCT_DETAIL) {
+		return <div>Product not found</div>;
+	}
+	const discountedPrice = DATA_PRODUCT_DETAIL.price * (1 - DATA_PRODUCT_DETAIL.discount / 100);
 
 	return (
 		<main className="site-detail ">
@@ -85,20 +129,21 @@ const PageProductDetail = () => {
 								},
 							}}
 						>
-							{THUMBS_IMAGES.map((thumb) => (
-								<SwiperSlide
-									className="gallery-product-detail-item"
-									key={thumb.id}
-								>
-									<Image
-										className="slide-image"
-										width={150}
-										height={150}
-										src={thumb.src}
-										alt={`Thumbnail ${thumb.id}`}
-									/>
-								</SwiperSlide>
-							))}
+							{DATA_PRODUCT_DETAIL.images &&
+								DATA_PRODUCT_DETAIL.images.map((image: string, index: number) => (
+									<SwiperSlide
+										className="gallery-product-detail-item"
+										key={index}
+									>
+										<Image
+											className="slide-image"
+											width={150}
+											height={150}
+											src={image}
+											alt={`Thumbnail ${index}`}
+										/>
+									</SwiperSlide>
+								))}
 						</Swiper>
 						<div className="product-detail-actions">
 							<button
@@ -126,16 +171,16 @@ const PageProductDetail = () => {
 								swiper: activeThumb && !activeThumb.destroyed ? activeThumb : null,
 							}}
 						>
-							{map(THUMBS_IMAGES, (it) => (
+							{map(DATA_PRODUCT_DETAIL.images, (image: string, index: number) => (
 								<SwiperSlide
-									key={it?.id}
+									key={index}
 									className="main-swiper-slide"
 								>
 									<div className="item-main-slide">
 										<Image
 											width={600}
 											height={740}
-											src={it?.src}
+											src={image}
 											alt=""
 										/>
 									</div>
@@ -149,7 +194,7 @@ const PageProductDetail = () => {
 				<div className="detail-info ">
 					<div className="detail-title">
 						<p>SonTruong&#39;s® Premium</p>
-						<h3 className="name">superlow bootcut womans jean</h3>
+						<h3 className="name">{DATA_PRODUCT_DETAIL.name}</h3>
 						<div className="detail-icons">
 							<div className="detail-icon">
 								<BsStarFill />
@@ -160,17 +205,27 @@ const PageProductDetail = () => {
 							</div>
 							<span>(39)</span>
 						</div>
-						<p className="detail-price">$78.98</p>
+						<p className="detail-price">${discountedPrice.toFixed(2)}</p>
 						<div className="detail-content">2+ for $49 Each: Applied at Checkout</div>
 					</div>
 					<div className="detail-size">
 						<div className="title">Size</div>
 						<div className="size-list _text-uppercase">
-							<div className="item">s</div>
-							<div className="item">m</div>
-							<div className="item">l</div>
-							<div className="item">xl</div>
+							{map(DATA_PRODUCT_DETAIL.size, (item, index) => (
+								<div
+									className={`item ${selectedSize === item ? '-selected-size-product-detail' : ''}`}
+									key={index}
+									onClick={() => handleSizeSelect(item)}
+								>
+									{item}
+								</div>
+							))}
 						</div>
+						{showSizeError ? (
+							<p className="error-message">Please select a size before adding to bag.</p>
+						) : (
+							''
+						)}
 					</div>
 					<div className="detail-quantity">
 						<div className="title">Select Quantity</div>
@@ -207,25 +262,24 @@ const PageProductDetail = () => {
 					</div>
 					<div className="detail-disable">
 						<div className="item">
-							Stock: <span className="qty-stock">30</span>
+							Stock: <span className="qty-stock">{DATA_PRODUCT_DETAIL.stock}</span>
 						</div>
 					</div>
 
 					<div className="description">
 						<h4 className="title">Description</h4>
 						<div className="detail-description">
-							<p>
-								These jeans are straight out of the 00s, featuring one of our lowest rises ever. They
-								are bootcut just like the iconic styles of that era, with a name that throws it back to
-								our SuperLow glory days.
-							</p>
+							<p>{DATA_PRODUCT_DETAIL.description}</p>
 						</div>
 					</div>
 					<div className="detail-nature">
 						<p className="item">Style # A46790000</p>
 						<p className="items">Color: Black - Dark Wash</p>
 					</div>
-					<div className="detail-click">
+					<div
+						className="detail-click"
+						onClick={handleAddToCart}
+					>
 						<p className="item">Add to Bag</p>
 					</div>
 					<div className="detail-note">
@@ -247,7 +301,12 @@ const PageProductDetail = () => {
 					>
 						<TbHeart />
 					</button>
-					<Button className="button-add-product">Add to Bag</Button>
+					<Button
+						className="button-add-product"
+						onClick={handleAddToCart}
+					>
+						Add to Bag
+					</Button>
 				</div>
 			</section>
 			{/* section product */}

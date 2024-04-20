@@ -188,7 +188,7 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		z-index: 1000;
+		z-index: 20;
 		padding: 8px 24px;
 		background: $white;
 		border-radius: 2px;
@@ -482,4 +482,8 @@
 		max-width: 580px;
 		padding-block: 10px;
 	}
+}
+
+.-selected-size-product-detail {
+	border: 1px solid #ccc;
 }

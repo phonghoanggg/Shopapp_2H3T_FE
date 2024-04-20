@@ -25,6 +25,7 @@ import Login from '@/modals/login/Login';
 import Register from '@/modals/register/Register';
 import Sale from '@/modals/sale/Sale';
 // contains
+import { selectCartItems } from '@/redux/cart/selectors';
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
 
@@ -36,6 +37,7 @@ interface IPropsSale {
 export const Header = () => {
 	const dispatch = useAppDispatch();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
+	const itemBagCart = useAppSelector(selectCartItems);
 
 	const handleLogOutGoogle = () => dispatch(logoutGoogle());
 
@@ -145,7 +147,6 @@ export const Header = () => {
 							</button>
 							<Link
 								href={ROUTER.FAVORITE}
-								type="button"
 								className="header-icon-item"
 							>
 								<TbHeart
@@ -153,33 +154,34 @@ export const Header = () => {
 									color="#000"
 								/>
 							</Link>
-
-							<Link
-								href={ROUTER.CART}
-								className="header-icon-item "
-								id="shopping-bag-anchor"
-								onMouseEnter={() => dispatch(openCart())}
-							>
-								<HiOutlineShoppingBag
-									color="#000"
-									size={24}
-								/>
-							</Link>
+							<div className="inner-cart-number">
+								<Link
+									href={ROUTER.CART}
+									className="header-icon-item "
+									id="shopping-bag-anchor"
+									onMouseEnter={() => dispatch(openCart())}
+								>
+									<HiOutlineShoppingBag
+										color="#000"
+										size={24}
+									/>
+								</Link>
+								<p>{itemBagCart.length}</p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</header>
 			{/* modal cart */}
-			<BagCart />
+			{typeof window !== 'undefined' && <BagCart />}
 			{/* modal sale */}
-			<Sale />
+			{typeof window !== 'undefined' && <Sale />}
 			{/* modal login */}
-			<Login />
+			{typeof window !== 'undefined' && <Login />}
 			{/* modal register*/}
-			<Register />
+			{typeof window !== 'undefined' && <Register />}
 			{/* header mobile */}
 			<HeaderMobile />
-			{/* header desktop */}
 		</Fragment>
 	);
 };

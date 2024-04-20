@@ -59,22 +59,19 @@
 	@include flex-column;
 	padding-left: 40px;
 	overflow-y: auto;
-
+	height: 450px;
+	padding-bottom: 20px;
 	@include breakpoint-up(mediumdesktop) {
-		height: 464px;
-		padding-bottom: 84px;
+		height: 548px;
+		padding-bottom: 30px;
 	}
 	@include breakpoint-up(largedesktop) {
-		padding-bottom: 206px;
-		height: 650px;
+		height: 648px;
+		padding-bottom: 30px;
 	}
 	@include breakpoint-up(xlargedesktop) {
-		padding-bottom: 186px;
-		height: 710px;
-	}
-	@include breakpoint-up(xxlargedesktop) {
-		padding-bottom: 186px;
-		height: 1000px;
+		height: 848px;
+		padding-bottom: 50px;
 	}
 
 	> .title {
@@ -92,7 +89,7 @@
 			gap: 14px;
 			&:not(:first-child) {
 				border-top: 1px solid $brown-light-color;
-				padding-top: 16px;
+				padding-top: 14px;
 			}
 			> .image {
 				width: 120px;
@@ -111,6 +108,7 @@
 		> .cart-item > .desc {
 			> .name {
 				text-transform: capitalize;
+				color: $black;
 			}
 			> .sub-name {
 				padding-block: 12px;
@@ -119,7 +117,8 @@
 			> .price {
 				font-size: $fz-base;
 				color: $error-color;
-				> .old-price {
+				> del {
+					padding-left: 6px;
 					color: $black;
 				}
 			}

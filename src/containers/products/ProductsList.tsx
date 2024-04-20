@@ -28,7 +28,7 @@ export default function ProductsList({ DATA_PRODUCTS, LOADING_PRODUCT, ERROR_PRO
 
 	if (ERROR_PRODUCT) {
 		return (
-			<div className="error-message">
+			<div className="error-message-server">
 				<p>Something went wrong. Please try again later.</p>
 			</div>
 		);
@@ -41,6 +41,7 @@ export default function ProductsList({ DATA_PRODUCTS, LOADING_PRODUCT, ERROR_PRO
 					<Product
 						brand="Son's Premium"
 						key={product._id}
+						id={product._id}
 						name={product.name}
 						images={product.images}
 						price={product.price}

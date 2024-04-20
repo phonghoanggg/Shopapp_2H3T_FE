@@ -6,6 +6,6 @@ export const metadata: Metadata = {
 	description: 'Clothing for Men | Women | Kids',
 };
 
-export default function page() {
+export default function ProductDetail() {
 	return <PageProducts />;
 }

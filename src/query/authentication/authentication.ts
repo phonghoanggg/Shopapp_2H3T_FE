@@ -1,9 +1,9 @@
 import { publicRequest } from '@/configs/AxiosConfig';
 import { useAppDispatch } from '@/redux/hook';
 import { closeModalRegister, openModalLogin } from '@/redux/modal/slice';
+import { setAccessToken } from '@/utils/cookies/cookieStorage';
 import { API_ENDPOINT } from '@/utils/endpoint/api_endpoint';
 import { useMutation } from 'react-query';
-
 export const useLoginMutation = () => {
 	return useMutation(
 		API_ENDPOINT.LOGIN,
@@ -16,7 +16,7 @@ export const useLoginMutation = () => {
 		},
 		{
 			onSuccess: (data) => {
-				console.log('Login successful!', data.data.accessToken);
+				setAccessToken(data.data.token);
 			},
 			onError: (error: Error) => {
 				console.error('Login error:', error);

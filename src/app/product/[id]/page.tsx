@@ -1,5 +1,7 @@
+'use client';
+
 import PageProductDetail from '@/containers/product-detail';
 
-export default function page() {
+export default function Page() {
 	return <PageProductDetail />;
 }

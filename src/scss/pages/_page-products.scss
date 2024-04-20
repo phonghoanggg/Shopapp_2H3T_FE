@@ -1,6 +1,5 @@
 .products-wrapper {
 	display: flex;
-	align-items: flex-start;
 	gap: 16px;
 	margin-top: 16px;
 	@include breakpoint-down(smalldesktop) {
