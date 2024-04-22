@@ -29,12 +29,17 @@ const cartSlice = createSlice({
 		},
 
 		updateCartItemQuantity: (state, action) => {
-			const { id, quantity } = action.payload;
-			const itemToUpdate = state.cartItems.find((item: any) => item.id === id);
+			const { id, size, quantity } = action.payload;
+
+			// Tìm mục cần cập nhật trong mảng cartItems
+			const itemToUpdate = state.cartItems.find((item: any) => item.id === id && item.size === size);
+
 			if (itemToUpdate) {
 				itemToUpdate.quantity = quantity;
 				saveCartToLocalStorage(state.cartItems);
 			}
+
+			return state;
 		},
 		// handle toggle open cart
 		openCart: (state) => {

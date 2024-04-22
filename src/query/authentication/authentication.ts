@@ -1,10 +1,12 @@
 import { publicRequest } from '@/configs/AxiosConfig';
 import { useAppDispatch } from '@/redux/hook';
-import { closeModalRegister, openModalLogin } from '@/redux/modal/slice';
+import { closeModalLogin, closeModalRegister, openModalLogin } from '@/redux/modal/slice';
 import { setAccessToken } from '@/utils/cookies/cookieStorage';
 import { API_ENDPOINT } from '@/utils/endpoint/api_endpoint';
 import { useMutation } from 'react-query';
 export const useLoginMutation = () => {
+	const dispatch = useAppDispatch();
+
 	return useMutation(
 		API_ENDPOINT.LOGIN,
 		async (data): Promise<any> => {
@@ -17,6 +19,7 @@ export const useLoginMutation = () => {
 		{
 			onSuccess: (data) => {
 				setAccessToken(data.data.token);
+				dispatch(closeModalLogin());
 			},
 			onError: (error: Error) => {
 				console.error('Login error:', error);

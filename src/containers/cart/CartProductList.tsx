@@ -1,63 +1,68 @@
 'use client';
 import { selectCartItems } from '@/redux/cart/selectors';
-import { removeFromCart, updateCartItemQuantity } from '@/redux/cart/slice'; // Import updateCartItemQuantity
-import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import { removeFromCart, updateCartItemQuantity } from '@/redux/cart/slice';
 import { ROUTER } from '@/utils/routes/routes';
-import { map } from 'lodash';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { MdKeyboardArrowDown, TbHeart } from '../../compound/icons/index';
 
 const CartProductList = () => {
-	const dispatch = useAppDispatch();
-	const itemBagCart = useAppSelector(selectCartItems);
-	// handle Quantity shopping cart
-	const [showQuantity, setShowQuantity] = useState<boolean>(false);
-	const dropdownRef = useRef<HTMLUListElement>(null);
+	const dispatch = useDispatch();
+	const itemBagCart = useSelector(selectCartItems);
+	const dropdownRefs = useRef<Record<string, HTMLUListElement | null>>({});
+	const [showDropdowns, setShowDropdowns] = useState<Record<string, boolean>>({});
 
-	const closeDropdown = (event: MouseEvent) => {
-		if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-			setShowQuantity(false);
-		}
+	const handleRemoveItem = (id: string, size: string) => {
+		dispatch(removeFromCart({ id, size }));
+	};
+
+	const openShowModalQuantity = (id: string, size: string) => {
+		const newShowDropdowns = { ...showDropdowns, [`${id}-${size}`]: true };
+		setShowDropdowns(newShowDropdowns);
+	};
+
+	const closeShowModalQuantity = (id: string, size: string) => {
+		const newShowDropdowns = { ...showDropdowns, [`${id}-${size}`]: false };
+		setShowDropdowns(newShowDropdowns);
+	};
+
+	const handleQuantityChange = (id: string, size: string, newQuantity: number) => {
+		dispatch(updateCartItemQuantity({ id, quantity: newQuantity, size }));
 	};
 
 	useEffect(() => {
+		const closeDropdown = (event: MouseEvent) => {
+			Object.keys(dropdownRefs.current).forEach((key) => {
+				const ref = dropdownRefs.current[key];
+				if (ref && !ref.contains(event.target as Node)) {
+					const [itemId, size] = key.split('-');
+					closeShowModalQuantity(itemId, size);
+				}
+			});
+		};
 		document.addEventListener('mousedown', closeDropdown);
 		return () => {
 			document.removeEventListener('mousedown', closeDropdown);
 		};
 	}, []);
 
-	const toggleDropdown = () => {
-		setShowQuantity(!showQuantity);
-	};
-
-	const handleRemoveItem = (id: string, size: string) => {
-		dispatch(removeFromCart({ id, size }));
-	};
-
-	const handleQuantityChange = (id: string, newQuantity: number) => {
-		// Dispatch updateCartItemQuantity action
-		dispatch(updateCartItemQuantity({ id, quantity: newQuantity }));
-		setShowQuantity(false);
-	};
-
 	return (
 		<div className="bag-cart-box">
 			<div className="shopping-cart-title-box">
 				<h4 className="title _text-uppercase">shopping cart</h4>
-				<div className="qty">1 item</div>
+				<div className="qty">{itemBagCart.length || '?'} item</div>
 			</div>
 			<div className="shopping-cart-lists">
 				<h4 className="title">Ship</h4>
-				{map(itemBagCart, (item) => (
+				{itemBagCart.map((item: any) => (
 					<div
 						className="shopping-cart-item _border-bottom"
 						key={item.id}
 					>
 						<Link
-							href={ROUTER.PRODUCT_DETAIL}
+							href={`${ROUTER.PRODUCT_DETAIL}/${item.id}`}
 							className="image"
 						>
 							<Image
@@ -77,26 +82,28 @@ const CartProductList = () => {
 									{item.name}
 								</Link>
 								<p className="color">Luxor Heat Light Wash</p>
-								<p className="price">${item.discountPrice}</p>
+								<p className="price">${item.discountPrice.toFixed(2)}</p>
 								<div className="infor">
 									<div className="size">{item.size}</div>
 									<button
 										className="qty"
 										type="button"
-										onClick={toggleDropdown}
+										onClick={() => openShowModalQuantity(item.id, item.size)}
 									>
 										Qty: {item.quantity} <MdKeyboardArrowDown />
 									</button>
-									{showQuantity && (
+									{showDropdowns[`${item.id}-${item.size}`] && (
 										<ul
 											className="dropdown-inner"
-											ref={dropdownRef}
+											ref={(ref) => {
+												dropdownRefs.current[`${item.id}-${item.size}`] = ref;
+											}}
 										>
 											{[1, 2, 3, 4, 5, 6].map((value) => (
 												<li
 													className="item"
 													key={value}
-													onClick={() => handleQuantityChange(item.id, value)} // Call handleQuantityChange on click
+													onClick={() => handleQuantityChange(item.id, item.size, value)}
 												>
 													{value}
 												</li>
@@ -120,7 +127,7 @@ const CartProductList = () => {
 								</div>
 								<div className="total">
 									Total:
-									<span className="price">{(item.discountPrice * item.quantity).toFixed(2)}</span>
+									<span className="price">${(item.discountPrice * item.quantity).toFixed(2)}</span>
 								</div>
 							</div>
 						</div>

@@ -61,18 +61,6 @@
 	overflow-y: auto;
 	height: 450px;
 	padding-bottom: 20px;
-	@include breakpoint-up(mediumdesktop) {
-		height: 548px;
-		padding-bottom: 30px;
-	}
-	@include breakpoint-up(largedesktop) {
-		height: 648px;
-		padding-bottom: 30px;
-	}
-	@include breakpoint-up(xlargedesktop) {
-		height: 848px;
-		padding-bottom: 50px;
-	}
 
 	> .title {
 		border-top: 1px solid $brown-light-color;

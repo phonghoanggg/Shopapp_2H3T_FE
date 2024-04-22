@@ -34,7 +34,6 @@ import { addToCart } from '@/redux/cart/slice';
 import { BREAKPOINTS } from '@/utils/breakpoints/constants';
 import { PRODUCT_LIST } from '../home/constants';
 import { LIMIT, PAYMENT_METHOD } from './constants';
-import SkeletonPageProductDetail from './loading';
 const PageProductDetail = () => {
 	// get query id product
 	const params = useParams();
@@ -83,7 +82,7 @@ const PageProductDetail = () => {
 		}
 	};
 	if (LOADING_PRODUCT_DETAIL) {
-		return <SkeletonPageProductDetail />;
+		return <div>Loading...</div>;
 	}
 
 	if (!DATA_PRODUCT_DETAIL) {

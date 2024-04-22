@@ -166,7 +166,7 @@ export const Header = () => {
 										size={24}
 									/>
 								</Link>
-								<p>{itemBagCart.length}</p>
+								<p>{itemBagCart.length || '0'}</p>
 							</div>
 						</div>
 					</div>

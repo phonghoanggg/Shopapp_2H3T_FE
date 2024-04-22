@@ -53,15 +53,19 @@ const BagCart = () => {
 				<div className="title-box">
 					<h4 className="title _text-uppercase">
 						your bag
-						<Link
-							className="icon"
-							href={ROUTER.CART}
-						>
-							<HiOutlineShoppingBag
-								color="#000"
-								size={24}
-							/>
-						</Link>
+						<div className="inner-cart-number">
+							<Link
+								href={ROUTER.CART}
+								className="header-icon-item "
+								id="shopping-bag-anchor"
+							>
+								<HiOutlineShoppingBag
+									color="#000"
+									size={24}
+								/>
+							</Link>
+							<p>{itemBagCart.length || '0'}</p>
+						</div>
 					</h4>
 					<div className="sub-title ">
 						<GiFireworkRocket />
@@ -69,7 +73,7 @@ const BagCart = () => {
 						<div className="link">Sign Up</div>
 					</div>
 				</div>
-				<div className="cart-inner ">
+				<div className="cart-inner">
 					<h4 className="title">Ship</h4>
 					{/* list products cart */}
 					<div className="cart-list">
@@ -77,10 +81,10 @@ const BagCart = () => {
 						{map(itemBagCart, (item: Product) => (
 							<div
 								className="cart-item"
-								key={item._id}
+								key={item.id}
 							>
 								<Link
-									href={`${ROUTER.PRODUCT_DETAIL}/${item._id}`}
+									href={`${ROUTER.PRODUCT_DETAIL}/${item.id}`}
 									className="image"
 								>
 									{item.images && item.images.length > 0 && (
@@ -95,7 +99,7 @@ const BagCart = () => {
 								</Link>
 								<div className="desc">
 									<Link
-										href={`${ROUTER.PRODUCT_DETAIL}/${item._id}`}
+										href={`${ROUTER.PRODUCT_DETAIL}/${item.id}`}
 										className="name"
 									>
 										{item.name}

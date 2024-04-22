@@ -1,4 +1,7 @@
+import { Key } from 'react';
+
 export type Product = {
+	id: Key | null | undefined;
 	totalProducts?: any;
 	_id?: string;
 	name?: string;
