@@ -1,50 +1,64 @@
 'use client';
-import { selectCartItems } from '@/redux/cart/selectors';
-import { removeFromCart, updateCartItemQuantity } from '@/redux/cart/slice';
-import { ROUTER } from '@/utils/routes/routes';
+// base
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+// routes
+import { ROUTER } from '@/utils/routes/routes';
+// redux
+import { selectCartItems } from '@/redux/cart/selectors';
+import { removeFromCart, updateCartItemQuantity } from '@/redux/cart/slice';
 import { useDispatch, useSelector } from 'react-redux';
+// icons
 import { MdKeyboardArrowDown, TbHeart } from '../../compound/icons/index';
 
 const CartProductList = () => {
-	const dispatch = useDispatch();
-	const itemBagCart = useSelector(selectCartItems);
-	const dropdownRefs = useRef<Record<string, HTMLUListElement | null>>({});
-	const [showDropdowns, setShowDropdowns] = useState<Record<string, boolean>>({});
+	// Use useDispatch and useSelector to get dispatch and state from Redux
+	const dispatch = useDispatch(); // Get dispatch from Redux
+	const itemBagCart = useSelector(selectCartItems); // Get list of items from Redux
 
+	// Declare state and ref
+	const dropdownRefs = useRef<Record<string, HTMLUListElement | null>>({}); // Ref to store dropdowns
+	const [showDropdowns, setShowDropdowns] = useState<Record<string, boolean>>({}); // State to control dropdown visibility
+
+	// Function to handle removing item from cart
 	const handleRemoveItem = (id: string, size: string) => {
-		dispatch(removeFromCart({ id, size }));
+		dispatch(removeFromCart({ id, size })); // Dispatch removeFromCart action with id and size of the item to remove
 	};
 
+	// Function to open dropdown for changing item quantity
 	const openShowModalQuantity = (id: string, size: string) => {
-		const newShowDropdowns = { ...showDropdowns, [`${id}-${size}`]: true };
-		setShowDropdowns(newShowDropdowns);
+		const newShowDropdowns = { ...showDropdowns, [`${id}-${size}`]: true }; // Set dropdown value to true
+		setShowDropdowns(newShowDropdowns); // Update state to show dropdown
 	};
 
+	// Function to close dropdown
 	const closeShowModalQuantity = (id: string, size: string) => {
-		const newShowDropdowns = { ...showDropdowns, [`${id}-${size}`]: false };
-		setShowDropdowns(newShowDropdowns);
+		const newShowDropdowns = { ...showDropdowns, [`${id}-${size}`]: false }; // Set dropdown value to false
+		setShowDropdowns(newShowDropdowns); // Update state to hide dropdown
 	};
 
-	const handleQuantityChange = (id: string, size: string, newQuantity: number) => {
-		dispatch(updateCartItemQuantity({ id, quantity: newQuantity, size }));
+	// Function to handle changing item quantity
+	const handleQuantityChange = (id: string, size: string, quantity: number) => {
+		// Dispatch updateCartItemQuantity action to update item quantity
+		dispatch(updateCartItemQuantity({ id, size, quantity }));
+		closeShowModalQuantity(id, size);
 	};
 
+	// Effect to close dropdown when clicking outside
 	useEffect(() => {
 		const closeDropdown = (event: MouseEvent) => {
 			Object.keys(dropdownRefs.current).forEach((key) => {
 				const ref = dropdownRefs.current[key];
 				if (ref && !ref.contains(event.target as Node)) {
 					const [itemId, size] = key.split('-');
-					closeShowModalQuantity(itemId, size);
+					closeShowModalQuantity(itemId, size); // Close corresponding dropdown
 				}
 			});
 		};
-		document.addEventListener('mousedown', closeDropdown);
+		document.addEventListener('mousedown', closeDropdown); // Listen for mouse click event
 		return () => {
-			document.removeEventListener('mousedown', closeDropdown);
+			document.removeEventListener('mousedown', closeDropdown); // Remove event listener when component unmounts
 		};
 	}, []);
 
@@ -92,6 +106,7 @@ const CartProductList = () => {
 									>
 										Qty: {item.quantity} <MdKeyboardArrowDown />
 									</button>
+									{/* Dropdown to select quantity */}
 									{showDropdowns[`${item.id}-${item.size}`] && (
 										<ul
 											className="dropdown-inner"
