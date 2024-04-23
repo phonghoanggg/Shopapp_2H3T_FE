@@ -1,7 +1,15 @@
+'use client';
+import { selectCartItems } from '@/redux/cart/selectors';
+import { useAppSelector } from '@/redux/hook';
+import { map } from 'lodash';
 import Image from 'next/image';
 import OrderFormInformation from './OrderFormInformation';
 
 export default function PageOrder() {
+	// Get list of items from Redux
+	const itemBagCart = useAppSelector(selectCartItems);
+	console.log(itemBagCart);
+
 	return (
 		<main className="site-order-page">
 			<section className="order container">
@@ -10,48 +18,49 @@ export default function PageOrder() {
 					<div className="order-payment-wrapper">
 						<h3 className="title">ORDER SUMMARY</h3>
 						<div className="item">
-							<span>Items</span>
-							<span>1</span>
+							<p>Items</p>
+							<p>1</p>
 						</div>
 						<div className="item">
-							<span>Estimated Tax</span>
-							<span>Calculated in Checkout</span>
+							<p>Estimated Tax</p>
+							<p>Calculated in Checkout</p>
 						</div>
 						<div className="item">
 							<p>Shipping</p>
 							<p>Free</p>
 						</div>
 						<div className="total">
-							<span>Total</span>
-							<span>$123</span>
+							<p>Total</p>
+							<p>$123</p>
 						</div>
 						{/* item cart order */}
 						<div className="order-list-cart-wrapper">
 							<h6 className="title">Shopping Bag</h6>
-
-							<p className="number">1 item</p>
+							<p className="number">{itemBagCart.length || '0'} item</p>
 							<div className="list-item-order-box">
-								<div className="item">
-									<div className="image">
-										<Image
-											width={500}
-											height={500}
-											loading="lazy"
-											src="https://lsco.scene7.com/is/image/lsco/D75910003-alt1-pdp-lse?$grid_desktop_full$"
-											alt="product cart item"
-										/>
+								{map(itemBagCart, (item) => (
+									<div className="item">
+										<div className="image">
+											<Image
+												width={500}
+												height={500}
+												loading="lazy"
+												src={item.images[0]}
+												alt={`product cart item-${item.id}`}
+											/>
+										</div>
+										<div className="desc">
+											<p className="name">{item.name}</p>
+											<p className="price">{item.discountPrice.toFixed(2)}$</p>
+											<div className="size">
+												{item.size} <p>Quantity:{item.quantity}</p>
+											</div>
+											<p className="total">
+												Total: <p>${(item.quantity * item.discountPrice).toFixed(2)}</p>
+											</p>
+										</div>
 									</div>
-									<div className="desc">
-										<p className="name">501® High Rise Women&#39;s Shorts</p>
-										<p className="price">78.94$</p>
-										<p className="size">
-											M <span>Quantity:2</span>
-										</p>
-										<p className="total">
-											Total: <span>$130</span>
-										</p>
-									</div>
-								</div>
+								))}
 							</div>
 						</div>
 					</div>

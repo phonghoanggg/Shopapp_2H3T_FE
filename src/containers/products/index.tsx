@@ -48,7 +48,7 @@ const PageProducts = () => {
 								</select>
 							</div>
 						</div>
-						<span className="total-products">{totalProducts} items</span>
+						<p className="total-products">{totalProducts} items</p>
 					</div>
 					<div className="products-wrapper">
 						{/* sidebar filter product */}

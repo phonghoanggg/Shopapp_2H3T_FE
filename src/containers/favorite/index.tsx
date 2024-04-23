@@ -28,7 +28,7 @@ const PageFavorite = () => {
 				<div className="favorites-list-wrapper ">
 					<div className="favorite-title">
 						<div className="text">FAVORITES</div>
-						<span className="value">4 items</span>
+						<p className="value">4 items</p>
 					</div>
 					<div className="favorite-product-list">
 						<div className="favorite-item">

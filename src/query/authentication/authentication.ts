@@ -1,4 +1,5 @@
 import { publicRequest } from '@/configs/AxiosConfig';
+import { loginEmailSuccess } from '@/redux/auth/slice';
 import { useAppDispatch } from '@/redux/hook';
 import { closeModalLogin, closeModalRegister, openModalLogin } from '@/redux/modal/slice';
 import { setAccessToken } from '@/utils/cookies/cookieStorage';
@@ -17,9 +18,11 @@ export const useLoginMutation = () => {
 			});
 		},
 		{
-			onSuccess: (data) => {
+			onSuccess: async (data) => {
 				setAccessToken(data.data.token);
+				await dispatch(loginEmailSuccess(data));
 				dispatch(closeModalLogin());
+				window.location.reload();
 			},
 			onError: (error: Error) => {
 				console.error('Login error:', error);

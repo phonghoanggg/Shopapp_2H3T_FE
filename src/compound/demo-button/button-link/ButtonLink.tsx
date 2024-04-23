@@ -4,13 +4,14 @@ import Link from 'next/link';
 interface IButtonLinkProps {
 	children: React.ReactNode;
 	className?: string;
+	color?: 'primary' | 'secondary' | 'three';
 }
 
-const ButtonLink = ({ children, className }: IButtonLinkProps) => {
+const ButtonLink = ({ color = 'primary', children, className }: IButtonLinkProps) => {
 	return (
 		<Link
 			href={ROUTER.PRODUCTS}
-			className={`site-button-link ${className}`}
+			className={`site-button-link -${color} ${className}`}
 		>
 			{children}
 		</Link>

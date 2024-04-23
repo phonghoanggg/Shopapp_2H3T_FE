@@ -82,7 +82,6 @@ const Register = () => {
 	const onSubmit = async (fromData: any) => {
 		try {
 			MUTATION_REGISTER(fromData);
-			console.log(fromData);
 		} catch (error) {
 			console.error('Register error:', error);
 		}
@@ -100,7 +99,7 @@ const Register = () => {
 				{/* description */}
 				<div className="desc _text-center">
 					<h4 className="title _text-uppercase">
-						<span>SonTruong&#39;s</span>REDTAB™
+						<p>SonTruong&#39;s</p>REDTAB™
 					</h4>
 					<p className="content">JOIN OUR RED TAB™ PROGRAM AND GET FREE SHIPPING ON EVERY ORDER.</p>
 					<p className="description ">
@@ -146,9 +145,9 @@ const Register = () => {
 						passwords are not permitted.
 					</div>
 					<div className="notice">
-						By creating an account, I agree to the <span>LS&Co. Terms of Use</span> and the
-						<span>Red Tab Member Program Terms and Conditions.</span> I have read the LS&Co. Privacy Policy
-						and <span>Financial Incentive Notice and offer terms.</span>
+						By creating an account, I agree to the <p>LS&Co. Terms of Use</p> and the
+						<p>Red Tab Member Program Terms and Conditions.</p> I have read the LS&Co. Privacy Policy and{' '}
+						<p>Financial Incentive Notice and offer terms.</p>
 					</div>
 					<Button
 						type="submit"

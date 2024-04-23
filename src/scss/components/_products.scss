@@ -47,6 +47,7 @@
 		@include flex-column;
 
 		> .name {
+			color: $dark;
 			text-transform: capitalize;
 			font-size: $fz-sm;
 			line-height: $leading-sm;

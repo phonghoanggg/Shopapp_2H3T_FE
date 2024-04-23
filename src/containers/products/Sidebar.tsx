@@ -33,13 +33,13 @@ const Sidebar = () => {
 				{showFilters && (
 					<div className="list-filter _text-uppercase">
 						{sizes.map((size) => (
-							<span
+							<p
 								key={size}
 								className={activeSize === size ? '-active' : ''}
 								onClick={() => handleSizeClick(size)}
 							>
 								{size}
-							</span>
+							</p>
 						))}
 					</div>
 				)}

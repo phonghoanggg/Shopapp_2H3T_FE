@@ -32,8 +32,8 @@ export default function Categories({ DATA_CATEGORIES, LOADING_CATEGORIES, ERROR_
 				<>
 					<h4 className="content _text-center">
 						<p className="content-title">Clothing </p>
-						<span>/</span>
-						<span className="sub-content">Women</span>
+						<p>/</p>
+						<p className="sub-content">Women</p>
 					</h4>
 					<p className="title _text-center">WOMEN&#39;S CLOTHES</p>
 					<div className="categories-list">

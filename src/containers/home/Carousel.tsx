@@ -36,7 +36,7 @@ const Carousel = () => {
 							href={ROUTER.PRODUCTS}
 							className="desc"
 						>
-							<span>Shop/</span>
+							<p>Shop/</p>
 							{category}
 						</Link>
 					</div>

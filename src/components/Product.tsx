@@ -50,17 +50,19 @@ const Product = ({ id, images, name, price, discount, sale, button, brand }: IPr
 					{button}
 				</button>
 			</Link>
-			<Link
-				href={`${ROUTER.PRODUCT_DETAIL}/${id}`}
-				className="desc"
-			>
-				<span className="brand _text-capitalize">{brand}</span>
-				<h6 className="name">{name}</h6>
+			<div className="desc">
+				<p className="brand _text-capitalize">{brand}</p>
+				<Link
+					href={`${ROUTER.PRODUCT_DETAIL}/${id}`}
+					className="name"
+				>
+					{name}
+				</Link>
 				<p className="new-price">
 					${discountedPrice} <del className="old-price">${price}</del>
 				</p>
-				<span className="sale">{sale}</span>
-			</Link>
+				<p className="sale">{sale}</p>
+			</div>
 		</div>
 	);
 };

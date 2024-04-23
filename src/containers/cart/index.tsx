@@ -1,10 +1,44 @@
+'use client';
+// base
+import { useRouter } from 'next/navigation';
+// redux
+import { selectCartItems } from '@/redux/cart/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import { openModalLogin } from '@/redux/modal/slice';
+// components
 import SectionProducts from '@/components/SectionProducts';
-import { ROUTER } from '@/utils/routes/routes';
-import Link from 'next/link';
-import { PRODUCT_LIST } from '../home/constants';
 import CartProductList from './CartProductList';
+// routes
+import { ROUTER } from '@/utils/routes/routes';
+// cookies
+import { isValidAccessToken } from '@/utils/cookies/cookieStorage';
+// constants
+import { PRODUCT_LIST } from '../home/constants';
 
-const PageCart = () => {
+export default function PageCart() {
+	// Get list of items from Redux
+	const itemBagCart = useAppSelector(selectCartItems);
+	const dispatch = useAppDispatch();
+	const router = useRouter();
+	// Function to calculate total price
+	const calculateTotalPrice = () => {
+		let totalPrice = 0;
+		itemBagCart.forEach((item: any) => {
+			totalPrice += item.discountPrice * item.quantity;
+		});
+		return totalPrice.toFixed(2);
+	};
+
+	const handleIsValidToken = () => {
+		const isValidToken = isValidAccessToken();
+		if (isValidToken && itemBagCart.length > 0) {
+			return router.push(`${ROUTER.ORDER}`);
+
+		} else {
+			dispatch(openModalLogin());
+		}
+	};
+
 	return (
 		<main className="main-page-cart">
 			<section className="page-cart-wrapper container">
@@ -13,7 +47,7 @@ const PageCart = () => {
 					<div className="shopping-cart-notify">
 						<div className="title">
 							Red Tab™ Members get 20% off your first order + free shipping and returns.
-							<span className="sub"> Free to join. </span>
+							<p className="sub"> Free to join. </p>
 						</div>
 						<div className="actions">
 							<button
@@ -42,7 +76,7 @@ const PageCart = () => {
 					</div>
 					<div className="promo-phase">
 						<h5 className="sub-title">Items</h5>
-						<p className="content">$152.48</p>
+						<p className="content">${calculateTotalPrice()}</p>
 					</div>
 					<div className="promo-phase">
 						<h5 className="sub-title">Shipping</h5>
@@ -55,14 +89,15 @@ const PageCart = () => {
 
 					<div className="total-box">
 						<h5 className="sub-title">Total</h5>
-						<p className="content">$152.48</p>
+						<p className="content">${calculateTotalPrice()}</p>
 					</div>
-					<Link
-						href={ROUTER.ORDER}
+					<button
 						className="button-checkout"
+						type="button"
+						onClick={handleIsValidToken}
 					>
 						Checkout
-					</Link>
+					</button>
 				</div>
 			</section>
 			{/* login favorite */}
@@ -83,6 +118,4 @@ const PageCart = () => {
 			/>
 		</main>
 	);
-};
-
-export default PageCart;
+}

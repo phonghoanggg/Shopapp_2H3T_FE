@@ -202,7 +202,7 @@ const PageProductDetail = () => {
 								<BsStarFill />
 								<BsStarHalf />
 							</div>
-							<span>(39)</span>
+							<p>(39)</p>
 						</div>
 						<p className="detail-price">${discountedPrice.toFixed(2)}</p>
 						<div className="detail-content">2+ for $49 Each: Applied at Checkout</div>
@@ -237,7 +237,7 @@ const PageProductDetail = () => {
 							>
 								<HiOutlineMinusSm />
 							</button>
-							<span className="item">{quantity}</span>
+							<p className="item">{quantity}</p>
 							<button
 								type="button"
 								className="item"
@@ -255,13 +255,13 @@ const PageProductDetail = () => {
 								key={title}
 							>
 								<h3 className="title">{title}</h3>
-								<span className="description">{content}</span>
+								<p className="description">{content}</p>
 							</div>
 						))}
 					</div>
 					<div className="detail-disable">
 						<div className="item">
-							Stock: <span className="qty-stock">{DATA_PRODUCT_DETAIL.stock}</span>
+							Stock: <p className="qty-stock">{DATA_PRODUCT_DETAIL.stock}</p>
 						</div>
 					</div>
 
@@ -284,7 +284,7 @@ const PageProductDetail = () => {
 					<div className="detail-note">
 						<div>
 							<PiShoppingBagOpenBold size={20} />
-							<span>Free Shipping and Returns for Levis® Red</span>
+							<p>Free Shipping and Returns for Levis® Red</p>
 						</div>
 						<div>
 							<p>Tab™ Members</p>

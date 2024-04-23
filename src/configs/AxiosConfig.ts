@@ -19,7 +19,6 @@ publicRequest.interceptors.request.use(
 			return config;
 		}
 		const token = getAccessToken();
-		console.log(token);
 		config.headers.Authorization = !isEmpty(token) ? `Bearer ${token}` : '';
 		return config;
 	},

@@ -33,7 +33,6 @@ interface IPropsSale {
 	id: number;
 	label: string;
 }
-
 export const Header = () => {
 	const dispatch = useAppDispatch();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
@@ -71,7 +70,12 @@ export const Header = () => {
 							{inforUser ? (
 								// If user is logged in
 								<>
-									<span className="action">Hello, {inforUser.displayName}</span>
+									<p className="action">
+										Hello,
+										{inforUser.data && inforUser.data.firstName && inforUser.data.lastName
+											? `${inforUser.data.firstName} ${inforUser.data.lastName}`
+											: inforUser.displayName}
+									</p>
 									<button
 										type="button"
 										className="action"

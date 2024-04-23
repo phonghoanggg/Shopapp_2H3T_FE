@@ -43,8 +43,6 @@ const authSlice = createSlice({
 			state.user = action.payload;
 			localStorage.setItem('user', JSON.stringify(action.payload));
 			const accessToken = action.payload.stsTokenManager.accessToken;
-			console.log(accessToken);
-
 			setAccessToken(accessToken);
 		},
 		loginEmailFailure: (state, action: PayloadAction<any>) => {

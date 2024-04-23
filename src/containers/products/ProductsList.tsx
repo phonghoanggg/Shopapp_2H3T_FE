@@ -71,7 +71,7 @@ export default function ProductsList({ DATA_PRODUCTS, LOADING_PRODUCT, ERROR_PRO
 					type="button"
 					className="button"
 				>
-					<span className="label">Next</span> <GrFormNext size={20} />
+					<p className="label">Next</p> <GrFormNext size={20} />
 				</button>
 			</div>
 		</section>

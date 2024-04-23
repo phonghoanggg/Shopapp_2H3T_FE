@@ -82,7 +82,7 @@ const Login = () => {
 	const { mutate: MUTATION_LOGIN, isLoading: LOADING_LOGIN } = useLoginMutation();
 	const onLoginSubmit = async (data: any) => {
 		try {
-			await MUTATION_LOGIN(data);
+			MUTATION_LOGIN(data);
 		} catch (error) {
 			console.error('Login error:', error);
 		}
@@ -101,7 +101,7 @@ const Login = () => {
 				/>
 				<div className="desc _text-center">
 					<h4 className="title _text-uppercase">
-						<span>SonTruong&#39;s</span>REDTAB™
+						<p>SonTruong&#39;s</p>REDTAB™
 					</h4>
 					<p className="content">Welcome back!</p>
 					<p className="description ">Log in for faster checkout and see all your benefits.</p>
@@ -152,8 +152,8 @@ const Login = () => {
 					Log In With Google
 				</Button>
 				<div className="notice">
-					By creating an account, I agree to the <span>LS&Co. Terms of Use</span> and the
-					<span> Terms and Conditions.</span> LS&Co. <span>Privacy Policy and</span>
+					By creating an account, I agree to the <p>LS&Co. Terms of Use</p> and the
+					<p> Terms and Conditions.</p> LS&Co. <p>Privacy Policy and</p>
 				</div>
 			</div>
 		</section>
