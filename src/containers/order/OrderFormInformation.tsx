@@ -16,7 +16,8 @@ const schema = yup.object().shape({
 	phone: yup
 		.number()
 		.typeError('Phone Number must be a number')
-		.required('Phone Number is required'),
+		.required('Phone Number is required')
+		.test('len', 'Phone Number must be exactly 10 digits', (val: any) => val && val.toString().length === 9),
 	note: yup.string(),
 });
 
