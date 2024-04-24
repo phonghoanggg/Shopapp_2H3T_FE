@@ -8,7 +8,14 @@ import OrderFormInformation from './OrderFormInformation';
 export default function PageOrder() {
 	// Get list of items from Redux
 	const itemBagCart = useAppSelector(selectCartItems);
-	console.log(itemBagCart);
+	// Function to calculate total price
+	const calculateTotalPrice = () => {
+		let totalPrice = 0;
+		itemBagCart.forEach((item: any) => {
+			totalPrice += item.discountPrice * item.quantity;
+		});
+		return totalPrice.toFixed(2);
+	};
 
 	return (
 		<main className="site-order-page">
@@ -19,7 +26,7 @@ export default function PageOrder() {
 						<h3 className="title">ORDER SUMMARY</h3>
 						<div className="item">
 							<p>Items</p>
-							<p>1</p>
+							<p>{itemBagCart.length}</p>
 						</div>
 						<div className="item">
 							<p>Estimated Tax</p>
@@ -31,7 +38,7 @@ export default function PageOrder() {
 						</div>
 						<div className="total">
 							<p>Total</p>
-							<p>$123</p>
+							<p>${calculateTotalPrice()}</p>
 						</div>
 						{/* item cart order */}
 						<div className="order-list-cart-wrapper">

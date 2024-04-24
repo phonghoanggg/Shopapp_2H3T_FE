@@ -1,6 +1,5 @@
 // components
 import Product from '@/components/Product';
-import { LoadingSkeletonProduct } from './loading';
 // lodash
 import { map } from 'lodash';
 // base
@@ -10,6 +9,7 @@ import { GrFormNext, GrFormPrevious } from '../../compound/icons/index';
 // contains
 import { ROUTER } from '@/utils/routes/routes';
 import { NUMBER_PAGE } from './contains';
+import { LoadingSkeletonProduct } from './loading';
 // use query
 
 interface IProductProps {
@@ -19,37 +19,33 @@ interface IProductProps {
 }
 
 export default function ProductsList({ DATA_PRODUCTS, LOADING_PRODUCT, ERROR_PRODUCT }: IProductProps) {
-	// handle loading
-
-	if (LOADING_PRODUCT || !DATA_PRODUCTS?.products) {
-		return <LoadingSkeletonProduct />;
-	}
 	// handle error
-
-	if (ERROR_PRODUCT) {
-		return (
-			<div className="error-message-server">
-				<p>Something went wrong. Please try again later.</p>
-			</div>
-		);
-	}
 
 	return (
 		<section className="wrapper-product-list">
 			<div className="main-products-list">
-				{map(DATA_PRODUCTS.products, (product) => (
-					<Product
-						brand="Son's Premium"
-						key={product._id}
-						id={product._id}
-						name={product.name}
-						images={product.images}
-						price={product.price}
-						discount={product.discount}
-						sale="30% off $125+ Applied at Checkout"
-						button="Quick Add"
-					/>
-				))}
+				{ERROR_PRODUCT && (
+					<div className="error-message-server">
+						<p>Something went wrong. Please try again later.</p>
+					</div>
+				)}
+				{LOADING_PRODUCT ? (
+					<LoadingSkeletonProduct /> // Assuming LoadingSkeletonProduct is a component for showing loading animation
+				) : (
+					map(DATA_PRODUCTS.products, (product) => (
+						<Product
+							brand="Son's Premium"
+							key={product._id}
+							id={product._id}
+							name={product.name}
+							images={product.images}
+							price={product.price}
+							discount={product.discount}
+							sale="30% off $125+ Applied at Checkout"
+							button="Quick Add"
+						/>
+					))
+				)}
 			</div>
 			{/* pagination */}
 			<div className="pagination-wrapper">
