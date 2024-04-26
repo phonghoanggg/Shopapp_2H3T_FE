@@ -1,8 +1,16 @@
 'use client';
+// components
 import FormInput from '@/compound/formInput/FormInput';
+// react-hook-form
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+// redux
+import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
+import { clearCart } from '@/redux/cart/slice';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
+// useQuery
+import { usePostOrder } from '@/query/order/handleOrder';
 
 interface IOderProps {
 	name?: string;
@@ -21,22 +29,60 @@ const schema = yup.object().shape({
 	note: yup.string(),
 });
 
-const OrderFormInformation = () => {
+const OrderFormInformation = ({ itemBagCart, total }: any) => {
+	const { mutate: MUTATION_ORDER, isLoading: LOADING_ORDER } = usePostOrder();
+	// Fetch user information and set userId
+	const inforUser = useAppSelector(selectInformationUserLoginEmail);
+	const userId = inforUser?._id || null;
+	const dispatch = useAppDispatch();
+	// Initialize React Hook Form
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
 		trigger,
+		reset,
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
-
+	// Handle form submission
 	const onSubmit = async (data: IOderProps) => {
+		// Trigger form validation
 		const isFormValid = await trigger();
 		if (isFormValid) {
-			console.log(data);
+			// Map cart items to required format
+			const cartItems = itemBagCart.map((item: any) => ({
+				productId: item.id,
+				quantity: item.quantity,
+			}));
+			// Construct order data
+			const orderData: any = {
+				userId: userId,
+				name: data.name,
+				note: data.note,
+				address: data.address,
+				phone: data.phone,
+				cartItems: cartItems,
+				status: 'pending',
+			};
+			// Perform order mutation with onSuccess callback
+			MUTATION_ORDER(orderData, {
+				onSuccess: () => {
+					// Clear cart and reset form on successful order
+					dispatch(clearCart());
+					reset();
+				},
+			});
 		}
 	};
+
+	if (LOADING_ORDER) {
+		return (
+			<div className="site-loading">
+				<div className="chaotic-orbit"></div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="order-information-inner">

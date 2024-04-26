@@ -4,20 +4,14 @@ import { map } from 'lodash';
 import { FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-interface ProductData {
-	id: number;
-	name: string;
-	image: string;
-	price: number;
-	oldPrice?: number;
-}
-
 interface ProductListProps {
 	title: string;
-	productList: ProductData[];
+	productList: any;
+	loading: any;
+	error: any;
 }
 
-const SectionProducts: React.FC<ProductListProps> = ({ title, productList }) => {
+const SectionProducts: React.FC<ProductListProps> = ({ title, productList, loading, error }) => {
 	const configSwiper = {
 		slidesPerView: 2.2,
 		spaceBetween: 12,
@@ -47,19 +41,44 @@ const SectionProducts: React.FC<ProductListProps> = ({ title, productList }) => 
 		<section className="site-products">
 			<h6 className="title _text-center _text-uppercase">{title}</h6>
 			<Swiper {...configSwiper}>
-				{map(productList, ({ id, name, image, price, oldPrice }) => (
-					<SwiperSlide
-						className="product-list"
-						key={`product-item-${id}`}
-					>
-						<Product
-							name={name}
-							price={price}
-							images={image}
-							discount={oldPrice}
-						/>
-					</SwiperSlide>
-				))}
+				{error ? (
+					<div className="error-message-server">
+						<p>Something went wrong. Please try again later.</p>
+					</div>
+				) : loading ? (
+					<div className="loading-skeleton-card">
+						{Array.from({ length: 5 }).map((_, index) => (
+							<div
+								key={index}
+								className="category-item-skeleton"
+							>
+								<div className="card-is-loading">
+									<div className="image"></div>
+									<div className="content">
+										<h2></h2>
+										<h2></h2>
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+				) : (
+					map(productList?.products?.slice(0, 12), (product) => (
+						<SwiperSlide
+							className="product-list"
+							key={`product-item-${product._id}`}
+						>
+							<Product
+								brand="Son's Premium"
+								id={product._id}
+								name={product.name}
+								images={product.images}
+								price={product.price}
+								discount={product.discount}
+							/>
+						</SwiperSlide>
+					))
+				)}
 			</Swiper>
 		</section>
 	);

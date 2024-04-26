@@ -24,7 +24,7 @@ const Product = ({ id, images, name, price, discount, sale, button, brand }: IPr
 			: 'https://img2.thuthuatphanmem.vn/uploads/2018/11/30/hinh-nen-trang-ban-do-the-gioi_104325245.jpg';
 
 	// Calculate discounted price
-	const discountedPrice = discount ? (price - (price * discount) / 100).toFixed(2) : price.toFixed(2);
+	const discountedPrice = discount ? (price - (price * discount) / 100).toFixed(2) : price?.toFixed(2);
 
 	return (
 		<div

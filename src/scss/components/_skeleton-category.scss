@@ -2,15 +2,35 @@
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: 32px;
+	@include breakpoint-down(smalldesktop) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	@include breakpoint-down(phone) {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
 .loading-skeleton-product {
+	width: 1073px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 24px;
 }
+.loading-skeleton-card {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 24px;
+	@include breakpoint-down(smalldesktop) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	@include breakpoint-down(phone) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
 
 .card-is-loading {
+	width: 100%;
 	.image,
 	h2,
 	p {
@@ -22,7 +42,7 @@
 	}
 
 	.image {
-		height: 330px;
+		height: 300px;
 		@include breakpoint-down(smalldesktop) {
 			height: 200px;
 		}
@@ -30,7 +50,7 @@
 
 	h2 {
 		margin-top: 8px;
-		height: 30px;
+		height: 20px;
 	}
 }
 

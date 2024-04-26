@@ -1,8 +1,7 @@
 import { publicRequest } from '@/configs/AxiosConfig';
-import { loginEmailSuccess } from '@/redux/auth/slice';
+import { loginEmailFailure, loginEmailSuccess } from '@/redux/auth/slice';
 import { useAppDispatch } from '@/redux/hook';
 import { closeModalLogin, closeModalRegister, openModalLogin } from '@/redux/modal/slice';
-import { setAccessToken } from '@/utils/cookies/cookieStorage';
 import { API_ENDPOINT } from '@/utils/endpoint/api_endpoint';
 import { useMutation } from 'react-query';
 export const useLoginMutation = () => {
@@ -19,11 +18,15 @@ export const useLoginMutation = () => {
 		},
 		{
 			onSuccess: async (data) => {
-				setAccessToken(data.data.token);
-				await dispatch(loginEmailSuccess(data));
-				dispatch(closeModalLogin());
-				window.location.reload();
+				try {
+					const inforUser = data.data;
+					dispatch(loginEmailSuccess(inforUser));
+					dispatch(closeModalLogin());
+				} catch (error) {
+					dispatch(loginEmailFailure(error));
+				}
 			},
+
 			onError: (error: Error) => {
 				console.error('Login error:', error);
 			},

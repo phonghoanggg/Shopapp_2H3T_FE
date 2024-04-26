@@ -41,6 +41,10 @@ const cartSlice = createSlice({
 
 			return state;
 		},
+		clearCart: (state) => {
+			state.cartItems = [];
+			saveCartToLocalStorage(state.cartItems);
+		},
 		// handle toggle open cart
 		openCart: (state) => {
 			state.isOpen = true;
@@ -51,6 +55,6 @@ const cartSlice = createSlice({
 	},
 });
 
-export const { openCart, closeCart, addToCart, removeFromCart, updateCartItemQuantity } = cartSlice.actions;
+export const { openCart, closeCart, addToCart, removeFromCart, updateCartItemQuantity, clearCart } = cartSlice.actions;
 
 export default cartSlice;

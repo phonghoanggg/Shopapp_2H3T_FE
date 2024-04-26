@@ -11,7 +11,6 @@ import { useProductsQuery } from '@/query/products/getDataProducts';
 // icons
 import { BsFilterLeft } from '../../compound/icons/index';
 // constants
-import { PRODUCT_LIST_SAME } from '../home/constants';
 
 const PageProducts = () => {
 	// handle get data api use react-query
@@ -63,8 +62,10 @@ const PageProducts = () => {
 				</section>
 			</main>
 			<SectionProducts
-				title="RECENTLY VIEWED"
-				productList={PRODUCT_LIST_SAME}
+				title="BESTSELLERS WE RECOMMEND"
+				productList={DATA_PRODUCTS}
+				loading={LOADING_PRODUCT}
+				error={ERROR_PRODUCT}
 			/>
 		</Fragment>
 	);

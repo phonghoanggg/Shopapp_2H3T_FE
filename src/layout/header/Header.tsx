@@ -37,6 +37,7 @@ export const Header = () => {
 	const dispatch = useAppDispatch();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const itemBagCart = useAppSelector(selectCartItems);
+	console.log(inforUser);
 
 	const handleLogOutGoogle = () => dispatch(logoutGoogle());
 
@@ -72,8 +73,8 @@ export const Header = () => {
 								<>
 									<p className="action">
 										Hello,
-										{inforUser.data && inforUser.data.firstName && inforUser.data.lastName
-											? `${inforUser.data.firstName} ${inforUser.data.lastName}`
+										{inforUser && inforUser.firstName && inforUser.lastName
+											? `${inforUser.firstName} ${inforUser.lastName}`
 											: inforUser.displayName}
 									</p>
 									<button

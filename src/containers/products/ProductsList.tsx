@@ -9,7 +9,6 @@ import { GrFormNext, GrFormPrevious } from '../../compound/icons/index';
 // contains
 import { ROUTER } from '@/utils/routes/routes';
 import { NUMBER_PAGE } from './contains';
-import { LoadingSkeletonProduct } from './loading';
 // use query
 
 interface IProductProps {
@@ -23,16 +22,30 @@ export default function ProductsList({ DATA_PRODUCTS, LOADING_PRODUCT, ERROR_PRO
 
 	return (
 		<section className="wrapper-product-list">
-			<div className="main-products-list">
-				{ERROR_PRODUCT && (
-					<div className="error-message-server">
-						<p>Something went wrong. Please try again later.</p>
-					</div>
-				)}
-				{LOADING_PRODUCT ? (
-					<LoadingSkeletonProduct /> // Assuming LoadingSkeletonProduct is a component for showing loading animation
-				) : (
-					map(DATA_PRODUCTS.products, (product) => (
+			{ERROR_PRODUCT && (
+				<div className="error-message-server">
+					<p>Something went wrong. Please try again later.</p>
+				</div>
+			)}
+			{LOADING_PRODUCT ? (
+				// Assuming LoadingSkeletonProduct is a component for showing loading animation
+				<div className="loading-skeleton-product">
+					{Array.from({ length: 9 }).map((_, index) => (
+						<div
+							className="card-is-loading"
+							key={index}
+						>
+							<div className="image"></div>
+							<div className="content">
+								<h2></h2>
+								<h2></h2>
+							</div>
+						</div>
+					))}
+				</div>
+			) : (
+				<div className="main-products-list">
+					{map(DATA_PRODUCTS?.products, (product) => (
 						<Product
 							brand="Son's Premium"
 							key={product._id}
@@ -44,9 +57,9 @@ export default function ProductsList({ DATA_PRODUCTS, LOADING_PRODUCT, ERROR_PRO
 							sale="30% off $125+ Applied at Checkout"
 							button="Quick Add"
 						/>
-					))
-				)}
-			</div>
+					))}
+				</div>
+			)}
 			{/* pagination */}
 			<div className="pagination-wrapper">
 				<div className="button">

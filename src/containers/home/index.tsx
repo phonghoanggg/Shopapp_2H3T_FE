@@ -1,11 +1,14 @@
+'use client';
 import SectionProducts from '@/components/SectionProducts';
+import { useProductsQuery } from '@/query/products/getDataProducts';
 import BannerSection from './BannerSection';
 import Carousel from './Carousel';
 import Content from './Content';
 import Discovers from './Discovers';
-import { PRODUCT_LIST } from './constants';
 
 export default function Home() {
+	const { data: DATA_PRODUCTS, isLoading: LOADING_PRODUCT, error: ERROR_PRODUCT } = useProductsQuery();
+
 	return (
 		<main className="home-page">
 			<BannerSection
@@ -24,12 +27,16 @@ export default function Home() {
 			/>
 			<SectionProducts
 				title="STYLES YOU MAY LIKE"
-				productList={PRODUCT_LIST}
+				productList={DATA_PRODUCTS}
+				loading={LOADING_PRODUCT}
+				error={ERROR_PRODUCT}
 			/>
 			<Discovers />
 			<SectionProducts
 				title="BESTSELLERS WE RECOMMEND"
-				productList={PRODUCT_LIST}
+				productList={DATA_PRODUCTS}
+				loading={LOADING_PRODUCT}
+				error={ERROR_PRODUCT}
 			/>
 			<Carousel />
 		</main>

@@ -21,7 +21,10 @@ export default function PageOrder() {
 		<main className="site-order-page">
 			<section className="order container">
 				<div className="wrapper">
-					<OrderFormInformation />
+					<OrderFormInformation
+						itemBagCart={itemBagCart}
+						total={calculateTotalPrice}
+					/>
 					<div className="order-payment-wrapper">
 						<h3 className="title">ORDER SUMMARY</h3>
 						<div className="item">
