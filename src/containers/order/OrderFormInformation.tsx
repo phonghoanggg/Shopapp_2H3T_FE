@@ -63,6 +63,7 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 				address: data.address,
 				phone: data.phone,
 				cartItems: cartItems,
+				total: total,
 				status: 'pending',
 			};
 			// Perform order mutation with onSuccess callback

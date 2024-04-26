@@ -16,6 +16,7 @@ export default function PageOrder() {
 		});
 		return totalPrice.toFixed(2);
 	};
+	const totalPrice = calculateTotalPrice();
 
 	return (
 		<main className="site-order-page">
@@ -23,7 +24,7 @@ export default function PageOrder() {
 				<div className="wrapper">
 					<OrderFormInformation
 						itemBagCart={itemBagCart}
-						total={calculateTotalPrice}
+						total={totalPrice}
 					/>
 					<div className="order-payment-wrapper">
 						<h3 className="title">ORDER SUMMARY</h3>
@@ -41,7 +42,7 @@ export default function PageOrder() {
 						</div>
 						<div className="total">
 							<p>Total</p>
-							<p>${calculateTotalPrice()}</p>
+							<p>${totalPrice}</p>
 						</div>
 						{/* item cart order */}
 						<div className="order-list-cart-wrapper">
