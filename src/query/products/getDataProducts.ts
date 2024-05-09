@@ -1,6 +1,6 @@
 import { publicRequest } from '@/configs/AxiosConfig';
 import { API_ENDPOINT } from '@/utils/endpoint/api_endpoint';
-import { Product } from '@/utils/type';
+import { Product, ProductDetail } from '@/utils/type';
 import { useQuery } from 'react-query';
 
 export const useProductsQuery = () => {
@@ -13,7 +13,7 @@ export const useProductsQuery = () => {
 };
 
 export const useProductDetailQuery = (id: string) => {
-	return useQuery([API_ENDPOINT.PRODUCTDETAIL, id], async (): Promise<any> => {
+	return useQuery([API_ENDPOINT.PRODUCTDETAIL, id], async (): Promise<ProductDetail> => {
 		return await publicRequest.request({
 			method: 'GET',
 			url: `${API_ENDPOINT.PRODUCTDETAIL}/${id}`,

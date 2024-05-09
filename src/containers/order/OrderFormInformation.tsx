@@ -1,4 +1,6 @@
 'use client';
+// base
+import { useRouter } from 'next/navigation';
 // components
 import FormInput from '@/compound/formInput/FormInput';
 // react-hook-form
@@ -7,10 +9,11 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 // redux
 import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
-import { clearCart } from '@/redux/cart/slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 // useQuery
 import { usePostOrder } from '@/query/order/handleOrder';
+import { clearCart } from '@/redux/cart/slice';
+import { ROUTER } from '@/utils/routes/routes';
 
 interface IOderProps {
 	name?: string;
@@ -35,6 +38,7 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const userId = inforUser?._id || null;
 	const dispatch = useAppDispatch();
+	const router = useRouter();
 	// Initialize React Hook Form
 	const {
 		control,
@@ -68,25 +72,24 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 			};
 			// Perform order mutation with onSuccess callback
 			MUTATION_ORDER(orderData, {
-				onSuccess: () => {
+				onSuccess: async () => {
 					// Clear cart and reset form on successful order
-					dispatch(clearCart());
-					reset();
+					await reset();
+					await dispatch(clearCart());
+					// navigation to your order
+					router.push(ROUTER.YOUR_ORDER);
 				},
 			});
 		}
 	};
 
-	if (LOADING_ORDER) {
-		return (
-			<div className="site-loading">
-				<div className="chaotic-orbit"></div>
-			</div>
-		);
-	}
-
 	return (
 		<div className="order-information-inner">
+			{LOADING_ORDER && (
+				<div className="site-loading">
+					<div className="chaotic-orbit"></div>
+				</div>
+			)}
 			<h3 className="title">SECURE CHECKOUT</h3>
 			<form
 				className="order-form-wrapper"

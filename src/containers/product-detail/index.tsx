@@ -38,7 +38,7 @@ const PageProductDetail = () => {
 	// get query id product
 	const params = useParams();
 	const id = params.id;
-	const { data: DATA_PRODUCT_DETAIL, isLoading: LOADING_PRODUCT_DETAIL } = useProductDetailQuery(id as string);
+	const { data: DATA_PRODUCT_DETAIL, isLoading: LOADING_PRODUCT_DETAIL, error } = useProductDetailQuery(id as string);
 	const [selectedSize, setSelectedSize] = useState<string>('');
 	const [showSizeError, setShowSizeError] = useState<boolean>(false);
 	const [activeThumb, setActiveThumb] = useState<any>(null);
@@ -261,7 +261,7 @@ const PageProductDetail = () => {
 					</div>
 					<div className="detail-disable">
 						<div className="item">
-							Stock: <p className="qty-stock">{DATA_PRODUCT_DETAIL.stock}</p>
+							Stock: <span className="qty-stock">{DATA_PRODUCT_DETAIL.stock}</span>
 						</div>
 					</div>
 
@@ -312,10 +312,14 @@ const PageProductDetail = () => {
 			<SectionProducts
 				title="YOU MAY ALSO LIKE"
 				productList={PRODUCT_LIST}
+				loading={LOADING_PRODUCT_DETAIL} // add the loading property
+				error={error}
 			/>
 			<SectionProducts
 				title="CUSTOMERS ALSO BOUGHT"
 				productList={PRODUCT_LIST}
+				loading={LOADING_PRODUCT_DETAIL} // add the loading property
+				error={error}
 			/>
 			{/* comment */}
 			<Comment />

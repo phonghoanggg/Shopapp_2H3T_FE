@@ -13,9 +13,11 @@ import { ROUTER } from '@/utils/routes/routes';
 // cookies
 import { isValidAccessToken } from '@/utils/cookies/cookieStorage';
 // constants
-import { PRODUCT_LIST } from '../home/constants';
+import { useProductsQuery } from '@/query/products/getDataProducts';
 
 export default function PageCart() {
+	// get data use react-query
+	const { data: DATA_PRODUCTS, isLoading: LOADING_PRODUCT, error: ERROR_PRODUCT } = useProductsQuery();
 	// Get list of items from Redux
 	const itemBagCart = useAppSelector(selectCartItems);
 	const dispatch = useAppDispatch();
@@ -33,7 +35,6 @@ export default function PageCart() {
 		const isValidToken = isValidAccessToken();
 		if (isValidToken && itemBagCart.length > 0) {
 			return router.push(`${ROUTER.ORDER}`);
-
 		} else {
 			dispatch(openModalLogin());
 		}
@@ -114,7 +115,9 @@ export default function PageCart() {
 			{/* product flex*/}
 			<SectionProducts
 				title="CUSTOMERS ALSO BOUGHT"
-				productList={PRODUCT_LIST}
+				productList={DATA_PRODUCTS}
+				loading={LOADING_PRODUCT}
+				error={ERROR_PRODUCT}
 			/>
 		</main>
 	);

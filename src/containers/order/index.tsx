@@ -1,4 +1,5 @@
 'use client';
+import { useGetAllOrder } from '@/query/order/handleOrder';
 import { selectCartItems } from '@/redux/cart/selectors';
 import { useAppSelector } from '@/redux/hook';
 import { map } from 'lodash';
@@ -9,6 +10,9 @@ export default function PageOrder() {
 	// Get list of items from Redux
 	const itemBagCart = useAppSelector(selectCartItems);
 	// Function to calculate total price
+	const { data } = useGetAllOrder();
+	console.log(data);
+
 	const calculateTotalPrice = () => {
 		let totalPrice = 0;
 		itemBagCart.forEach((item: any) => {

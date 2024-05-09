@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 interface CustomImageProps {
 	src?: string;
 	alt: string;
-	defaultSrc: string;
+	defaultSrc?: string;
 	width?: number;
 	height?: number;
 }

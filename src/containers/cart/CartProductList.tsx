@@ -154,7 +154,9 @@ const CartProductList = () => {
 									</div>
 									<div className="total">
 										Total:
-										<p className="price">${(item.discountPrice * item.quantity).toFixed(2)}</p>
+										<span className="price">
+											${(item.discountPrice * item.quantity).toFixed(2)}
+										</span>
 									</div>
 								</div>
 							</div>
