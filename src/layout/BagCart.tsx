@@ -126,7 +126,10 @@ const BagCart = () => {
 											<div className="quantity">Qty: {item.quantity || 1}</div>
 										</div>
 										<div className="sub-title">
-											Subtotal: <p>${(item.discountPrice || 0) * (item.quantity || 1)}</p>
+											Subtotal:{' '}
+											<span>
+												${((item.discountPrice || 0) * (item.quantity || 1)).toFixed(2)}
+											</span>
 										</div>
 									</div>
 								</div>

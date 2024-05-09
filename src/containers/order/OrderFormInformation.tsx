@@ -58,6 +58,7 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 			const cartItems = itemBagCart.map((item: any) => ({
 				productId: item.id,
 				quantity: item.quantity,
+				size: item.size,
 			}));
 			// Construct order data
 			const orderData: any = {
