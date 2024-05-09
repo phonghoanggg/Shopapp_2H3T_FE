@@ -87,7 +87,7 @@ const YourOrder = () => {
 												<td>{order.address}</td>
 												<td>0{order.phone}</td>
 												<td>
-													{order.cartItems.map((cartItem) => (
+													{order.cartItems.map((cartItem: any) => (
 														<div
 															key={cartItem.productId._id}
 															className="order-item"
@@ -105,7 +105,7 @@ const YourOrder = () => {
 																	{cartItem.productId.name}
 																</Link>
 																<p>Quantity: {cartItem.quantity}</p>
-																<span>Size: M</span>
+																<span>Size: {cartItem.size}</span>
 															</div>
 														</div>
 													))}
