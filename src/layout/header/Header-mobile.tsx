@@ -7,6 +7,7 @@ import Logo from '@/compound/logo/Logo';
 import { CgSearch, GrFormClose, HiOutlineMenuAlt4, HiOutlineShoppingBag, VscBell } from '../../compound/icons/index';
 // base
 import { useEffect, useRef, useState } from 'react';
+
 // Import Swiper
 import { Autoplay, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -23,12 +24,13 @@ import { MENU_LIST, SALE } from '../constants';
 // custom-hook
 import useNoScrollBody from '@/custom-hook/useNoScrollBody';
 
-interface IPropsSaler {
-	id: number;
-	label: string;
+interface IPropsSale {
+	id?: number;
+	label?: string;
+	handleRedirectToFavoritePage: () => void;
 }
 
-const HeaderMobile = () => {
+const HeaderMobile = ({ handleRedirectToFavoritePage }: IPropsSale) => {
 	const dispatch = useAppDispatch();
 
 	const [openNav, setOpenNav] = useState<boolean>(false);
@@ -99,7 +101,7 @@ const HeaderMobile = () => {
 					}}
 					modules={[Navigation, Autoplay]}
 				>
-					{map(SALE, (item: IPropsSaler) => (
+					{map(SALE, (item: IPropsSale) => (
 						<SwiperSlide key={item.id}>
 							<h6 className="top-menu-slide">
 								{item.label} <p>details</p>
@@ -138,7 +140,12 @@ const HeaderMobile = () => {
 					</ul>
 					<div className="action_wrapper _text-capitalize _border-top">
 						<div className="action_list">
-							<Link href={ROUTER.FAVORITE}>Favorite</Link>
+							<button
+								type="button"
+								onClick={handleRedirectToFavoritePage}
+							>
+								Favorite
+							</button>
 							{inforUser ? (
 								// If user is logged in
 								<>

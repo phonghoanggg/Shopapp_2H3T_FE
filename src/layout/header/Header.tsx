@@ -1,6 +1,7 @@
 'use client';
 // base
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Fragment } from 'react';
 //  Swiper
 import { Autoplay, Navigation } from 'swiper';
@@ -26,6 +27,7 @@ import Register from '@/modals/register/Register';
 import Sale from '@/modals/sale/Sale';
 // contains
 import { selectCartItems } from '@/redux/cart/selectors';
+import { isValidAccessToken } from '@/utils/cookies/cookieStorage';
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
 
@@ -37,8 +39,15 @@ export const Header = () => {
 	const dispatch = useAppDispatch();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const itemBagCart = useAppSelector(selectCartItems);
-	console.log(inforUser);
-
+	const router = useRouter();
+	const handleRedirectToFavoritePage = () => {
+		const isValidToken = isValidAccessToken();
+		if (isValidToken) {
+			router.push(ROUTER.FAVORITE);
+		} else {
+			dispatch(openModalLogin());
+		}
+	};
 	const handleLogOutGoogle = () => dispatch(logoutGoogle());
 
 	return (
@@ -150,15 +159,16 @@ export const Header = () => {
 							>
 								<VscBell size={24} />
 							</button>
-							<Link
-								href={ROUTER.FAVORITE}
+							<button
+								type="button"
 								className="header-icon-item"
+								onClick={handleRedirectToFavoritePage}
 							>
 								<TbHeart
 									size={24}
 									color="#000"
 								/>
-							</Link>
+							</button>
 							<div className="inner-cart-number">
 								<Link
 									href={ROUTER.CART}
@@ -186,7 +196,7 @@ export const Header = () => {
 			{/* modal register*/}
 			{typeof window !== 'undefined' && <Register />}
 			{/* header mobile */}
-			<HeaderMobile />
+			<HeaderMobile handleRedirectToFavoritePage={handleRedirectToFavoritePage} />
 		</Fragment>
 	);
 };
