@@ -1,4 +1,4 @@
-// components/CustomImage.tsx
+'use client';
 
 import Image from 'next/image';
 import React, { useState } from 'react';
@@ -11,21 +11,21 @@ interface CustomImageProps {
 	height?: number;
 }
 
-const CustomImage: React.FC<CustomImageProps> = ({ src, alt, defaultSrc, width, height, ...props }) => {
-	const [imageSrc, setImageSrc] = useState<string>(src || ''); // Provide a default value
+const CustomImage: React.FC<CustomImageProps> = ({ src, alt, defaultSrc = '', width, height, ...props }) => {
+	const [imageSrc, setImageSrc] = useState<string>(src || '');
 
 	const [error, setError] = useState<boolean>(false);
 
 	const handleError = () => {
 		setError(true);
-		setImageSrc(defaultSrc);
+		setImageSrc(defaultSrc || ''); // Ensure defaultSrc is a string
 	};
 
 	return (
 		<div className="custom-image-wrapper">
 			{error ? (
 				<img
-					src={defaultSrc}
+					src={defaultSrc || ''} // Ensure defaultSrc is a string
 					alt={alt}
 					width={width}
 					height={height}
