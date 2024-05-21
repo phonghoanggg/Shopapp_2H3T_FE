@@ -5,6 +5,7 @@ import { GiFireworkRocket } from 'react-icons/gi';
 import { GoVerified } from 'react-icons/go';
 import { GrFormClose, GrFormNext, GrFormPrevious, GrLocationPin } from 'react-icons/gr';
 import { HiMinus, HiOutlineMenuAlt4, HiOutlineMinusSm, HiOutlineShoppingBag } from 'react-icons/hi';
+import { HiMiniHeart } from 'react-icons/hi2';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { IoLocationSharp } from 'react-icons/io5';
 import { MdKeyboardArrowDown, MdOutlineAdd, MdReportGmailerrorred } from 'react-icons/md';
@@ -25,6 +26,7 @@ export {
 	GrFormNext,
 	GrFormPrevious,
 	GrLocationPin,
+	HiMiniHeart,
 	HiMinus,
 	HiOutlineMenuAlt4,
 	HiOutlineMinusSm,

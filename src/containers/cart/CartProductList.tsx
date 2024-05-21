@@ -139,10 +139,10 @@ const CartProductList = () => {
 										)}
 									</div>
 								</div>
-								<div className="item-total">
+								<div className="    ">
 									<div className="actions">
 										<button type="button">
-											<TbHeart size={16} /> Moveto Favorite
+											<TbHeart size={16} /> Move to Favorite
 										</button>
 										<button
 											className="remove"

@@ -25,16 +25,24 @@ import {
 import { Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // redux
-import { useAppDispatch } from '@/redux/hook';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
 
 // react-query
-import { useProductDetailQuery } from '@/query/products/getDataProducts';
+import { useProductDetailQuery, useProductsQuery } from '@/query/products/getDataProducts';
 // constants
 import { addToCart } from '@/redux/cart/slice';
 import { BREAKPOINTS } from '@/utils/breakpoints/constants';
-import { PRODUCT_LIST } from '../home/constants';
 import { LIMIT, PAYMENT_METHOD } from './constants';
+// icons
+import { usePostFavorite } from '@/query/favorite/handleApiFavorite';
+import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
+import { HiMiniHeart } from '../../compound/icons/index';
 const PageProductDetail = () => {
+	const { mutate: MUTATION_FAVORITE, isLoading: LOADING_FAVORITE } = usePostFavorite();
+	const inforUser = useAppSelector(selectInformationUserLoginEmail);
+	const { data: DATA_PRODUCTS, isLoading: LOADING_PRODUCT, error: ERROR_PRODUCT } = useProductsQuery();
+
+	const userId = inforUser?._id || null;
 	// get query id product
 	const params = useParams();
 	const id = params.id;
@@ -62,6 +70,14 @@ const PageProductDetail = () => {
 		setShowSizeError(false);
 	};
 
+	const handleAddToFavorites = () => {
+		if (DATA_PRODUCT_DETAIL && userId) {
+			MUTATION_FAVORITE({
+				userId: userId as string,
+				productId: DATA_PRODUCT_DETAIL._id as string,
+			});
+		}
+	};
 	// handle bag cart use redux
 	const dispatch = useAppDispatch();
 	const handleAddToCart = () => {
@@ -182,6 +198,9 @@ const PageProductDetail = () => {
 											src={image}
 											alt=""
 										/>
+										<div onClick={handleAddToFavorites}>
+											<HiMiniHeart size={20} />
+										</div>
 									</div>
 								</SwiperSlide>
 							))}
@@ -311,15 +330,15 @@ const PageProductDetail = () => {
 			{/* section product */}
 			<SectionProducts
 				title="YOU MAY ALSO LIKE"
-				productList={PRODUCT_LIST}
-				loading={LOADING_PRODUCT_DETAIL} // add the loading property
-				error={error}
+				productList={DATA_PRODUCTS}
+				loading={LOADING_PRODUCT} // add the loading property
+				error={ERROR_PRODUCT}
 			/>
 			<SectionProducts
 				title="CUSTOMERS ALSO BOUGHT"
-				productList={PRODUCT_LIST}
-				loading={LOADING_PRODUCT_DETAIL} // add the loading property
-				error={error}
+				productList={DATA_PRODUCTS}
+				loading={LOADING_PRODUCT} // add the loading property
+				error={ERROR_PRODUCT}
 			/>
 			{/* comment */}
 			<Comment />

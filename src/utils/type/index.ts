@@ -1,4 +1,4 @@
-import { Key } from 'react';
+import { Key, ReactNode } from 'react';
 
 export type Product = {
 	id: Key | null | undefined;
@@ -59,6 +59,7 @@ export type Order = {
 };
 
 export type CartItem = {
+	size: ReactNode;
 	productId: Product;
 	quantity: number;
 	_id: string;

@@ -24,10 +24,11 @@ export default function PageCart() {
 	const router = useRouter();
 	// Function to calculate total price
 	const calculateTotalPrice = () => {
-		let totalPrice = 0;
-		itemBagCart.forEach((item: any) => {
-			totalPrice += item.discountPrice * item.quantity;
-		});
+		const totalPrice = itemBagCart.reduce(
+			(total: number, item: { discountPrice: number; quantity: number }) =>
+				total + item.discountPrice * item.quantity,
+			0,
+		);
 		return totalPrice.toFixed(2);
 	};
 
@@ -48,7 +49,7 @@ export default function PageCart() {
 					<div className="shopping-cart-notify">
 						<div className="title">
 							Red Tab™ Members get 20% off your first order + free shipping and returns.
-							<p className="sub"> Free to join. </p>
+							<span className="sub"> Free to join. </span>
 						</div>
 						<div className="actions">
 							<button

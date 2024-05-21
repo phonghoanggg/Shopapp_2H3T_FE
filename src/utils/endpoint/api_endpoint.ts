@@ -8,4 +8,7 @@ export const API_ENDPOINT = {
 	PRODUCTS: '/product',
 	PRODUCTDETAIL: '/product',
 	CATEGORIES: '/category',
+	FAVORITE: '/favorite',
+	DELETE_FAVORITE: 'delete_favorite',
+	GET_FAVORITE_BY_USER: '/get_favorite_by_user',
 } as const;

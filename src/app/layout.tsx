@@ -1,5 +1,6 @@
 import { Footer, Header } from '@/layout';
 import type { Metadata } from 'next';
+
 import './index.scss';
 // provider
 import { ReactQueryProvider } from '@/query/ReactQueryProvider';

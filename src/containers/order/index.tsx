@@ -11,7 +11,6 @@ export default function PageOrder() {
 	const itemBagCart = useAppSelector(selectCartItems);
 	// Function to calculate total price
 	const { data } = useGetAllOrder();
-	console.log(data);
 
 	const calculateTotalPrice = () => {
 		let totalPrice = 0;

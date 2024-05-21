@@ -133,12 +133,25 @@
 
 .main-swiper-slide {
 	> .item-main-slide {
+		position: relative;
 		height: 740px;
 		@include breakpoint-down(phone) {
 			height: 580px;
 		}
 		@include breakpoint-down(smallphone) {
 			height: 500px;
+		}
+		> div {
+			@include flex-center;
+			position: absolute;
+			top: 15px;
+			right: 10px;
+			z-index: 10;
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+			border: 2px solid $success-light-color;
+			cursor: pointer;
 		}
 	}
 }

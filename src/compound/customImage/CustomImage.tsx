@@ -24,11 +24,13 @@ const CustomImage: React.FC<CustomImageProps> = ({ src, alt, defaultSrc = '', wi
 	return (
 		<div className="custom-image-wrapper">
 			{error ? (
-				<img
-					src={defaultSrc || ''} // Ensure defaultSrc is a string
-					alt={alt}
+				<Image
+					className="image-item"
 					width={width}
 					height={height}
+					src={imageSrc}
+					alt={alt}
+					onError={handleError}
 					{...props}
 				/>
 			) : (
