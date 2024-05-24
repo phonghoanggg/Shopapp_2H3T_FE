@@ -32,7 +32,8 @@ const Product = ({ id, images, name, price, discount, sale, button, brand }: IPr
 			key={id}
 		>
 			<Link
-				href={`${ROUTER.PRODUCT_DETAIL}/${id}`}
+				href={`/${ROUTER.PRODUCT_DETAIL}/${[id]}`}
+				as={`/${ROUTER.PRODUCT_DETAIL}/${id}`}
 				className="image"
 			>
 				<Image

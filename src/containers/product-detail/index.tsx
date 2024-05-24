@@ -1,7 +1,7 @@
 'use client';
 // base
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // components
 import SectionProducts from '@/components/SectionProducts';
 import Button from '@/compound/demo-button/button/Button';
@@ -37,6 +37,7 @@ import { LIMIT, PAYMENT_METHOD } from './constants';
 import { usePostFavorite } from '@/query/favorite/handleApiFavorite';
 import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
 import { HiMiniHeart } from '../../compound/icons/index';
+
 const PageProductDetail = () => {
 	const { mutate: MUTATION_FAVORITE, isLoading: LOADING_FAVORITE } = usePostFavorite();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
@@ -46,12 +47,23 @@ const PageProductDetail = () => {
 	// get query id product
 	const params = useParams();
 	const id = params.id;
-	const { data: DATA_PRODUCT_DETAIL, isLoading: LOADING_PRODUCT_DETAIL, error } = useProductDetailQuery(id as string);
+	const {
+		data: DATA_PRODUCT_DETAIL,
+		isLoading: LOADING_PRODUCT_DETAIL,
+		error,
+		refetch,
+	} = useProductDetailQuery(id as string);
 	const [selectedSize, setSelectedSize] = useState<string>('');
 	const [showSizeError, setShowSizeError] = useState<boolean>(false);
 	const [activeThumb, setActiveThumb] = useState<any>(null);
 	const [quantity, setQuantity] = useState<number>(1);
 	const [activePaymentMethod, setActivePaymentMethod] = useState<string>('Ship');
+
+	useEffect(() => {
+		if (id) {
+			refetch(); // refetch data when the id changes
+		}
+	}, [id, refetch]);
 
 	const increaseQuantity = () => {
 		setQuantity(quantity + 1);
@@ -78,6 +90,14 @@ const PageProductDetail = () => {
 			});
 		}
 	};
+
+	useEffect(() => {
+		refetch();
+		setSelectedSize('');
+		setShowSizeError(false);
+		setQuantity(1);
+	}, [id]);
+
 	// handle bag cart use redux
 	const dispatch = useAppDispatch();
 	const handleAddToCart = () => {
@@ -98,7 +118,11 @@ const PageProductDetail = () => {
 		}
 	};
 	if (LOADING_PRODUCT_DETAIL) {
-		return <div>Loading...</div>;
+		return (
+			<div className="site-loading">
+				<div className="chaotic-orbit"></div>
+			</div>
+		);
 	}
 
 	if (!DATA_PRODUCT_DETAIL) {

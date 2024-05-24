@@ -45,7 +45,7 @@ const SectionProducts: React.FC<ProductListProps> = ({ title, productList, loadi
 					<div className="error-message-server">
 						<p>Something went wrong. Please try again later.</p>
 					</div>
-				) : loading ? (
+				) : loading || error ? (
 					<div className="loading-skeleton-card">
 						{Array.from({ length: 5 }).map((_, index) => (
 							<div

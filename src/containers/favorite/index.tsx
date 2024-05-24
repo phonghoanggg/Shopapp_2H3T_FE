@@ -6,18 +6,17 @@ import { useAppSelector } from '@/redux/hook';
 import { map } from 'lodash';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useQueryClient } from 'react-query';
 import { FaHeart, GrFormClose } from '../../compound/icons/index';
 import { MENU_FAVORITE } from './constants';
 
 const PageFavorite = () => {
-	const queryClient = useQueryClient();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const userId = inforUser?._id || null;
 	const {
 		data: DATA_PRODUCT_FAVORITE_BY_USER,
 		isLoading: LOADING_PRODUCT_FAVORITE_BY_USER,
 		error: ERROR_PRODUCT_FAVORITE_BY_USER,
+		refetch,
 	} = useGetFavoriteByUser(userId as string);
 
 	const { mutate: DELETE_FAVORITE_BY_USER_MUTATION, isLoading: DELETE_FAVORITE_BY_USER_LOADING } =
@@ -26,11 +25,11 @@ const PageFavorite = () => {
 	const handleDeleteFavorite = (productId: string) => {
 		DELETE_FAVORITE_BY_USER_MUTATION(productId, {
 			onSuccess: () => {
-				queryClient.invalidateQueries(['favorite', userId]);
+				refetch();
 			},
 		});
 	};
-	console.log(DATA_PRODUCT_FAVORITE_BY_USER);
+
 	return (
 		<main className="site-products-pag container">
 			{/*navigation favorite */}
@@ -39,8 +38,7 @@ const PageFavorite = () => {
 					{map(MENU_FAVORITE, ({ label, route }) => (
 						<li
 							key={label}
-							className="nav-list-item
-"
+							className="nav-list-item"
 						>
 							<Link
 								href={route}
@@ -52,18 +50,23 @@ const PageFavorite = () => {
 					))}
 				</ul>
 				{/* favorite products list */}
-				<div className="favorites-list-wrapper ">
+				<div className="favorites-list-wrapper">
 					<div className="favorite-title">
 						<div className="text">FAVORITES</div>
-						<p className="value">4 items</p>
+						<p className="value">{DATA_PRODUCT_FAVORITE_BY_USER?.length || 0} items</p>
 					</div>
 					{LOADING_PRODUCT_FAVORITE_BY_USER || DELETE_FAVORITE_BY_USER_LOADING ? (
-						<p>Loading...</p>
+						<div className="site-loading">
+							<div className="chaotic-orbit"></div>
+						</div>
 					) : (
 						<div className="favorite-product-list">
 							{/* render product favorite by user here */}
 							{map(DATA_PRODUCT_FAVORITE_BY_USER, (item) => (
-								<div className="favorite-item">
+								<div
+									className="favorite-item"
+									key={item.productId._id}
+								>
 									<div className="product-image">
 										<div className="slide-ratio">
 											<Link
