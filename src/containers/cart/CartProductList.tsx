@@ -139,7 +139,7 @@ const CartProductList = () => {
 										)}
 									</div>
 								</div>
-								<div className="    ">
+								<div className="item-total">
 									<div className="actions">
 										<button type="button">
 											<TbHeart size={16} /> Move to Favorite

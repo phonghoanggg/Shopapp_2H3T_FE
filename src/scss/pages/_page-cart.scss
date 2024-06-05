@@ -161,7 +161,7 @@
 				color: $brown-color;
 			}
 			> .remove {
-				display: block;
+				display: flex;
 				@include breakpoint-down(smalldesktop) {
 					display: none;
 				}

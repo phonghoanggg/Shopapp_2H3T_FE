@@ -1,38 +1,77 @@
 'use client';
 
+import ButtonLink from '@/compound/demo-button/button-link/ButtonLink';
+import ModalNotification from '@/modals/notification/Notification';
 import { useDeleteFavorite, useGetFavoriteByUser } from '@/query/favorite/handleApiFavorite';
 import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hook';
+import { ROUTER } from '@/utils/routes/routes';
 import { map } from 'lodash';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { FaHeart, GrFormClose } from '../../compound/icons/index';
 import { MENU_FAVORITE } from './constants';
-
 const PageFavorite = () => {
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const userId = inforUser?._id || null;
 	const {
-		data: DATA_PRODUCT_FAVORITE_BY_USER,
+		data: DATA_FAVORITE_BY_USER,
 		isLoading: LOADING_PRODUCT_FAVORITE_BY_USER,
 		error: ERROR_PRODUCT_FAVORITE_BY_USER,
-		refetch,
+		refetch: REFETCH_DATA_FAVORITE_BY_USER,
 	} = useGetFavoriteByUser(userId as string);
+
+	const [data, setData] = useState(DATA_FAVORITE_BY_USER || []);
+	const [modalVisible, setModalVisible] = useState(true);
+	const [modalMessage, setModalMessage] = useState('');
 
 	const { mutate: DELETE_FAVORITE_BY_USER_MUTATION, isLoading: DELETE_FAVORITE_BY_USER_LOADING } =
 		useDeleteFavorite(userId);
 
-	const handleDeleteFavorite = (productId: string) => {
+	const deleteFavorite = async (productId: string) => {
+		const originalData = [...data];
+
+		// Optimistically update the UI
+		const newData = data.filter((item: any) => item.productId._id !== productId);
+		setData(newData);
+
 		DELETE_FAVORITE_BY_USER_MUTATION(productId, {
 			onSuccess: () => {
-				refetch();
+				REFETCH_DATA_FAVORITE_BY_USER();
+				setModalMessage('Item successfully deleted.');
+				setModalVisible(true);
+			},
+			onError: () => {
+				// Revert to original data if the deletion fails
+				setData(originalData);
+				setModalMessage('Failed to delete item. Please try again.');
+				setModalVisible(true);
 			},
 		});
 	};
 
+	useEffect(() => {
+		let timer: ReturnType<typeof setTimeout> | undefined;
+		if (modalVisible) {
+			timer = setTimeout(() => {
+				setModalVisible(false);
+			}, 3000); // Close modal after 2 seconds
+		}
+		return () => {
+			if (timer) clearTimeout(timer);
+		};
+	}, [modalVisible]);
+
 	return (
 		<main className="site-products-pag container">
-			{/*navigation favorite */}
+			{/* Modal Notification */}
+			<ModalNotification
+				stateModalVisible={modalVisible}
+				message={modalMessage}
+				onClose={() => setModalVisible(false)}
+			/>
+			{/* navigation favorite */}
 			<div className="favorite-account">
 				<ul className="account-navigation">
 					{map(MENU_FAVORITE, ({ label, route }) => (
@@ -53,7 +92,7 @@ const PageFavorite = () => {
 				<div className="favorites-list-wrapper">
 					<div className="favorite-title">
 						<div className="text">FAVORITES</div>
-						<p className="value">{DATA_PRODUCT_FAVORITE_BY_USER?.length || 0} items</p>
+						<p className="value">{data.length} items</p>
 					</div>
 					{LOADING_PRODUCT_FAVORITE_BY_USER || DELETE_FAVORITE_BY_USER_LOADING ? (
 						<div className="site-loading">
@@ -62,7 +101,16 @@ const PageFavorite = () => {
 					) : (
 						<div className="favorite-product-list">
 							{/* render product favorite by user here */}
-							{map(DATA_PRODUCT_FAVORITE_BY_USER, (item) => (
+							{DATA_FAVORITE_BY_USER.length === 0 && (
+								<div className="empty">
+									<p>There are no items in your favorites.</p>
+									<div>
+										<ButtonLink color="three">Shop Men</ButtonLink>
+										<ButtonLink color="three">Shop Women</ButtonLink>
+									</div>
+								</div>
+							)}
+							{map(DATA_FAVORITE_BY_USER, (item) => (
 								<div
 									className="favorite-item"
 									key={item.productId._id}
@@ -71,7 +119,7 @@ const PageFavorite = () => {
 										<div className="slide-ratio">
 											<Link
 												className="cell-image-link"
-												href="/"
+												href={`${ROUTER.PRODUCT_DETAIL}/${item.productId._id}`}
 											>
 												<Image
 													src={item?.productId?.images[0]}
@@ -83,7 +131,8 @@ const PageFavorite = () => {
 											<button
 												type="button"
 												className="favorite-button"
-												onClick={() => handleDeleteFavorite(item.productId._id)}
+												// handle delete favorite by user
+												onClick={() => deleteFavorite(item.productId._id)}
 											>
 												<FaHeart className="icon" />
 											</button>
@@ -91,7 +140,12 @@ const PageFavorite = () => {
 									</div>
 									<div className="product-info">
 										<div className="item-name">
-											{item.productId.name} <GrFormClose className="icon" />
+											{item.productId.name}{' '}
+											<GrFormClose
+												className="icon"
+												// handle delete favorite by user
+												onClick={() => deleteFavorite(item.productId._id)}
+											/>
 										</div>
 										<div className="item-color">Pictorial - Light Wash - Stretch</div>
 										<div className="item-size">30W X 30L</div>

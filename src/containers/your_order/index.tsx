@@ -33,28 +33,12 @@ const YourOrder = () => {
 		});
 	};
 
-	// Aggregate orders by user ID
-	const aggregateOrders = (orders: Order[]): Order[] => {
-		const aggregatedOrders: Record<string, Order> = {};
-
-		orders.forEach((order) => {
-			if (order.userId === inforUser._id) {
-				if (!aggregatedOrders[order.userId]) {
-					aggregatedOrders[order.userId] = {
-						...order,
-						cartItems: [...order.cartItems],
-					};
-				} else {
-					aggregatedOrders[order.userId].cartItems.push(...order.cartItems);
-					aggregatedOrders[order.userId].total += order.total;
-				}
-			}
-		});
-
-		return Object.values(aggregatedOrders);
+	// Filter orders by user ID
+	const filterOrders = (orders: Order[]): Order[] => {
+		return orders.filter((order) => order.userId === inforUser._id);
 	};
 
-	const FILTERED_ORDERS = Array.isArray(DATA_ORDER) ? aggregateOrders(DATA_ORDER) : [];
+	const FILTERED_ORDERS = Array.isArray(DATA_ORDER) ? filterOrders(DATA_ORDER) : [];
 
 	return (
 		<main className="container">
@@ -109,17 +93,6 @@ const YourOrder = () => {
 									<p>
 										Order status: <span>{order.status}</span>
 									</p>
-
-									{/* <Button
-											type="button"
-											className="btn"
-											onClick={() => handleDeleteOrder(order._id)}
-											disabled={LOADING_DELETE_ORDER && deletedOrderId === order._id}
-										>
-											{LOADING_DELETE_ORDER && deletedOrderId === order._id
-												? 'Deleting...'
-												: 'Cancel order'}
-										</Button> */}
 								</div>
 								<div className="order-list-items">
 									<h4>ORDER ITEMS</h4>

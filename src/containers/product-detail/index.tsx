@@ -34,6 +34,7 @@ import { addToCart } from '@/redux/cart/slice';
 import { BREAKPOINTS } from '@/utils/breakpoints/constants';
 import { LIMIT, PAYMENT_METHOD } from './constants';
 // icons
+import ModalNotification from '@/modals/notification/Notification';
 import { usePostFavorite } from '@/query/favorite/handleApiFavorite';
 import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
 import { HiMiniHeart } from '../../compound/icons/index';
@@ -58,6 +59,9 @@ const PageProductDetail = () => {
 	const [activeThumb, setActiveThumb] = useState<any>(null);
 	const [quantity, setQuantity] = useState<number>(1);
 	const [activePaymentMethod, setActivePaymentMethod] = useState<string>('Ship');
+
+	const [modalVisible, setModalVisible] = useState(false);
+	const [modalMessage, setModalMessage] = useState('');
 
 	useEffect(() => {
 		if (id) {
@@ -84,12 +88,42 @@ const PageProductDetail = () => {
 
 	const handleAddToFavorites = () => {
 		if (DATA_PRODUCT_DETAIL && userId) {
-			MUTATION_FAVORITE({
-				userId: userId as string,
-				productId: DATA_PRODUCT_DETAIL._id as string,
-			});
+			MUTATION_FAVORITE(
+				{
+					userId: userId as string,
+					productId: DATA_PRODUCT_DETAIL._id as string,
+				},
+				{
+					onSuccess: () => {
+						setModalMessage('Item successfully added to favorites.');
+						setModalVisible(true);
+					},
+					onError: () => {
+						setModalMessage('The product is already in your favorites list.');
+						setModalVisible(true);
+					},
+				},
+			);
 		}
 	};
+
+	useEffect(() => {
+		let timer: ReturnType<typeof setTimeout> | undefined;
+		if (modalVisible) {
+			timer = setTimeout(() => {
+				setModalVisible(false);
+			}, 3000); // Close modal after 2 seconds
+		}
+		return () => {
+			if (timer) clearTimeout(timer);
+		};
+	}, [modalVisible]);
+
+	useEffect(() => {
+		if (id) {
+			refetch();
+		}
+	}, [id, refetch]);
 
 	useEffect(() => {
 		refetch();
@@ -115,6 +149,8 @@ const PageProductDetail = () => {
 				discountPrice: discountedPrice,
 			};
 			dispatch(addToCart(productToAdd));
+			setModalMessage('Item successfully added to cart.');
+			setModalVisible(true);
 		}
 	};
 	if (LOADING_PRODUCT_DETAIL) {
@@ -132,6 +168,12 @@ const PageProductDetail = () => {
 
 	return (
 		<main className="site-detail ">
+			{/* Modal Notification */}
+			<ModalNotification
+				stateModalVisible={modalVisible}
+				message={modalMessage}
+				onClose={() => setModalVisible(false)}
+			/>
 			<section className="detail container">
 				{/* slide Image product */}
 				<div className="detail-slide">
