@@ -23,12 +23,13 @@ export const useLoginMutation = () => {
 					dispatch(loginEmailSuccess(inforUser));
 					dispatch(closeModalLogin());
 				} catch (error) {
+					console.error('Processing login success error:', error);
 					dispatch(loginEmailFailure(error));
 				}
 			},
-
 			onError: (error: Error) => {
 				console.error('Login error:', error);
+				dispatch(loginEmailFailure(error));
 			},
 		},
 	);

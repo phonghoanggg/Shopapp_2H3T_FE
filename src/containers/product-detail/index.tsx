@@ -37,6 +37,8 @@ import { LIMIT, PAYMENT_METHOD } from './constants';
 import ModalNotification from '@/modals/notification/Notification';
 import { usePostFavorite } from '@/query/favorite/handleApiFavorite';
 import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
+import { openModalLogin } from '@/redux/modal/slice';
+import { isValidAccessToken } from '@/utils/cookies/cookieStorage';
 import { HiMiniHeart } from '../../compound/icons/index';
 
 const PageProductDetail = () => {
@@ -87,6 +89,12 @@ const PageProductDetail = () => {
 	};
 
 	const handleAddToFavorites = () => {
+		const isValidToken = isValidAccessToken();
+		if (!isValidToken) {
+			dispatch(openModalLogin());
+			return;
+		}
+
 		if (DATA_PRODUCT_DETAIL && userId) {
 			MUTATION_FAVORITE(
 				{
@@ -137,6 +145,8 @@ const PageProductDetail = () => {
 	const handleAddToCart = () => {
 		if (!selectedSize) {
 			setShowSizeError(true);
+			setModalMessage('You have not selected the product size yet.');
+			setModalVisible(true);
 			return;
 		} else {
 			const productToAdd = {

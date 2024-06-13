@@ -34,4 +34,3 @@ export const useGetFavoriteByUser = (userId: any) => {
 		});
 	});
 };
-``;

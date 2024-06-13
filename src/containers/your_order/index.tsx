@@ -23,7 +23,7 @@ const YourOrder = () => {
 	const { data: DATA_ORDER, isLoading: LOADING_ORDER, error: ERROR_ORDER } = useGetAllOrder();
 	const { mutate: MUTATE_ORDER, isLoading: LOADING_DELETE_ORDER, error: ERROR_DELETE_ORDER } = useDeleteOrder();
 	const [deletedOrderId, setDeletedOrderId] = useState<string | null>(null);
-
+	const id_User = inforUser._id;
 	const handleDeleteOrder = (orderId: string) => {
 		MUTATE_ORDER(orderId, {
 			onSuccess: () => {
@@ -35,7 +35,7 @@ const YourOrder = () => {
 
 	// Filter orders by user ID
 	const filterOrders = (orders: Order[]): Order[] => {
-		return orders.filter((order) => order.userId === inforUser._id);
+		return orders.filter((order) => order.userId === id_User);
 	};
 
 	const FILTERED_ORDERS = Array.isArray(DATA_ORDER) ? filterOrders(DATA_ORDER) : [];
@@ -77,6 +77,15 @@ const YourOrder = () => {
 									</p>
 									<p>
 										Customer: <span>{order.name}</span>
+									</p>
+									<p>
+										Province: <span>{order.province}</span>
+									</p>
+									<p>
+										District: <span>{order.district}</span>
+									</p>
+									<p>
+										Commune: <span>{order.commune}</span>
 									</p>
 									<p>
 										Address: <span>{order.address}</span>

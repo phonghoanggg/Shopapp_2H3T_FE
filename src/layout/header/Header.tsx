@@ -80,19 +80,18 @@ export const Header = () => {
 							{inforUser ? (
 								// If user is logged in
 								<>
-									<p className="action">
+									<div className="action">
 										Hello,
 										{inforUser && inforUser.firstName && inforUser.lastName
 											? `${inforUser.firstName} ${inforUser.lastName}`
 											: inforUser.displayName}
-									</p>
-									<button
-										type="button"
-										className="action"
-										onClick={handleLogOutGoogle}
-									>
-										Logout
-									</button>
+										<div className="dropdown">
+											<Link href={ROUTER.YOUR_ORDER}>Order History</Link>
+											<Link href={ROUTER.FAVORITE}>Favorites</Link>
+											<Link href={ROUTER.PROFILE}>Profile</Link>
+											<p onClick={handleLogOutGoogle}>Log out</p>
+										</div>
+									</div>
 								</>
 							) : (
 								// If user is not logged in

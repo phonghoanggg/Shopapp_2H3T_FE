@@ -49,18 +49,46 @@
 			justify-content: right;
 			font-size: $fz-xs;
 			color: $brown-color;
-			gap: 32px;
 		}
 
 		> .actions > .action {
 			font-size: $fz-xs;
 			color: $brown-color;
 			text-transform: capitalize;
-
+			cursor: pointer;
+			position: relative;
+			padding-inline: 30px;
+			height: 100%;
+			@include flex-center;
 			&.-location {
 				@include flex-center-ver;
 				gap: 4px;
 			}
+		}
+
+		> .actions > .action > .dropdown {
+			$box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+			@include flex-column;
+			position: absolute;
+			top: 102%;
+			left: 2px;
+			gap: 12px;
+			background: $white;
+			box-shadow: $box-shadow;
+			padding: 20px;
+			z-index: 1000;
+			width: 150px;
+			display: none;
+			> * {
+				color: $primary-color;
+				&:hover {
+					font-weight: $fw-bold;
+					text-decoration: underline;
+				}
+			}
+		}
+		> .actions > .action:hover > .dropdown {
+			display: flex;
 		}
 	}
 }

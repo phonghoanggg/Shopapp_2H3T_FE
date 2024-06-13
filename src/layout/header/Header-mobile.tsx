@@ -16,6 +16,7 @@ import { map } from 'lodash';
 // redux
 import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
 import { logoutGoogle } from '@/redux/auth/slice';
+import { selectCartItems } from '@/redux/cart/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { openModalLogin, openModalRegister, openModalSale } from '@/redux/modal/slice';
 // contains
@@ -32,6 +33,7 @@ interface IPropsSale {
 
 const HeaderMobile = ({ handleRedirectToFavoritePage }: IPropsSale) => {
 	const dispatch = useAppDispatch();
+	const itemBagCart = useAppSelector(selectCartItems);
 
 	const [openNav, setOpenNav] = useState<boolean>(false);
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -83,12 +85,19 @@ const HeaderMobile = ({ handleRedirectToFavoritePage }: IPropsSale) => {
 						size={22}
 						color="#000"
 					/>
-					<Link href={ROUTER.CART}>
-						<HiOutlineShoppingBag
-							color="#000"
-							size={24}
-						/>
-					</Link>
+					<div className="inner-cart-number">
+						<Link
+							href={ROUTER.CART}
+							className="header-icon-item "
+							id="shopping-bag-anchor"
+						>
+							<HiOutlineShoppingBag
+								color="#000"
+								size={24}
+							/>
+						</Link>
+						<p>{itemBagCart.length || '0'}</p>
+					</div>
 				</div>
 			</div>
 			<div className="slides">
@@ -150,6 +159,8 @@ const HeaderMobile = ({ handleRedirectToFavoritePage }: IPropsSale) => {
 								// If user is logged in
 								<>
 									<p className="action">Hello, {inforUser.firstName || inforUser.displayName}</p>
+									<Link href={ROUTER.ORDER}>Order History</Link>
+									<Link href={ROUTER.PROFILE}>Profile</Link>
 									<button
 										type="button"
 										className="action"

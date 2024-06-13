@@ -1,15 +1,15 @@
 import { publicRequest } from '@/configs/AxiosConfig';
-import { CACHE_TIME, RETRY, STALE_TIME } from '@/utils/breakpoints/constants';
+import { STALE_TIME, CACHE_TIME, RETRY } from '@/utils/breakpoints/constants';
 import { API_ENDPOINT } from '@/utils/endpoint/api_endpoint';
 import { useQuery } from 'react-query';
 
-export const useCategoriesQuery = () => {
+export const useUserDetailQuery = (id: string) => {
 	return useQuery(
-		API_ENDPOINT.CATEGORIES,
+		[API_ENDPOINT.GET_USER, id],
 		async (): Promise<any> => {
 			return await publicRequest.request({
 				method: 'GET',
-				url: API_ENDPOINT.CATEGORIES,
+				url: `${API_ENDPOINT.GET_USER}/${id}`,
 			});
 		},
 		{

@@ -1,6 +1,7 @@
 export const API_ENDPOINT = {
 	REGISTER: '/auth/register',
 	LOGIN: '/auth/login',
+	GET_USER: '/user',
 	ORDER: '/order',
 	DELETE_ORDER: 'delete_order',
 	GET_ALL_ORDER: '/get_all_order',

@@ -11,7 +11,7 @@ import { removeFromCart, updateCartItemQuantity } from '@/redux/cart/slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 // icons
 import ButtonLink from '@/compound/demo-button/button-link/ButtonLink';
-import { MdKeyboardArrowDown, TbHeart } from '../../compound/icons/index';
+import { MdKeyboardArrowDown } from '../../compound/icons/index';
 
 const CartProductList = () => {
 	// Use useDispatch and useSelector to get dispatch and state from Redux
@@ -141,15 +141,12 @@ const CartProductList = () => {
 								</div>
 								<div className="item-total">
 									<div className="actions">
-										<button type="button">
-											<TbHeart size={16} /> Move to Favorite
-										</button>
 										<button
 											className="remove"
 											type="button"
 											onClick={() => handleRemoveItem(item.id, item.size)}
 										>
-											Remove
+											Remove Product
 										</button>
 									</div>
 									<div className="total">

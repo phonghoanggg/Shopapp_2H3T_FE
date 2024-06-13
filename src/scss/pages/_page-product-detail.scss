@@ -255,7 +255,6 @@
 		}
 
 		@include breakpoint-down(smalldesktop) {
-			border: 1px solid $brown-light-color;
 			border-radius: unset;
 		}
 	}
@@ -499,4 +498,7 @@
 
 .-selected-size-product-detail {
 	border: 1px solid #ccc;
+	@include breakpoint-down(smalldesktop) {
+		border: 1px solid $primary-color;
+	}
 }

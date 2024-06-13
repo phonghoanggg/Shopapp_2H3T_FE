@@ -5,25 +5,38 @@ import { useRouter } from 'next/navigation';
 import FormInput from '@/compound/formInput/FormInput';
 // react-hook-form
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 // redux
 import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
-import { useAppDispatch, useAppSelector } from '@/redux/hook';
-// useQuery
-import { usePostOrder } from '@/query/order/handleOrder';
 import { clearCart } from '@/redux/cart/slice';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { ROUTER } from '@/utils/routes/routes';
+// useQuery
+import {
+	useGetCommuneLocation,
+	useGetDistrictLocation,
+	useGetProvinceLocation,
+} from '@/query/locations/handleApiLocation';
+import { usePostOrder } from '@/query/order/handleOrder';
+import { useState } from 'react';
 
 interface IOderProps {
 	name?: string;
 	address?: string;
+	province?: string;
+	district?: string;
+	commune?: string;
 	phone?: number;
 	note?: string;
 }
+
 const schema = yup.object().shape({
 	name: yup.string().required('Name is required'),
 	address: yup.string().required('Address is required'),
+	province: yup.string().required('Province is required'),
+	district: yup.string().required('District is required'),
+	commune: yup.string().required('Commune is required'),
 	phone: yup
 		.number()
 		.typeError('Phone Number must be a number')
@@ -34,12 +47,30 @@ const schema = yup.object().shape({
 
 const OrderFormInformation = ({ itemBagCart, total }: any) => {
 	const { mutate: MUTATION_ORDER, isLoading: LOADING_ORDER } = usePostOrder();
-	// Fetch user information and set userId
+	const { data: DATA_PROVINCE } = useGetProvinceLocation();
+	const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
+	const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
+
+	const [selectedProvinceName, setSelectedProvinceName] = useState<string | null>(null);
+	const [selectedDistrictName, setSelectedDistrictName] = useState<string | null>(null);
+	const [selectedCommuneName, setSelectedCommuneName] = useState<string | null>(null);
+
+	const {
+		data: DATA_DISTRICT,
+		error: ERROR_DISTRICT,
+		isLoading: LOADING_DISTRICT,
+	} = useGetDistrictLocation(selectedProvince as string);
+	const {
+		data: DATA_COMMUNE,
+		error: ERROR_COMMUNE,
+		isLoading: LOADING_COMMUNE,
+	} = useGetCommuneLocation(selectedDistrict as string);
+
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const userId = inforUser?._id || null;
 	const dispatch = useAppDispatch();
 	const router = useRouter();
-	// Initialize React Hook Form
+
 	const {
 		control,
 		handleSubmit,
@@ -49,38 +80,64 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
-	// Handle form submission
+
 	const onSubmit = async (data: IOderProps) => {
-		// Trigger form validation
 		const isFormValid = await trigger();
 		if (isFormValid) {
-			// Map cart items to required format
 			const cartItems = itemBagCart.map((item: any) => ({
 				productId: item.id,
 				quantity: item.quantity,
 				size: item.size,
 			}));
-			// Construct order data
+
 			const orderData: any = {
 				userId: userId,
 				name: data.name,
 				note: data.note,
 				address: data.address,
+				province: selectedProvinceName, // Include selected province
+				district: selectedDistrictName, // Include selected district
+				commune: selectedCommuneName, // Include selected commune
 				phone: data.phone,
 				cartItems: cartItems,
 				total: total,
 				status: 'pending',
 			};
-			// Perform order mutation with onSuccess callback
+
 			MUTATION_ORDER(orderData, {
 				onSuccess: async () => {
-					// Clear cart and reset form on successful order
 					await reset();
 					await dispatch(clearCart());
-					// navigation to your order
 					router.push(ROUTER.YOUR_ORDER);
 				},
 			});
+		}
+	};
+
+	const handleProvinceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const selectedValue = event.target.value;
+		const selectedProvince = DATA_PROVINCE.find((province: any) => province.idProvince === selectedValue);
+		if (selectedProvince) {
+			setSelectedProvinceName(selectedProvince.name);
+		}
+		setSelectedProvince(selectedValue);
+	};
+	const handleDistrictChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const selectedValue = event.target.value;
+		const selectedDistrict = DATA_DISTRICT.find((province: any) => province.idDistrict === selectedValue);
+		if (selectedDistrict) {
+			setSelectedDistrictName(selectedDistrict.name);
+		}
+		setSelectedDistrict(selectedValue);
+	};
+
+	const handleCommuneChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const selectedValue = event.target.value;
+		const selectedCommune = DATA_COMMUNE.find((province: any) => province.idCommune === selectedValue);
+		console.log(selectedCommune);
+
+		if (selectedCommune) {
+			setSelectedCommuneName(selectedCommune.name);
 		}
 	};
 
@@ -105,6 +162,87 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 						rules={schema.fields.name}
 						errors={errors}
 					/>
+					<div className="form-input">
+						<label>Province*</label>
+						<Controller
+							name="province"
+							control={control}
+							render={({ field }) => (
+								<select
+									{...field}
+									onChange={(e) => {
+										field.onChange(e);
+										handleProvinceChange(e);
+									}}
+								>
+									<option value="">Select a province</option>
+									{DATA_PROVINCE?.map((province: any) => (
+										<option
+											key={province.idProvince}
+											value={province.idProvince}
+										>
+											{province.name}
+										</option>
+									))}
+								</select>
+							)}
+						/>
+						{errors.province && <p className="error-message">{errors.province.message}</p>}
+					</div>
+					<div className="form-input">
+						<label>District*</label>
+						<Controller
+							name="district"
+							control={control}
+							render={({ field }) => (
+								<select
+									{...field}
+									onChange={(e) => {
+										field.onChange(e);
+										handleDistrictChange(e);
+									}}
+								>
+									<option value="">Select a district</option>
+									{DATA_DISTRICT?.map((district: any) => (
+										<option
+											key={district.idDistrict}
+											value={district.idDistrict}
+										>
+											{district.name}
+										</option>
+									))}
+								</select>
+							)}
+						/>
+						{errors.district && <p className="error-message">{errors.district.message}</p>}
+					</div>
+					<div className="form-input">
+						<label>Commune*</label>
+						<Controller
+							name="commune"
+							control={control}
+							render={({ field }) => (
+								<select
+									{...field}
+									onChange={(e) => {
+										field.onChange(e);
+										handleCommuneChange(e);
+									}}
+								>
+									<option value="">Select a commune</option>
+									{DATA_COMMUNE?.map((commune: any) => (
+										<option
+											key={commune.idCommune}
+											value={commune.idCommune}
+										>
+											{commune.name}
+										</option>
+									))}
+								</select>
+							)}
+						/>
+						{errors.commune && <p className="error-message">{errors.commune.message}</p>}
+					</div>
 					<FormInput
 						name="address"
 						label="Address*"
@@ -112,6 +250,7 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 						rules={schema.fields.address}
 						errors={errors}
 					/>
+
 					<FormInput
 						name="phone"
 						label="Phone Number*"

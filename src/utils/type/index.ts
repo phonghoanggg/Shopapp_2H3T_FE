@@ -49,6 +49,9 @@ export type Order = {
 	userId: string;
 	name: string;
 	address: string;
+	province: string;
+	district: string;
+	commune: string;
 	phone: number;
 	cartItems: CartItem[];
 	total: number;

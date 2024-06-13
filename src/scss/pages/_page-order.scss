@@ -112,7 +112,11 @@
 			line-height: $leading-sm;
 		}
 
-		> input {
+		label {
+			font-weight: $fw-bold;
+		}
+
+		input {
 			padding-block: 8px;
 			border-bottom: 1px solid $brown-light-color;
 		}
@@ -121,6 +125,21 @@
 		font-size: $fz-base;
 		font-weight: $fw-bold;
 		margin-bottom: 30px;
+	}
+	> .form-input {
+		@include flex-column;
+		margin-bottom: 20px;
+
+		> label {
+			font-weight: $fw-bold;
+		}
+		> select {
+			padding-block: 8px;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: 1px solid $brown-light-color;
+		}
 	}
 }
 
@@ -162,6 +181,9 @@
 			}
 			> * {
 				margin-bottom: 6px;
+			}
+			> .price {
+				font-weight: $fw-bold;
 			}
 			> .size {
 				@include flex-center-ver;
