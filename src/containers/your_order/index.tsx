@@ -23,7 +23,10 @@ const YourOrder = () => {
 	const { data: DATA_ORDER, isLoading: LOADING_ORDER, error: ERROR_ORDER } = useGetAllOrder();
 	const { mutate: MUTATE_ORDER, isLoading: LOADING_DELETE_ORDER, error: ERROR_DELETE_ORDER } = useDeleteOrder();
 	const [deletedOrderId, setDeletedOrderId] = useState<string | null>(null);
-	const id_User = inforUser._id;
+
+	// Ensure inforUser is defined and has an _id property
+	const id_User = inforUser?._id;
+
 	const handleDeleteOrder = (orderId: string) => {
 		MUTATE_ORDER(orderId, {
 			onSuccess: () => {
@@ -33,7 +36,7 @@ const YourOrder = () => {
 		});
 	};
 
-	// Filter orders by user ID
+	// Filter orders by user ID, ensure DATA_ORDER is an array
 	const filterOrders = (orders: Order[]): Order[] => {
 		return orders.filter((order) => order.userId === id_User);
 	};
@@ -108,7 +111,7 @@ const YourOrder = () => {
 
 									{order.cartItems.map((cartItem: CartItem) => (
 										<div
-											key={cartItem.productId._id}
+											key={cartItem.productId?._id}
 											className="order-item"
 										>
 											<div className="image">
@@ -120,8 +123,8 @@ const YourOrder = () => {
 												/>
 											</div>
 											<div className="desc">
-												<Link href={`/product/${cartItem.productId._id}`}>
-													{cartItem.productId.name}
+												<Link href={`/product/${cartItem.productId?._id}`}>
+													{cartItem.productId?.name}
 												</Link>
 												<p>Quantity: {cartItem.quantity}</p>
 												<p>Size: {cartItem.size}</p>
