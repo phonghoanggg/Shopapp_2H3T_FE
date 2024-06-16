@@ -1,26 +1,14 @@
 export const MENU_FAVORITE = [
 	{
-		label: 'Purchase History',
-		route: '/',
+		label: 'Order History',
+		route: '/your-order',
 	},
 	{
 		label: 'Favorites',
-		route: '/',
+		route: '/favorites',
 	},
 	{
 		label: 'Profile',
-		route: '/',
-	},
-	{
-		label: 'Shipping & Payment',
-		route: '/',
-	},
-	{
-		label: 'My Red Tab™ Benefits',
-		route: '/',
-	},
-	{
-		label: 'Refer a Friend',
-		route: '/',
+		route: '/profile',
 	},
 ] as const;

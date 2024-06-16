@@ -5,6 +5,6 @@ export const ROUTER = {
 	ORDER: '/order',
 	FAVORITE: '/favorites',
 	CART: '/cart',
-	YOUR_ORDER: 'order/your-order',
+	YOUR_ORDER: '/your-order',
 	PROFILE: 'profile',
 } as const;

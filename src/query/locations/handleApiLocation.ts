@@ -20,7 +20,7 @@ export const useGetProvinceLocation = () => {
 	);
 };
 
-export const useGetDistrictLocation = (idProvince: string) => {
+export const useGetDistrictLocation = (idProvince: any) => {
 	return useQuery(
 		['district', idProvince],
 		async (): Promise<any> => {
@@ -39,7 +39,7 @@ export const useGetDistrictLocation = (idProvince: string) => {
 		},
 	);
 };
-export const useGetCommuneLocation = (idDistrict: string) => {
+export const useGetCommuneLocation = (idDistrict: any) => {
 	return useQuery(
 		['commune', idDistrict],
 		async (): Promise<any> => {

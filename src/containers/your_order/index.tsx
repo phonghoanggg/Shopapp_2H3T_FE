@@ -15,7 +15,6 @@ import { useQueryClient } from 'react-query';
 import { CartItem, Order } from '@/utils/type';
 // lodash
 import { map } from 'lodash';
-import { TbHeart } from '../../compound/icons/index';
 
 const YourOrder = () => {
 	const queryClient = useQueryClient();
@@ -94,7 +93,7 @@ const YourOrder = () => {
 										Address: <span>{order.address}</span>
 									</p>
 									<p>
-										Phone number: <span>0{order.phone}</span>
+										Phone number: <span>{order.phone}</span>
 									</p>
 									<p>
 										Total: <span>${order.total}</span>
@@ -114,23 +113,23 @@ const YourOrder = () => {
 											key={cartItem.productId?._id}
 											className="order-item"
 										>
-											<div className="image">
+											<Link
+												href={`/product/${cartItem.productId?._id}`}
+												className="image"
+											>
 												<CustomImage
 													width={150}
 													height={150}
 													alt="order image-item"
 													src={cartItem.productId?.images?.[0] ?? ''}
 												/>
-											</div>
+											</Link>
 											<div className="desc">
 												<Link href={`/product/${cartItem.productId?._id}`}>
 													{cartItem.productId?.name}
 												</Link>
 												<p>Quantity: {cartItem.quantity}</p>
 												<p>Size: {cartItem.size}</p>
-												<div>
-													<TbHeart size={16} /> Move to Favorite
-												</div>
 											</div>
 										</div>
 									))}

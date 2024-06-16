@@ -1,7 +1,7 @@
-export const MENU_FAVORITE = [
+export const MENU_PROFILE = [
 	{
 		label: 'Order History',
-		route: '/order-history',
+		route: '/your-order',
 	},
 	{
 		label: 'Favorites',

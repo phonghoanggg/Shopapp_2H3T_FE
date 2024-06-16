@@ -1,20 +1,38 @@
+import { useProductsQuery } from '@/query/products/getDataProducts';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { selectIsToggleModalSale } from '@/redux/modal/selector';
 import { closeModalSale } from '@/redux/modal/slice';
-import _, { map } from 'lodash';
-import { useEffect, useRef } from 'react';
+import { Product } from '@/utils/type';
+import { map, sampleSize } from 'lodash';
+import { useEffect, useRef, useState } from 'react';
 import { GrFormClose, VscBell } from '../../compound/icons/index';
-import { PRODUCT_LIST } from '../../containers/home/constants';
 import ProductSale from './ProductSale';
 
 const Sale = () => {
-	// slice 8 products
-	const PRODUCT_SALE = _.sampleSize(PRODUCT_LIST, 8);
-	// redux
+	const { data: DATA_PRODUCTS } = useProductsQuery();
+	const [randomProducts, setRandomProducts] = useState<Product[]>([]);
 	const dispatch = useAppDispatch();
 	const IsToggleModalSale = useAppSelector(selectIsToggleModalSale);
-	// ref saleInner
 	const saleInnerRef = useRef<HTMLDivElement | null>(null);
+
+	const getRandomProducts = (products: Product[]) => {
+		return sampleSize(products, 8);
+	};
+
+	useEffect(() => {
+		if (DATA_PRODUCTS) {
+			setRandomProducts(getRandomProducts(DATA_PRODUCTS));
+		}
+
+		const intervalId = setInterval(() => {
+			if (DATA_PRODUCTS) {
+				setRandomProducts(getRandomProducts(DATA_PRODUCTS));
+			}
+		}, 3600000); // 1 hour
+
+		return () => clearInterval(intervalId);
+	}, [DATA_PRODUCTS]);
+
 	const closeModalIfOutsideClick = (event: MouseEvent) => {
 		if (saleInnerRef.current && !saleInnerRef.current.contains(event.target as Node)) {
 			dispatch(closeModalSale());
@@ -32,9 +50,9 @@ const Sale = () => {
 			document.removeEventListener('click', closeModalIfOutsideClick);
 		};
 	}, [IsToggleModalSale]);
+
 	return (
 		<section className="main-sale">
-			{/* description */}
 			<div
 				className={`sale-wrapper ${IsToggleModalSale ? '_show' : ''}`}
 				ref={saleInnerRef}
@@ -52,16 +70,14 @@ const Sale = () => {
 						/>
 					</div>
 				</div>
-				{/* product list sale */}
 				<div className="sale-product-list _custom-scrollbar">
-					{map(PRODUCT_SALE, (item) => (
+					{map(randomProducts, (item: Product) => (
 						<ProductSale
-							key={item.id}
-							size="M"
-							image={item.image}
+							key={item._id}
+							id={item._id}
+							images={item.images && item.images.length > 0 ? item.images : ['']}
 							name={item.name}
 							price={item.price}
-							oldPrice={item.oldPrice}
 						/>
 					))}
 				</div>

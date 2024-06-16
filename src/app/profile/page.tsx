@@ -1,6 +1,5 @@
+import PageProfile from '@/containers/profile';
 import { Metadata } from 'next';
-import React from 'react';
-import PageProfile from '../../containers/profile/index';
 
 export const metadata: Metadata = {
 	title: 'Shop All For Women Online | SonTruong VN',

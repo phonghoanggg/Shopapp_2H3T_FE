@@ -1,33 +1,30 @@
 'use client';
-// base
-import { useRouter } from 'next/navigation';
-// components
+
 import FormInput from '@/compound/formInput/FormInput';
-// react-hook-form
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-// redux
-import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
-import { clearCart } from '@/redux/cart/slice';
-import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { ROUTER } from '@/utils/routes/routes';
-// useQuery
 import {
 	useGetCommuneLocation,
 	useGetDistrictLocation,
 	useGetProvinceLocation,
 } from '@/query/locations/handleApiLocation';
 import { usePostOrder } from '@/query/order/handleOrder';
-import { useState } from 'react';
+import { useUserDetailQuery } from '@/query/user/handleApiUser';
+import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
+import { clearCart } from '@/redux/cart/slice';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import { ROUTER } from '@/utils/routes/routes';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
-interface IOderProps {
-	name?: string;
-	address?: string;
-	province?: string;
-	district?: string;
-	commune?: string;
-	phone?: number;
+interface OrderFormData {
+	name: string;
+	address: string;
+	province: string;
+	district: string;
+	commune: string;
+	phone: string;
 	note?: string;
 }
 
@@ -38,50 +35,87 @@ const schema = yup.object().shape({
 	district: yup.string().required('District is required'),
 	commune: yup.string().required('Commune is required'),
 	phone: yup
-		.number()
-		.typeError('Phone Number must be a number')
+		.string()
 		.required('Phone Number is required')
-		.test('len', 'Phone Number must be exactly 10 digits', (val: any) => val && val.toString().length === 9),
+		.matches(/^\d{10}$/, 'Phone Number must be exactly 9 digits'),
 	note: yup.string(),
 });
 
 const OrderFormInformation = ({ itemBagCart, total }: any) => {
-	const { mutate: MUTATION_ORDER, isLoading: LOADING_ORDER } = usePostOrder();
-	const { data: DATA_PROVINCE } = useGetProvinceLocation();
-	const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
-	const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
-
+	const dispatch = useAppDispatch();
+	const router = useRouter();
+	const [selectedProvince, setSelectedProvince] = useState<string | null>('');
+	const [selectedDistrict, setSelectedDistrict] = useState<string | null>('');
+	const [selectedCommune, setSelectedCommune] = useState<string | null>(null);
 	const [selectedProvinceName, setSelectedProvinceName] = useState<string | null>(null);
 	const [selectedDistrictName, setSelectedDistrictName] = useState<string | null>(null);
 	const [selectedCommuneName, setSelectedCommuneName] = useState<string | null>(null);
-
-	const {
-		data: DATA_DISTRICT,
-		error: ERROR_DISTRICT,
-		isLoading: LOADING_DISTRICT,
-	} = useGetDistrictLocation(selectedProvince as string);
-	const {
-		data: DATA_COMMUNE,
-		error: ERROR_COMMUNE,
-		isLoading: LOADING_COMMUNE,
-	} = useGetCommuneLocation(selectedDistrict as string);
-
+	const { mutate: MUTATION_ORDER, isLoading: LOADING_ORDER } = usePostOrder();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const userId = inforUser?._id || null;
-	const dispatch = useAppDispatch();
-	const router = useRouter();
+	console.log(selectedProvinceName, selectedDistrictName, selectedCommuneName);
+
+	const { data: DATA_USER } = useUserDetailQuery(userId as string);
+	const { data: DATA_PROVINCE } = useGetProvinceLocation();
+	const { data: DATA_DISTRICT, isLoading: LOADING_DISTRICT } = useGetDistrictLocation(selectedProvince);
+	const { data: DATA_COMMUNE, isLoading: LOADING_COMMUNE } = useGetCommuneLocation(selectedDistrict);
 
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
-		trigger,
 		reset,
-	} = useForm({
+		setValue,
+		trigger,
+	} = useForm<OrderFormData>({
 		resolver: yupResolver(schema),
 	});
 
-	const onSubmit = async (data: IOderProps) => {
+	// Populate form fields with user data on initial load
+
+	const handleProvinceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const selectedValue = event.target.value;
+		const selectedProvince = DATA_PROVINCE?.find((province: any) => province.idProvince === selectedValue);
+		if (selectedProvince) {
+			setSelectedProvinceName(selectedProvince.name);
+		}
+		setSelectedProvince(selectedValue);
+		setSelectedDistrict(null);
+		setSelectedCommune(null);
+	};
+
+	const handleDistrictChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const selectedValue = event.target.value;
+		const selectedDistrict = DATA_DISTRICT?.find((district: any) => district.idDistrict === selectedValue);
+		if (selectedDistrict) {
+			setSelectedDistrictName(selectedDistrict.name);
+		}
+		setSelectedDistrict(selectedValue);
+		setSelectedCommune(null);
+	};
+
+	const handleCommuneChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const selectedValue = event.target.value;
+		const selectedCommune = DATA_COMMUNE?.find((commune: any) => commune.idCommune === selectedValue);
+		if (selectedCommune) {
+			setSelectedCommuneName(selectedCommune.name);
+		}
+		setSelectedCommune(selectedValue);
+	};
+
+	useEffect(() => {
+		// Populate form fields with user data when DATA_USER is loaded
+		if (DATA_USER) {
+			setValue('name', DATA_USER.firstName); // Combine first and last name
+			setValue('phone', DATA_USER.phone || '');
+			setValue('address', DATA_USER.address || '');
+			setValue('province', DATA_USER.province || '');
+			setValue('district', DATA_USER.district || '');
+			setValue('commune', DATA_USER.commune || '');
+		}
+	}, [DATA_USER, setValue]);
+
+	const onSubmit = async (data: OrderFormData) => {
 		const isFormValid = await trigger();
 		if (isFormValid) {
 			const cartItems = itemBagCart.map((item: any) => ({
@@ -90,54 +124,27 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 				size: item.size,
 			}));
 
-			const orderData: any = {
-				userId: userId,
-				name: data.name,
-				note: data.note,
-				address: data.address,
-				province: selectedProvinceName, // Include selected province
-				district: selectedDistrictName, // Include selected district
-				commune: selectedCommuneName, // Include selected commune
-				phone: data.phone,
+			const orderData = {
+				userId: DATA_USER._id || userId,
+				name: data.name || DATA_USER.firstName, // Use form data if present, otherwise use USER_DATA
+				note: data.note || '',
+				address: data.address || DATA_USER.address || '',
+				province: selectedProvinceName || DATA_USER.province || '',
+				district: selectedDistrictName || DATA_USER.district || '',
+				commune: selectedCommuneName || DATA_USER.commune || '',
+				phone: data.phone || DATA_USER.phone || '',
 				cartItems: cartItems,
 				total: total,
 				status: 'pending',
 			};
 
-			MUTATION_ORDER(orderData, {
+			MUTATION_ORDER(orderData as any, {
 				onSuccess: async () => {
 					await reset();
 					await dispatch(clearCart());
 					router.push(ROUTER.YOUR_ORDER);
 				},
 			});
-		}
-	};
-
-	const handleProvinceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		const selectedValue = event.target.value;
-		const selectedProvince = DATA_PROVINCE.find((province: any) => province.idProvince === selectedValue);
-		if (selectedProvince) {
-			setSelectedProvinceName(selectedProvince.name);
-		}
-		setSelectedProvince(selectedValue);
-	};
-	const handleDistrictChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		const selectedValue = event.target.value;
-		const selectedDistrict = DATA_DISTRICT.find((province: any) => province.idDistrict === selectedValue);
-		if (selectedDistrict) {
-			setSelectedDistrictName(selectedDistrict.name);
-		}
-		setSelectedDistrict(selectedValue);
-	};
-
-	const handleCommuneChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		const selectedValue = event.target.value;
-		const selectedCommune = DATA_COMMUNE.find((province: any) => province.idCommune === selectedValue);
-		console.log(selectedCommune);
-
-		if (selectedCommune) {
-			setSelectedCommuneName(selectedCommune.name);
 		}
 	};
 
@@ -175,7 +182,8 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 										handleProvinceChange(e);
 									}}
 								>
-									<option value="">Select a province</option>
+									<option value="">{DATA_USER?.province || 'Select a province'}</option>
+
 									{DATA_PROVINCE?.map((province: any) => (
 										<option
 											key={province.idProvince}
@@ -202,7 +210,7 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 										handleDistrictChange(e);
 									}}
 								>
-									<option value="">Select a district</option>
+									<option value="">{DATA_USER?.district || 'Select a district'}</option>
 									{DATA_DISTRICT?.map((district: any) => (
 										<option
 											key={district.idDistrict}
@@ -229,7 +237,7 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 										handleCommuneChange(e);
 									}}
 								>
-									<option value="">Select a commune</option>
+									<option value="">{DATA_USER?.commune || 'Select a commune'}</option>
 									{DATA_COMMUNE?.map((commune: any) => (
 										<option
 											key={commune.idCommune}

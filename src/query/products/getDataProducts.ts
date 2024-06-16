@@ -1,13 +1,13 @@
 import { publicRequest } from '@/configs/AxiosConfig';
 import { CACHE_TIME, RETRY, STALE_TIME } from '@/utils/breakpoints/constants';
 import { API_ENDPOINT } from '@/utils/endpoint/api_endpoint';
-import { Product, ProductDetail } from '@/utils/type';
+import { ProductDetail } from '@/utils/type';
 import { useQuery } from 'react-query';
 
 export const useProductsQuery = () => {
 	return useQuery(
 		API_ENDPOINT.PRODUCTS,
-		async (): Promise<Product> => {
+		async (): Promise<any> => {
 			return await publicRequest.request({
 				method: 'GET',
 				url: API_ENDPOINT.PRODUCTS,

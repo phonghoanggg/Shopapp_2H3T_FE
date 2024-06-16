@@ -90,7 +90,6 @@
 	> .item {
 		@include flex-column;
 		> label {
-			color: $black;
 			font-size: $fz-xs;
 			line-height: $leading-sm;
 			color: $brown-color;
