@@ -44,11 +44,7 @@ export default function PageProfile() {
 	const [selectedProvinceName, setSelectedProvinceName] = useState<string | null>(null);
 	const [selectedDistrictName, setSelectedDistrictName] = useState<string | null>(null);
 	const [selectedCommuneName, setSelectedCommuneName] = useState<string | null>(null);
-	const [showPassword, setShowPassword] = useState(false);
 
-	const toggleShowPassword = () => {
-		setShowPassword((prevShowPassword) => !prevShowPassword);
-	};
 	const [modalVisible, setModalVisible] = useState(false);
 	const [modalMessage, setModalMessage] = useState('');
 

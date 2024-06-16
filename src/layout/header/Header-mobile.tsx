@@ -24,6 +24,7 @@ import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
 // custom-hook
 import useNoScrollBody from '@/custom-hook/useNoScrollBody';
+import { useUserDetailQuery } from '@/query/user/handleApiUser';
 
 interface IPropsSale {
 	id?: number;
@@ -34,7 +35,10 @@ interface IPropsSale {
 const HeaderMobile = ({ handleRedirectToFavoritePage }: IPropsSale) => {
 	const dispatch = useAppDispatch();
 	const itemBagCart = useAppSelector(selectCartItems);
+	const inforUser = useAppSelector(selectInformationUserLoginEmail);
+	const id_User = inforUser?._id;
 
+	const { data: DATA_USER } = useUserDetailQuery(id_User as string);
 	const [openNav, setOpenNav] = useState<boolean>(false);
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -65,7 +69,6 @@ const HeaderMobile = ({ handleRedirectToFavoritePage }: IPropsSale) => {
 	// handle hidden scroll body
 
 	useNoScrollBody(openNav);
-	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const handleLogOutGoogle = () => dispatch(logoutGoogle());
 
 	return (
@@ -155,10 +158,10 @@ const HeaderMobile = ({ handleRedirectToFavoritePage }: IPropsSale) => {
 							>
 								Favorite
 							</button>
-							{inforUser ? (
+							{DATA_USER ? (
 								// If user is logged in
 								<>
-									<p className="action">Hello, {inforUser.firstName || inforUser.displayName}</p>
+									<p className="action">Hello, {DATA_USER.firstName || inforUser.displayName}</p>
 									<Link href={ROUTER.ORDER}>Order History</Link>
 									<Link href={ROUTER.PROFILE}>Profile</Link>
 									<button

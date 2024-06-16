@@ -26,6 +26,7 @@ import Login from '@/modals/login/Login';
 import Register from '@/modals/register/Register';
 import Sale from '@/modals/sale/Sale';
 // contains
+import { useUserDetailQuery } from '@/query/user/handleApiUser';
 import { selectCartItems } from '@/redux/cart/selectors';
 import { isValidAccessToken } from '@/utils/cookies/cookieStorage';
 import { ROUTER } from '@/utils/routes/routes';
@@ -38,8 +39,13 @@ interface IPropsSale {
 export const Header = () => {
 	const dispatch = useAppDispatch();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
-	const itemBagCart = useAppSelector(selectCartItems);
 	const router = useRouter();
+	const id_User = inforUser?._id;
+
+	const { data: DATA_USER } = useUserDetailQuery(id_User as string);
+
+	const itemBagCart = useAppSelector(selectCartItems);
+
 	const handleRedirectToFavoritePage = () => {
 		const isValidToken = isValidAccessToken();
 		if (isValidToken) {
@@ -82,8 +88,8 @@ export const Header = () => {
 								<>
 									<div className="action">
 										Hello,
-										{inforUser && inforUser.firstName && inforUser.lastName
-											? `${inforUser.firstName} ${inforUser.lastName}`
+										{DATA_USER && DATA_USER.firstName && DATA_USER.lastName
+											? `${DATA_USER.firstName} ${DATA_USER.lastName}`
 											: inforUser.displayName}
 										<div className="dropdown">
 											<Link href={ROUTER.YOUR_ORDER}>Order History</Link>
