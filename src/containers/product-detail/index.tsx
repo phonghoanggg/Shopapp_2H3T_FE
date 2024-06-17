@@ -48,7 +48,6 @@ const PageProductDetail = () => {
 	// get query id product
 	const params = useParams();
 	const slugProductDetail = params.slug;
-	console.log(slugProductDetail);
 
 	const {
 		data: DATA_PRODUCT_DETAIL,
@@ -64,7 +63,6 @@ const PageProductDetail = () => {
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [modalMessage, setModalMessage] = useState('');
-	console.log(DATA_PRODUCT_DETAIL);
 
 	useEffect(() => {
 		if (slugProductDetail) {
@@ -146,8 +144,8 @@ const PageProductDetail = () => {
 	const handleAddToCart = () => {
 		if (!selectedSize) {
 			setShowSizeError(true);
-			setModalMessage('You have not selected the product size yet.');
 			setModalVisible(true);
+			setModalMessage('You have not selected the product size yet.');
 			return;
 		} else {
 			const productToAdd = {
@@ -160,8 +158,8 @@ const PageProductDetail = () => {
 				discountPrice: discountedPrice,
 			};
 			dispatch(addToCart(productToAdd));
-			setModalMessage('Item successfully added to cart.');
 			setModalVisible(true);
+			setModalMessage('Item successfully added to cart.');
 		}
 	};
 	if (LOADING_PRODUCT_DETAIL) {

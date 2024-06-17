@@ -22,7 +22,6 @@ const PageFavorite = () => {
 		refetch: REFETCH_DATA_FAVORITE_BY_USER,
 	} = useGetFavoriteByUser(userId as string);
 
-	const [data, setData] = useState(DATA_FAVORITE_BY_USER || []);
 	const [modalVisible, setModalVisible] = useState(true);
 	const [modalMessage, setModalMessage] = useState('');
 
@@ -30,11 +29,7 @@ const PageFavorite = () => {
 		useDeleteFavorite(userId);
 
 	const deleteFavorite = async (productId: string) => {
-		const originalData = [...data];
-
 		// Optimistically update the UI
-		const newData = data.filter((item: any) => item.productId._id !== productId);
-		setData(newData);
 
 		DELETE_FAVORITE_BY_USER_MUTATION(productId, {
 			onSuccess: () => {
@@ -44,7 +39,6 @@ const PageFavorite = () => {
 			},
 			onError: () => {
 				// Revert to original data if the deletion fails
-				setData(originalData);
 				setModalMessage('Failed to delete item. Please try again.');
 				setModalVisible(true);
 			},
@@ -119,7 +113,7 @@ const PageFavorite = () => {
 										<div className="slide-ratio">
 											<Link
 												className="cell-image-link"
-												href={`${ROUTER.PRODUCT_DETAIL}/${item.productId._id}`}
+												href={`${ROUTER.PRODUCT_DETAIL}/${item.productId.slug}`}
 											>
 												<Image
 													src={item?.productId?.images[0]}
@@ -140,7 +134,7 @@ const PageFavorite = () => {
 									</div>
 									<div className="product-info">
 										<Link
-											href={`${ROUTER.PRODUCT_DETAIL}/${item.productId._id}`}
+											href={`${ROUTER.PRODUCT_DETAIL}/${item.productId.slug}`}
 											className="item-name"
 										>
 											{item.productId.name}{' '}

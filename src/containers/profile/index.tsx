@@ -48,7 +48,6 @@ export default function PageProfile() {
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [modalMessage, setModalMessage] = useState('');
-	console.log(DATA_USER);
 
 	const { data: DATA_PROVINCE, refetch: refetchProvinces } = useGetProvinceLocation();
 	const {
@@ -184,7 +183,11 @@ export default function PageProfile() {
 	}
 
 	if (LOADING_USER) {
-		return <div>Loading...</div>;
+		return (
+			<div className="site-loading">
+				<div className="chaotic-orbit"></div>
+			</div>
+		);
 	}
 
 	return (

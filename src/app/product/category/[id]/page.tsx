@@ -2,7 +2,6 @@
 
 import Product from '@/components/Product';
 import SectionProducts from '@/components/SectionProducts';
-import Sidebar from '@/containers/products/Sidebar';
 import { slidesPerView, spaceBetween } from '@/containers/products/contains';
 import { LoadingSkeletonCategory } from '@/containers/products/loading';
 import { useCategoriesQuery } from '@/query/categories/getCategories';
@@ -14,6 +13,8 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 import { BsFilterLeft } from 'react-icons/bs';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import { HiMinus } from 'react-icons/hi';
+import { MdOutlineAdd } from 'react-icons/md';
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -55,6 +56,21 @@ const PageProductsByCategory = () => {
 		router.push(`/product/category/${id}?page=${page}&pageSize=${pageSize}`);
 	};
 
+	const sizes: string[] = ['S', 'M', 'L', 'XL'];
+	const [activeSize, setActiveSize] = useState<string | null>(null);
+	const [showFilters, setShowFilters] = useState<boolean>(true);
+
+	const handleSizeClick = (size: string) => {
+		if (activeSize === size) {
+			setActiveSize(null);
+		} else {
+			setActiveSize(size);
+		}
+	};
+
+	const handleToggleFilter = () => {
+		setShowFilters(!showFilters);
+	};
 	const totalPages = Math.ceil((DATA_PRODUCT_BY_CATEGORY?.totalProducts || 0) / pageSize);
 	const currentProducts = DATA_PRODUCT_BY_CATEGORY?.products || [];
 
@@ -141,7 +157,30 @@ const PageProductsByCategory = () => {
 					</div>
 
 					<div className="products-wrapper">
-						<Sidebar />
+						<aside className="sidebar-wrapper">
+							<div className="sidebar-inner">
+								<div
+									className="sidebar-type"
+									onClick={handleToggleFilter}
+								>
+									Size
+									{showFilters ? <HiMinus size={20} /> : <MdOutlineAdd size={20} />}
+								</div>
+								{showFilters && (
+									<div className="list-filter _text-uppercase">
+										{sizes.map((size) => (
+											<p
+												key={size}
+												className={activeSize === size ? '-active' : ''}
+												onClick={() => handleSizeClick(size)}
+											>
+												{size}
+											</p>
+										))}
+									</div>
+								)}
+							</div>
+						</aside>
 						<section className="wrapper-product-list">
 							{LOADING_PRODUCTS_BY_CATEGORY ? (
 								<div className="loading-skeleton-product">

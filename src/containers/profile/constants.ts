@@ -5,7 +5,7 @@ export const MENU_PROFILE = [
 	},
 	{
 		label: 'Favorites',
-		route: '/favorite',
+		route: '/favorites',
 	},
 	{
 		label: 'Profile',
