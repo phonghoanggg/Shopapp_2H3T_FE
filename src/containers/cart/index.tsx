@@ -6,18 +6,17 @@ import { selectCartItems } from '@/redux/cart/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { openModalLogin } from '@/redux/modal/slice';
 // components
-import SectionProducts from '@/components/SectionProducts';
 import CartProductList from './CartProductList';
 // routes
 import { ROUTER } from '@/utils/routes/routes';
 // cookies
 import { isValidAccessToken } from '@/utils/cookies/cookieStorage';
 // constants
-import { useProductsQuery } from '@/query/products/getDataProducts';
+// import { useProductsQuery } from '@/query/products/getDataProducts';
 
 export default function PageCart() {
 	// get data use react-query
-	const { data: DATA_PRODUCTS, isLoading: LOADING_PRODUCT, error: ERROR_PRODUCT } = useProductsQuery();
+	// const { data: DATA_PRODUCTS, isLoading: LOADING_PRODUCT, error: ERROR_PRODUCT } = useProductsQuery();
 	// Get list of items from Redux
 	const itemBagCart = useAppSelector(selectCartItems);
 	const dispatch = useAppDispatch();
@@ -114,12 +113,12 @@ export default function PageCart() {
 				</div>
 			</section>
 			{/* product flex*/}
-			<SectionProducts
+			{/* <SectionProducts
 				title="CUSTOMERS ALSO BOUGHT"
 				productList={DATA_PRODUCTS}
 				loading={LOADING_PRODUCT}
 				error={ERROR_PRODUCT}
-			/>
+			/> */}
 		</main>
 	);
 }
