@@ -92,7 +92,7 @@ const PageFavorite = () => {
 				<div className="favorites-list-wrapper">
 					<div className="favorite-title">
 						<div className="text">FAVORITES</div>
-						<p className="value">{data.length} items</p>
+						<p className="value">{DATA_FAVORITE_BY_USER?.length} items</p>
 					</div>
 					{LOADING_PRODUCT_FAVORITE_BY_USER || DELETE_FAVORITE_BY_USER_LOADING ? (
 						<div className="site-loading">
@@ -110,7 +110,7 @@ const PageFavorite = () => {
 									</div>
 								</div>
 							)}
-							{map(DATA_FAVORITE_BY_USER, (item) => (
+							{map(DATA_FAVORITE_BY_USER && DATA_FAVORITE_BY_USER, (item) => (
 								<div
 									className="favorite-item"
 									key={item.productId._id}
@@ -139,19 +139,21 @@ const PageFavorite = () => {
 										</div>
 									</div>
 									<div className="product-info">
-										<div className="item-name">
+										<Link
+											href={`${ROUTER.PRODUCT_DETAIL}/${item.productId._id}`}
+											className="item-name"
+										>
 											{item.productId.name}{' '}
 											<GrFormClose
 												className="icon"
 												// handle delete favorite by user
 												onClick={() => deleteFavorite(item.productId._id)}
 											/>
-										</div>
+										</Link>
 										<div className="item-color">Pictorial - Light Wash - Stretch</div>
 										<div className="item-size">30W X 30L</div>
 										<div className="item-price">${item.productId.price}</div>
 										<div className="promo-badge">Buy 2+, Get 30% Off: Applied at Checkout</div>
-										<button className="add-to-bag-button">Add to Bag</button>
 									</div>
 								</div>
 							))}

@@ -48,6 +48,7 @@
 	@include flex-column;
 	gap: 12px;
 	margin-bottom: 30px;
+	cursor: pointer;
 	@include breakpoint-down(smalldesktop) {
 		gap: 6px;
 		margin-bottom: 20px;

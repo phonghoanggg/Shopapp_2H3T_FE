@@ -67,3 +67,11 @@ export type CartItem = {
 	quantity: number;
 	_id: string;
 };
+
+export type ProductsByCategory = {
+	page: number;
+	pageSize: number;
+	totalPages: number;
+	totalProducts: number;
+	products: Product[];
+};

@@ -69,11 +69,13 @@
 	display: flex;
 	align-items: flex-start;
 	gap: 16px;
+
 	> .image {
-		width: 70px;
+		width: 80px;
 		cursor: pointer;
 	}
 	.desc {
+		width: calc(100% - 80px);
 		font-size: $fz-sm;
 		line-height: $leading-sm;
 		color: $black;

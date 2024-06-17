@@ -25,6 +25,7 @@ const schema = yup.object().shape({
 	firstName: yup.string().required('First name is required'),
 	lastName: yup.string().required('Last name is required'),
 	email: yup.string().email('Invalid email format').required('Email is required'),
+	phone: yup.string().required('Phone is required'),
 	province: yup.string().required('Province is required'),
 	district: yup.string().required('District is required'),
 	commune: yup.string().required('Commune is required'),
@@ -47,6 +48,7 @@ export default function PageProfile() {
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [modalMessage, setModalMessage] = useState('');
+	console.log(DATA_USER);
 
 	const { data: DATA_PROVINCE, refetch: refetchProvinces } = useGetProvinceLocation();
 	const {
@@ -74,6 +76,7 @@ export default function PageProfile() {
 			firstName: '',
 			lastName: '',
 			email: '',
+			phone: '',
 			province: '',
 			district: '',
 			commune: '',
@@ -85,6 +88,7 @@ export default function PageProfile() {
 			setValue('firstName', DATA_USER.firstName);
 			setValue('lastName', DATA_USER.lastName);
 			setValue('email', DATA_USER.email);
+			setValue('phone', `0${DATA_USER.phone}`);
 			setSelectedProvince(DATA_USER.province);
 			setSelectedDistrict(DATA_USER.district);
 			setSelectedProvinceName(DATA_USER.province);
@@ -253,12 +257,27 @@ export default function PageProfile() {
 							render={({ field }) => (
 								<input
 									id="email"
-									type="text"
+									type="email"
 									{...field}
 								/>
 							)}
 						/>
 						{errors.email && <p className="error-message">{errors.email.message}</p>}
+					</div>
+					<div className="form-field">
+						<label htmlFor="phone">Phone*</label>
+						<Controller
+							name="phone"
+							control={control}
+							render={({ field }) => (
+								<input
+									id="phone"
+									type="text"
+									{...field}
+								/>
+							)}
+						/>
+						{errors.phone && <p className="error-message">{errors.phone.message}</p>}
 					</div>
 				</div>
 				<div className="form-box-address">

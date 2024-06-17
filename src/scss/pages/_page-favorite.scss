@@ -21,9 +21,9 @@
 			white-space: nowrap;
 		}
 		> .nav-list-item {
-			font-size: $fz-xs;
 			width: 200px;
 			> .link {
+				font-size: $fz-xs;
 				color: $dark;
 			}
 
@@ -132,6 +132,8 @@
 						margin-top: 6px;
 						font-size: $fz-xs;
 						font-weight: $fw-bold;
+						color: $primary-color;
+						cursor: pointer;
 						> .icon {
 							font-size: 24px;
 							display: none;
@@ -167,13 +169,6 @@
 					> .promo-badge {
 						font-size: $fz-xs;
 						color: $brown-color;
-					}
-
-					> .add-to-bag-button {
-						font-size: $fz-sm;
-						margin-top: 16px;
-						font-weight: 600;
-						text-decoration: underline;
 					}
 				}
 			}

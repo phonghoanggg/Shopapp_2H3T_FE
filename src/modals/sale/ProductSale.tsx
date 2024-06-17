@@ -3,14 +3,6 @@ import { Product } from '@/utils/type';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface IProductSaleModalProps {
-	image: string;
-	id?: number;
-	name: string;
-	size?: string;
-	price: number;
-}
-
 const ProductSale = ({ images, name, size, price, id }: Product) => {
 	const imageSrc = images && images.length > 0 ? images[0] : '/default-image.jpg';
 	return (
@@ -36,8 +28,8 @@ const ProductSale = ({ images, name, size, price, id }: Product) => {
 				>
 					{name}
 				</Link>
-				<p className="size">{size}</p>
 				<p className="price">${price}</p>
+				<p className="size">{size}</p>
 			</div>
 		</div>
 	);

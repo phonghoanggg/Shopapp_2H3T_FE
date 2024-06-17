@@ -15,7 +15,6 @@ export const useUserDetailQuery = (id: string) => {
 			staleTime: STALE_TIME, // 5 minutes
 			cacheTime: CACHE_TIME, // 10 minutes
 			retry: RETRY, // Number of retry attempts in case of failure
-			refetchOnWindowFocus: false,
 		},
 	);
 };

@@ -2,41 +2,61 @@
 
 import Product from '@/components/Product';
 import SectionProducts from '@/components/SectionProducts';
+import Sidebar from '@/containers/products/Sidebar';
+import { slidesPerView, spaceBetween } from '@/containers/products/contains';
+import { LoadingSkeletonCategory } from '@/containers/products/loading';
 import { useCategoriesQuery } from '@/query/categories/getCategories';
-import { useProductsQuery } from '@/query/products/getDataProducts';
+import { useProductsByCategoryQuery } from '@/query/products/getDataProducts';
 import { Category } from '@/utils/type';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Fragment, useState } from 'react';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { Fragment, useEffect, useState } from 'react';
+import { BsFilterLeft } from 'react-icons/bs';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { BsFilterLeft, GrFormNext, GrFormPrevious } from '../../compound/icons/index';
-import Sidebar from './Sidebar';
-import { slidesPerView, spaceBetween } from './contains';
-import { LoadingSkeletonCategory } from './loading';
 
-const PageProducts = () => {
+const PageProductsByCategory = () => {
 	const router = useRouter();
+	const params = useParams();
 	const searchParams = useSearchParams();
-	const defaultPageSize = 10;
+
+	const defaultPageSize = 9;
 	const initialPage = parseInt(searchParams.get('page') || '1', 10);
 	const initialPageSize = parseInt(searchParams.get('pageSize') || `${defaultPageSize}`, 10);
+
 	const [currentPage, setCurrentPage] = useState<number>(initialPage);
 	const [pageSize, setPageSize] = useState<number>(initialPageSize);
+
+	const id = params.id;
+
 	const { data: categoriesData, isLoading: loadingCategories, error: errorCategories } = useCategoriesQuery();
 	const {
-		data: productsData,
-		isLoading: loadingProducts,
-		error: errorProducts,
-	} = useProductsQuery(currentPage, pageSize);
+		data: DATA_PRODUCT_BY_CATEGORY,
+		isLoading: LOADING_PRODUCTS_BY_CATEGORY,
+		error: ERROR_PRODUCTS_BY_CATEGORY,
+		refetch: REFETCH_DATA_PRODUCTS_BY_CATEGORY,
+	} = useProductsByCategoryQuery(id, currentPage, pageSize);
+
+	useEffect(() => {
+		if (id) {
+			REFETCH_DATA_PRODUCTS_BY_CATEGORY();
+		}
+	}, [id, currentPage, pageSize, REFETCH_DATA_PRODUCTS_BY_CATEGORY]);
+
+	const handleCategoryClick = (categoryId: string) => {
+		setCurrentPage(1);
+		router.push(`/product/category/${categoryId}?page=1&pageSize=${pageSize}`);
+	};
 
 	const handleProductPageChange = (page: number) => {
 		setCurrentPage(page);
-		router.push(`?page=${page}&pageSize=${pageSize}`);
+		router.push(`/product/category/${id}?page=${page}&pageSize=${pageSize}`);
 	};
 
-	const totalPages = productsData ? productsData?.totalPages : 0;
+	const totalPages = Math.ceil((DATA_PRODUCT_BY_CATEGORY?.totalProducts || 0) / pageSize);
+	const currentProducts = DATA_PRODUCT_BY_CATEGORY?.products || [];
 
 	return (
 		<Fragment>
@@ -44,12 +64,6 @@ const PageProducts = () => {
 				<section className="site-categories">
 					{!errorCategories && (
 						<>
-							<h4 className="content _text-center">
-								<p className="content-title">Clothing</p>
-								<p>/</p>
-								<p className="sub-content">Woman</p>
-							</h4>
-							<p className="title _text-center">WOMANS CLOTHES</p>
 							<div className="categories-list">
 								{loadingCategories || !categoriesData || errorCategories ? (
 									<LoadingSkeletonCategory />
@@ -73,9 +87,13 @@ const PageProducts = () => {
 									>
 										{categoriesData.map((category: Category) => (
 											<SwiperSlide key={category._id}>
-												<div className="category-item">
+												<div
+													className="category-item"
+													onClick={() => handleCategoryClick(category._id)}
+												>
 													<Link
 														href={`/product/category/${category._id}`}
+														as={`/product/category/${category._id}`}
 														className="image"
 													>
 														<Image
@@ -119,15 +137,15 @@ const PageProducts = () => {
 								</select>
 							</div>
 						</div>
-						<p className="total-products">{productsData?.totalProducts} items</p>
+						<p className="total-products">{DATA_PRODUCT_BY_CATEGORY?.totalProducts} items</p>
 					</div>
 
 					<div className="products-wrapper">
 						<Sidebar />
 						<section className="wrapper-product-list">
-							{loadingProducts ? (
+							{LOADING_PRODUCTS_BY_CATEGORY ? (
 								<div className="loading-skeleton-product">
-									{Array.from({ length: initialPageSize }).map((_, index) => (
+									{Array.from({ length: pageSize }).map((_, index) => (
 										<div
 											className="card-is-loading"
 											key={index}
@@ -142,7 +160,7 @@ const PageProducts = () => {
 								</div>
 							) : (
 								<div className="main-products-list">
-									{productsData?.products.map((product: any) => (
+									{currentProducts.map((product: any) => (
 										<Product
 											key={product._id}
 											id={product._id}
@@ -199,12 +217,12 @@ const PageProducts = () => {
 
 			<SectionProducts
 				title="BESTSELLERS WE RECOMMEND"
-				productList={productsData}
-				loading={loadingProducts}
-				error={errorProducts}
+				productList={DATA_PRODUCT_BY_CATEGORY}
+				loading={LOADING_PRODUCTS_BY_CATEGORY}
+				error={ERROR_PRODUCTS_BY_CATEGORY}
 			/>
 		</Fragment>
 	);
 };
 
-export default PageProducts;
+export default PageProductsByCategory;

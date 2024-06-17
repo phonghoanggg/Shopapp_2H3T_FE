@@ -3,35 +3,29 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { selectIsToggleModalSale } from '@/redux/modal/selector';
 import { closeModalSale } from '@/redux/modal/slice';
 import { Product } from '@/utils/type';
-import { map, sampleSize } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 import { GrFormClose, VscBell } from '../../compound/icons/index';
 import ProductSale from './ProductSale';
 
+// Utility function to get a random sample of array elements
+const getRandomSample = (array: Product[], size: number) => {
+	const shuffled = array.sort(() => 0.5 - Math.random());
+	return shuffled.slice(0, size);
+};
+
 const Sale = () => {
 	const { data: DATA_PRODUCTS } = useProductsQuery();
-	const [randomProducts, setRandomProducts] = useState<Product[]>([]);
 	const dispatch = useAppDispatch();
 	const IsToggleModalSale = useAppSelector(selectIsToggleModalSale);
 	const saleInnerRef = useRef<HTMLDivElement | null>(null);
 
-	const getRandomProducts = (products: Product[]) => {
-		return sampleSize(products, 8);
-	};
+	const [productsToShow, setProductsToShow] = useState<Product[]>([]);
 
-	useEffect(() => {
-		if (DATA_PRODUCTS) {
-			setRandomProducts(getRandomProducts(DATA_PRODUCTS));
+	const updateProductsToShow = () => {
+		if (DATA_PRODUCTS?.products) {
+			setProductsToShow(getRandomSample(DATA_PRODUCTS.products, 8));
 		}
-
-		const intervalId = setInterval(() => {
-			if (DATA_PRODUCTS) {
-				setRandomProducts(getRandomProducts(DATA_PRODUCTS));
-			}
-		}, 3600000); // 1 hour
-
-		return () => clearInterval(intervalId);
-	}, [DATA_PRODUCTS]);
+	};
 
 	const closeModalIfOutsideClick = (event: MouseEvent) => {
 		if (saleInnerRef.current && !saleInnerRef.current.contains(event.target as Node)) {
@@ -50,6 +44,16 @@ const Sale = () => {
 			document.removeEventListener('click', closeModalIfOutsideClick);
 		};
 	}, [IsToggleModalSale]);
+
+	useEffect(() => {
+		// Initial update
+		updateProductsToShow();
+
+		// Set up interval to update every 8 hours (8 hours * 60 minutes * 60 seconds * 1000 milliseconds)
+		const interval = setInterval(updateProductsToShow, 8 * 60 * 60 * 1000);
+
+		return () => clearInterval(interval);
+	}, [DATA_PRODUCTS]);
 
 	return (
 		<section className="main-sale">
@@ -71,13 +75,14 @@ const Sale = () => {
 					</div>
 				</div>
 				<div className="sale-product-list _custom-scrollbar">
-					{map(randomProducts, (item: Product) => (
+					{productsToShow.map((item: Product) => (
 						<ProductSale
 							key={item._id}
 							id={item._id}
 							images={item.images && item.images.length > 0 ? item.images : ['']}
 							name={item.name}
 							price={item.price}
+							size="Sale up to30%"
 						/>
 					))}
 				</div>

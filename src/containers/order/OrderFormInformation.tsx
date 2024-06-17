@@ -37,7 +37,7 @@ const schema = yup.object().shape({
 	phone: yup
 		.string()
 		.required('Phone Number is required')
-		.matches(/^\d{10}$/, 'Phone Number must be exactly 9 digits'),
+		.matches(/^\d{10}$/, 'Phone Number must be exactly 10 digits'),
 	note: yup.string(),
 });
 
@@ -53,12 +53,11 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 	const { mutate: MUTATION_ORDER, isLoading: LOADING_ORDER } = usePostOrder();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const userId = inforUser?._id || null;
-	console.log(selectedProvinceName, selectedDistrictName, selectedCommuneName);
 
 	const { data: DATA_USER } = useUserDetailQuery(userId as string);
 	const { data: DATA_PROVINCE } = useGetProvinceLocation();
-	const { data: DATA_DISTRICT, isLoading: LOADING_DISTRICT } = useGetDistrictLocation(selectedProvince);
-	const { data: DATA_COMMUNE, isLoading: LOADING_COMMUNE } = useGetCommuneLocation(selectedDistrict);
+	const { data: DATA_DISTRICT } = useGetDistrictLocation(selectedProvince);
+	const { data: DATA_COMMUNE } = useGetCommuneLocation(selectedDistrict);
 
 	const {
 		control,
@@ -132,7 +131,7 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 				province: selectedProvinceName || DATA_USER.province || '',
 				district: selectedDistrictName || DATA_USER.district || '',
 				commune: selectedCommuneName || DATA_USER.commune || '',
-				phone: data.phone || DATA_USER.phone || '',
+				phone: data.phone || `0${DATA_USER.phone}` || '',
 				cartItems: cartItems,
 				total: total,
 				status: 'pending',
