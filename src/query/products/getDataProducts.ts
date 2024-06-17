@@ -23,13 +23,31 @@ export const useProductsQuery = (page: any, pageSize: any) => {
 		},
 	);
 };
-export const useProductDetailQuery = (id: string) => {
+export const useFilterProductsQuery = (name: any, minPrice: any, maxPrice: any, brand: any) => {
 	return useQuery(
-		[API_ENDPOINT.PRODUCTDETAIL, id],
+		[API_ENDPOINT.FILTER_PRODUCT, name, minPrice, maxPrice, brand],
+		async (): Promise<any> => {
+			return await publicRequest.request({
+				method: 'GET',
+				url: API_ENDPOINT.FILTER_PRODUCT,
+				params: { name, minPrice, maxPrice, brand },
+			});
+		},
+		{
+			staleTime: STALE_TIME, // 5 minutes
+			cacheTime: CACHE_TIME, // 10 minutes
+			retry: RETRY, // Number of retry attempts in case of failure
+			refetchOnWindowFocus: false,
+		},
+	);
+};
+export const useProductDetailQuery = (slug: string) => {
+	return useQuery(
+		[API_ENDPOINT.PRODUCTDETAIL, slug],
 		async (): Promise<ProductDetail> => {
 			return await publicRequest.request({
 				method: 'GET',
-				url: `${API_ENDPOINT.PRODUCTDETAIL}/${id}`,
+				url: `${API_ENDPOINT.PRODUCTDETAIL}/${slug}`,
 			});
 		},
 		{

@@ -3,7 +3,6 @@
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 // components
-import SectionProducts from '@/components/SectionProducts';
 import Button from '@/compound/demo-button/button/Button';
 import Image from 'next/image';
 import Comment from './Comment';
@@ -28,7 +27,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 
 // react-query
-import { useProductDetailQuery, useProductsQuery } from '@/query/products/getDataProducts';
+import { useProductDetailQuery } from '@/query/products/getDataProducts';
 // constants
 import { addToCart } from '@/redux/cart/slice';
 import { BREAKPOINTS } from '@/utils/breakpoints/constants';
@@ -44,18 +43,19 @@ import { HiMiniHeart } from '../../compound/icons/index';
 const PageProductDetail = () => {
 	const { mutate: MUTATION_FAVORITE, isLoading: LOADING_FAVORITE } = usePostFavorite();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
-	const { data: DATA_PRODUCTS, isLoading: LOADING_PRODUCT, error: ERROR_PRODUCT } = useProductsQuery();
 
 	const userId = inforUser?._id || null;
 	// get query id product
 	const params = useParams();
-	const id = params.id;
+	const slugProductDetail = params.slug;
+	console.log(slugProductDetail);
+
 	const {
 		data: DATA_PRODUCT_DETAIL,
 		isLoading: LOADING_PRODUCT_DETAIL,
 		error,
 		refetch,
-	} = useProductDetailQuery(id as string);
+	} = useProductDetailQuery(slugProductDetail as string);
 	const [selectedSize, setSelectedSize] = useState<string>('');
 	const [showSizeError, setShowSizeError] = useState<boolean>(false);
 	const [activeThumb, setActiveThumb] = useState<any>(null);
@@ -64,12 +64,13 @@ const PageProductDetail = () => {
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [modalMessage, setModalMessage] = useState('');
+	console.log(DATA_PRODUCT_DETAIL);
 
 	useEffect(() => {
-		if (id) {
+		if (slugProductDetail) {
 			refetch(); // refetch data when the id changes
 		}
-	}, [id, refetch]);
+	}, [slugProductDetail, refetch]);
 
 	const increaseQuantity = () => {
 		setQuantity(quantity + 1);
@@ -128,17 +129,17 @@ const PageProductDetail = () => {
 	}, [modalVisible]);
 
 	useEffect(() => {
-		if (id) {
+		if (slugProductDetail) {
 			refetch();
 		}
-	}, [id, refetch]);
+	}, [slugProductDetail, refetch]);
 
 	useEffect(() => {
 		refetch();
 		setSelectedSize('');
 		setShowSizeError(false);
 		setQuantity(1);
-	}, [id]);
+	}, [slugProductDetail]);
 
 	// handle bag cart use redux
 	const dispatch = useAppDispatch();
@@ -404,7 +405,7 @@ const PageProductDetail = () => {
 				</div>
 			</section>
 			{/* section product */}
-			<SectionProducts
+			{/* <SectionProducts
 				title="YOU MAY ALSO LIKE"
 				productList={DATA_PRODUCTS}
 				loading={LOADING_PRODUCT} // add the loading property
@@ -415,7 +416,7 @@ const PageProductDetail = () => {
 				productList={DATA_PRODUCTS}
 				loading={LOADING_PRODUCT} // add the loading property
 				error={ERROR_PRODUCT}
-			/>
+			/> */}
 			{/* comment */}
 			<Comment />
 		</main>

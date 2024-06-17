@@ -71,6 +71,7 @@ const SectionProducts: React.FC<ProductListProps> = ({ title, productList, loadi
 							<Product
 								brand="Son's Premium"
 								id={product._id}
+								slug={product.slug}
 								name={product.name}
 								images={product.images}
 								price={product.price}

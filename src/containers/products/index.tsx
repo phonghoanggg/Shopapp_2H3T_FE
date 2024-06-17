@@ -11,14 +11,14 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Fragment, useState } from 'react';
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { BsFilterLeft, GrFormNext, GrFormPrevious } from '../../compound/icons/index';
-import Sidebar from './Sidebar';
+import { BsFilterLeft, GrFormNext, GrFormPrevious, HiMinus, MdOutlineAdd } from '../../compound/icons/index';
 import { slidesPerView, spaceBetween } from './contains';
 import { LoadingSkeletonCategory } from './loading';
 
 const PageProducts = () => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
+
 	const defaultPageSize = 10;
 	const initialPage = parseInt(searchParams.get('page') || '1', 10);
 	const initialPageSize = parseInt(searchParams.get('pageSize') || `${defaultPageSize}`, 10);
@@ -30,6 +30,22 @@ const PageProducts = () => {
 		isLoading: loadingProducts,
 		error: errorProducts,
 	} = useProductsQuery(currentPage, pageSize);
+
+	const sizes: string[] = ['S', 'M', 'L', 'XL'];
+	const [activeSize, setActiveSize] = useState<string | null>(null);
+	const [showFilters, setShowFilters] = useState<boolean>(true);
+
+	const handleSizeClick = (size: string) => {
+		if (activeSize === size) {
+			setActiveSize(null);
+		} else {
+			setActiveSize(size);
+		}
+	};
+
+	const handleToggleFilter = () => {
+		setShowFilters(!showFilters);
+	};
 
 	const handleProductPageChange = (page: number) => {
 		setCurrentPage(page);
@@ -123,7 +139,31 @@ const PageProducts = () => {
 					</div>
 
 					<div className="products-wrapper">
-						<Sidebar />
+						<aside className="sidebar-wrapper">
+							<div className="sidebar-inner">
+								<div
+									className="sidebar-type"
+									onClick={handleToggleFilter}
+								>
+									Size
+									{showFilters ? <HiMinus size={20} /> : <MdOutlineAdd size={20} />}
+								</div>
+								{showFilters && (
+									<div className="list-filter _text-uppercase">
+										{sizes.map((size) => (
+											<p
+												key={size}
+												className={activeSize === size ? '-active' : ''}
+												onClick={() => handleSizeClick(size)}
+											>
+												{size}
+											</p>
+										))}
+									</div>
+								)}
+							</div>
+						</aside>
+
 						<section className="wrapper-product-list">
 							{loadingProducts ? (
 								<div className="loading-skeleton-product">
@@ -146,6 +186,7 @@ const PageProducts = () => {
 										<Product
 											key={product._id}
 											id={product._id}
+											slug={product.slug}
 											name={product.name}
 											images={product.images}
 											price={product.price}

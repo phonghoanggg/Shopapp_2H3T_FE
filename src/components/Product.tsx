@@ -11,9 +11,10 @@ interface IProductProps {
 	sale?: string;
 	brand?: string;
 	button?: string;
+	slug?: string;
 }
 
-const Product = ({ id, images, name, price, discount, sale, button, brand }: IProductProps) => {
+const Product = ({ id, images, name, price, discount, sale, button, brand, slug }: IProductProps) => {
 	// Convert images to an array if it's a string
 	const imageArray = typeof images === 'string' ? [images] : images;
 
@@ -32,8 +33,8 @@ const Product = ({ id, images, name, price, discount, sale, button, brand }: IPr
 			key={id}
 		>
 			<Link
-				href={`/${ROUTER.PRODUCT_DETAIL}/${[id]}`}
-				as={`/${ROUTER.PRODUCT_DETAIL}/${id}`}
+				href={`/${ROUTER.PRODUCT_DETAIL}/${[slug]}`}
+				as={`/${ROUTER.PRODUCT_DETAIL}/${slug}`}
 				className="image"
 			>
 				<Image
