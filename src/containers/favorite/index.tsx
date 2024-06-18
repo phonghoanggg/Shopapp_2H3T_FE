@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FaHeart, GrFormClose } from '../../compound/icons/index';
 import { MENU_FAVORITE } from './constants';
+
 const PageFavorite = () => {
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const userId = inforUser?._id || null;
@@ -104,53 +105,55 @@ const PageFavorite = () => {
 									</div>
 								</div>
 							)}
-							{map(DATA_FAVORITE_BY_USER && DATA_FAVORITE_BY_USER, (item) => (
-								<div
-									className="favorite-item"
-									key={item.productId._id}
-								>
-									<div className="product-image">
-										<div className="slide-ratio">
+							{map(DATA_FAVORITE_BY_USER && DATA_FAVORITE_BY_USER, (item) =>
+								item.productId ? (
+									<div
+										className="favorite-item"
+										key={item.productId._id}
+									>
+										<div className="product-image">
+											<div className="slide-ratio">
+												<Link
+													className="cell-image-link"
+													href={`${ROUTER.PRODUCT_DETAIL}/${item.productId?.slug}`}
+												>
+													<Image
+														src={item?.productId?.images[0]}
+														alt="image-product"
+														width={600}
+														height={500}
+													/>
+												</Link>
+												<button
+													type="button"
+													className="favorite-button"
+													// handle delete favorite by user
+													onClick={() => deleteFavorite(item.productId._id)}
+												>
+													<FaHeart className="icon" />
+												</button>
+											</div>
+										</div>
+										<div className="product-info">
 											<Link
-												className="cell-image-link"
-												href={`${ROUTER.PRODUCT_DETAIL}/${item.productId.slug}`}
+												href={`${ROUTER.PRODUCT_DETAIL}/${item.productId?.slug}`}
+												className="item-name"
 											>
-												<Image
-													src={item?.productId?.images[0]}
-													alt="image-product"
-													width={600}
-													height={500}
+												{item.productId.name}{' '}
+												<GrFormClose
+													className="icon"
+													// handle delete favorite by user
+													onClick={() => deleteFavorite(item.productId._id)}
 												/>
 											</Link>
-											<button
-												type="button"
-												className="favorite-button"
-												// handle delete favorite by user
-												onClick={() => deleteFavorite(item.productId._id)}
-											>
-												<FaHeart className="icon" />
-											</button>
+											<div className="item-color">Pictorial - Light Wash - Stretch</div>
+											<div className="item-size">30W X 30L</div>
+											<div className="item-price">${item.productId.price}</div>
+											<div className="promo-badge">Buy 2+, Get 30% Off: Applied at Checkout</div>
 										</div>
 									</div>
-									<div className="product-info">
-										<Link
-											href={`${ROUTER.PRODUCT_DETAIL}/${item.productId.slug}`}
-											className="item-name"
-										>
-											{item.productId.name}{' '}
-											<GrFormClose
-												className="icon"
-												// handle delete favorite by user
-												onClick={() => deleteFavorite(item.productId._id)}
-											/>
-										</Link>
-										<div className="item-color">Pictorial - Light Wash - Stretch</div>
-										<div className="item-size">30W X 30L</div>
-										<div className="item-price">${item.productId.price}</div>
-										<div className="promo-badge">Buy 2+, Get 30% Off: Applied at Checkout</div>
-									</div>
-								</div>
-							))}
+								) : null,
+							)}
 							{/* render product favorite by user here */}
 						</div>
 					)}

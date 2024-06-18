@@ -14,11 +14,11 @@ const getRandomSample = (array: Product[], size: number) => {
 };
 
 const Sale = () => {
-	const { data: DATA_PRODUCTS } = useProductsQuery();
+	const { data: DATA_PRODUCTS } = useProductsQuery(1, 10);
 	const dispatch = useAppDispatch();
 	const IsToggleModalSale = useAppSelector(selectIsToggleModalSale);
 	const saleInnerRef = useRef<HTMLDivElement | null>(null);
-
+	const HOURS_SETINTERVAL = 8 * 60 * 60 * 1000;
 	const [productsToShow, setProductsToShow] = useState<Product[]>([]);
 
 	const updateProductsToShow = () => {
@@ -50,7 +50,7 @@ const Sale = () => {
 		updateProductsToShow();
 
 		// Set up interval to update every 8 hours (8 hours * 60 minutes * 60 seconds * 1000 milliseconds)
-		const interval = setInterval(updateProductsToShow, 8 * 60 * 60 * 1000);
+		const interval = setInterval(updateProductsToShow, HOURS_SETINTERVAL);
 
 		return () => clearInterval(interval);
 	}, [DATA_PRODUCTS]);

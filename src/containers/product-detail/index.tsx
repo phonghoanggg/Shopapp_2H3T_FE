@@ -27,12 +27,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 
 // react-query
-import { useProductDetailQuery } from '@/query/products/getDataProducts';
+import { useProductDetailQuery, useProductsQuery } from '@/query/products/getDataProducts';
 // constants
 import { addToCart } from '@/redux/cart/slice';
 import { BREAKPOINTS } from '@/utils/breakpoints/constants';
 import { LIMIT, PAYMENT_METHOD } from './constants';
 // icons
+import SectionProducts from '@/components/SectionProducts';
 import ModalNotification from '@/modals/notification/Notification';
 import { usePostFavorite } from '@/query/favorite/handleApiFavorite';
 import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
@@ -42,6 +43,9 @@ import { HiMiniHeart } from '../../compound/icons/index';
 
 const PageProductDetail = () => {
 	const { mutate: MUTATION_FAVORITE, isLoading: LOADING_FAVORITE } = usePostFavorite();
+	const { data: DATA_PRODUCTS1, isLoading: LOADING_PRODUCT1, error: ERROR_PRODUCT1 } = useProductsQuery(1, 10);
+	const { data: DATA_PRODUCTS2, isLoading: LOADING_PRODUCT2, error: ERROR_PRODUCT2 } = useProductsQuery(2, 10);
+
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 
 	const userId = inforUser?._id || null;
@@ -63,6 +67,7 @@ const PageProductDetail = () => {
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [modalMessage, setModalMessage] = useState('');
+	console.log(DATA_PRODUCT_DETAIL);
 
 	useEffect(() => {
 		if (slugProductDetail) {
@@ -137,7 +142,7 @@ const PageProductDetail = () => {
 		setSelectedSize('');
 		setShowSizeError(false);
 		setQuantity(1);
-	}, [slugProductDetail]);
+	}, [refetch, slugProductDetail]);
 
 	// handle bag cart use redux
 	const dispatch = useAppDispatch();
@@ -403,18 +408,18 @@ const PageProductDetail = () => {
 				</div>
 			</section>
 			{/* section product */}
-			{/* <SectionProducts
+			<SectionProducts
 				title="YOU MAY ALSO LIKE"
-				productList={DATA_PRODUCTS}
-				loading={LOADING_PRODUCT} // add the loading property
-				error={ERROR_PRODUCT}
+				productList={DATA_PRODUCTS1}
+				loading={LOADING_PRODUCT1} // add the loading property
+				error={ERROR_PRODUCT1}
 			/>
 			<SectionProducts
 				title="CUSTOMERS ALSO BOUGHT"
-				productList={DATA_PRODUCTS}
-				loading={LOADING_PRODUCT} // add the loading property
-				error={ERROR_PRODUCT}
-			/> */}
+				productList={DATA_PRODUCTS2}
+				loading={LOADING_PRODUCT2} // add the loading property
+				error={ERROR_PRODUCT2}
+			/>
 			{/* comment */}
 			<Comment />
 		</main>

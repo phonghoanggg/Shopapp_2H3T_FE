@@ -28,6 +28,7 @@ const ProductSale = ({ images, name, size, price, id }: Product) => {
 				>
 					{name}
 				</Link>
+				<div className="item-size">30W X 30L</div>
 				<p className="price">${price}</p>
 				<p className="size">{size}</p>
 			</div>
