@@ -97,6 +97,9 @@
 			> .name {
 				text-transform: capitalize;
 				color: $black;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
 			}
 			> .sub-name {
 				padding-block: 12px;

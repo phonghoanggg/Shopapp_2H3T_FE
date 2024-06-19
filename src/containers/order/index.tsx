@@ -3,6 +3,7 @@ import { selectCartItems } from '@/redux/cart/selectors';
 import { useAppSelector } from '@/redux/hook';
 import { map } from 'lodash';
 import Image from 'next/image';
+import Link from 'next/link';
 import OrderFormInformation from './OrderFormInformation';
 
 export default function PageOrder() {
@@ -52,7 +53,10 @@ export default function PageOrder() {
 							<div className="list-item-order-box">
 								{map(itemBagCart, (item) => (
 									<div className="item">
-										<div className="image">
+										<Link
+											href={`/product/${item.slug}`}
+											className="image"
+										>
 											<Image
 												width={500}
 												height={500}
@@ -60,7 +64,7 @@ export default function PageOrder() {
 												src={item.images[0]}
 												alt={`product cart item-${item.id}`}
 											/>
-										</div>
+										</Link>
 										<div className="desc">
 											<p className="name">{item.name}</p>
 											<p className="price">{item.discountPrice.toFixed(2)}$</p>

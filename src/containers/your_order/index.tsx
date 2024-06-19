@@ -1,7 +1,6 @@
 'use client';
 // base
 import Link from 'next/link';
-import { useState } from 'react';
 // redux
 import { useAppSelector } from '@/redux/hook';
 // components
@@ -21,19 +20,9 @@ const YourOrder = () => {
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const { data: DATA_ORDER, isLoading: LOADING_ORDER, error: ERROR_ORDER } = useGetAllOrder();
 	const { mutate: MUTATE_ORDER, isLoading: LOADING_DELETE_ORDER, error: ERROR_DELETE_ORDER } = useDeleteOrder();
-	const [deletedOrderId, setDeletedOrderId] = useState<string | null>(null);
 
 	// Ensure inforUser is defined and has an _id property
 	const id_User = inforUser?._id;
-
-	const handleDeleteOrder = (orderId: string) => {
-		MUTATE_ORDER(orderId, {
-			onSuccess: () => {
-				setDeletedOrderId(orderId);
-				queryClient.invalidateQueries('orders');
-			},
-		});
-	};
 
 	// Filter orders by user ID, ensure DATA_ORDER is an array
 	const filterOrders = (orders: Order[]): Order[] => {
@@ -114,7 +103,7 @@ const YourOrder = () => {
 											className="order-item"
 										>
 											<Link
-												href={`/product/${cartItem.productId?._id}`}
+												href={`/product/${cartItem.productId?.slug}`}
 												className="image"
 											>
 												<CustomImage
@@ -125,7 +114,7 @@ const YourOrder = () => {
 												/>
 											</Link>
 											<div className="desc">
-												<Link href={`/product/${cartItem.productId?._id}`}>
+												<Link href={`/product/${cartItem.productId?.slug}`}>
 													{cartItem.productId?.name}
 												</Link>
 												<p>Quantity: {cartItem.quantity}</p>

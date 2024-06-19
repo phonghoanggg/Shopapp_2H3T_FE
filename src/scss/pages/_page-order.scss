@@ -182,6 +182,13 @@
 			> * {
 				margin-bottom: 6px;
 			}
+			> .name {
+				width: 320px;
+				@include truncate-multiline-new(2);
+				@include breakpoint-down(phone) {
+					width: 80%;
+				}
+			}
 			> .price {
 				font-weight: $fw-bold;
 			}

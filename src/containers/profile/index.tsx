@@ -50,16 +50,8 @@ export default function PageProfile() {
 	const [modalMessage, setModalMessage] = useState('');
 
 	const { data: DATA_PROVINCE, refetch: refetchProvinces } = useGetProvinceLocation();
-	const {
-		data: DATA_DISTRICT,
-		isLoading: LOADING_DISTRICT,
-		refetch: refetchDistricts,
-	} = useGetDistrictLocation(selectedProvince as string);
-	const {
-		data: DATA_COMMUNE,
-		isLoading: LOADING_COMMUNE,
-		refetch: refetchCommunes,
-	} = useGetCommuneLocation(selectedDistrict as string);
+	const { data: DATA_DISTRICT, refetch: refetchDistricts } = useGetDistrictLocation(selectedProvince as string);
+	const { data: DATA_COMMUNE, refetch: refetchCommunes } = useGetCommuneLocation(selectedDistrict as string);
 
 	const { mutate: MUTATION_USER, isLoading: LOADING_POST_USER } = usePutInfoUser();
 
@@ -87,7 +79,7 @@ export default function PageProfile() {
 			setValue('firstName', DATA_USER.firstName);
 			setValue('lastName', DATA_USER.lastName);
 			setValue('email', DATA_USER.email);
-			setValue('phone', `0${DATA_USER.phone}`);
+			setValue('phone', DATA_USER.phone ? `0${DATA_USER.phone}` : '');
 			setSelectedProvince(DATA_USER.province);
 			setSelectedDistrict(DATA_USER.district);
 			setSelectedProvinceName(DATA_USER.province);

@@ -105,14 +105,23 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 	useEffect(() => {
 		// Populate form fields with user data when DATA_USER is loaded
 		if (DATA_USER) {
-			setValue('name', DATA_USER.firstName); // Combine first and last name
-			setValue('phone', DATA_USER.phone || '');
+			setValue('name', DATA_USER.firstName || '');
+			setValue('phone', DATA_USER.phone ? `0${DATA_USER.phone}` : '');
 			setValue('address', DATA_USER.address || '');
 			setValue('province', DATA_USER.province || '');
 			setValue('district', DATA_USER.district || '');
 			setValue('commune', DATA_USER.commune || '');
+		} else {
+			// If DATA_USER is not available, set default values (optional)
+			setValue('name', '');
+			setValue('phone', '');
+			setValue('address', '');
+			setValue('province', '');
+			setValue('district', '');
+			setValue('commune', '');
 		}
 	}, [DATA_USER, setValue]);
+	console.log(DATA_USER?.phone);
 
 	const onSubmit = async (data: OrderFormData) => {
 		const isFormValid = await trigger();
@@ -134,7 +143,7 @@ const OrderFormInformation = ({ itemBagCart, total }: any) => {
 				phone: data.phone || `0${DATA_USER.phone}` || '',
 				cartItems: cartItems,
 				total: total,
-				status: 'pending',
+				status: 'success',
 			};
 
 			MUTATION_ORDER(orderData as any, {

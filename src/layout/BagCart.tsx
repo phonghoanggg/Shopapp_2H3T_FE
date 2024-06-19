@@ -96,7 +96,7 @@ const BagCart = () => {
 									key={item.id}
 								>
 									<Link
-										href={`${ROUTER.PRODUCT_DETAIL}/${item.id}`}
+										href={`${ROUTER.PRODUCT_DETAIL}/${item?.slug}`}
 										className="image"
 									>
 										{item.images && item.images.length > 0 && (
@@ -111,7 +111,7 @@ const BagCart = () => {
 									</Link>
 									<div className="desc">
 										<Link
-											href={`${ROUTER.PRODUCT_DETAIL}/${item.id}`}
+											href={`${ROUTER.PRODUCT_DETAIL}/${item?.slug}`}
 											className="name"
 										>
 											{item.name}

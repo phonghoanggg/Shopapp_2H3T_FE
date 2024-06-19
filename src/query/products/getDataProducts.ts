@@ -23,14 +23,14 @@ export const useProductsQuery = (page: any, pageSize: any) => {
 		},
 	);
 };
-export const useFilterProductsQuery = (name: any, minPrice: any, maxPrice: any, brand: any) => {
+export const useFilterProductsQuery = (name: any, sort: any) => {
 	return useQuery(
-		[API_ENDPOINT.FILTER_PRODUCT, name, minPrice, maxPrice, brand],
+		[API_ENDPOINT.FILTER_PRODUCT, name, sort],
 		async (): Promise<any> => {
 			return await publicRequest.request({
 				method: 'GET',
 				url: API_ENDPOINT.FILTER_PRODUCT,
-				params: { name, minPrice, maxPrice, brand },
+				params: { name, sort },
 			});
 		},
 		{

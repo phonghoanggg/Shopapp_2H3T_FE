@@ -88,7 +88,7 @@ const CartProductList = () => {
 							key={item.id}
 						>
 							<Link
-								href={`${ROUTER.PRODUCT_DETAIL}/${item.id}`}
+								href={`${ROUTER.PRODUCT_DETAIL}/${item.slug}`}
 								className="image"
 							>
 								<Image
@@ -101,12 +101,14 @@ const CartProductList = () => {
 							<div className="shopping-cart-desc">
 								<div className="item-infor">
 									<p className="brand">SonTruong&#39;s® Premium</p>
-									<Link
-										className="name"
-										href={ROUTER.PRODUCT_DETAIL}
-									>
-										{item.name}
-									</Link>
+									<div className="name-inner">
+										<Link
+											className="name"
+											href={`${ROUTER.PRODUCT_DETAIL}/${item.slug}`}
+										>
+											{item.name}
+										</Link>
+									</div>
 									<p className="color">Luxor Heat Light Wash</p>
 									<p className="price">${item.discountPrice.toFixed(2)}</p>
 									<div className="infor">

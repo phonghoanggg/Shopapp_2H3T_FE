@@ -5,6 +5,7 @@ export type Product = {
 	totalProducts?: any;
 	_id?: string;
 	name?: string;
+	slug?: string;
 	description?: string;
 	price?: number;
 	discount?: number;
@@ -25,6 +26,7 @@ export type Category = {
 export type ProductDetail = {
 	_id: string;
 	name: string;
+	slug: string;
 	description: string;
 	price: number;
 	discount: number;

@@ -73,6 +73,11 @@
 			font-weight: $fw-bold;
 			color: $black;
 			margin-bottom: 6px;
+			width: 320px;
+			@include truncate-multiline-new(2);
+			@include breakpoint-down(phone) {
+				width: 80%;
+			}
 		}
 		> p {
 			margin-block: 10px;

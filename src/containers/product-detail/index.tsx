@@ -161,6 +161,7 @@ const PageProductDetail = () => {
 				quantity: quantity,
 				images: DATA_PRODUCT_DETAIL?.images,
 				discountPrice: discountedPrice,
+				slug: DATA_PRODUCT_DETAIL?.slug,
 			};
 			dispatch(addToCart(productToAdd));
 			setModalVisible(true);

@@ -3,15 +3,15 @@
 import Product from '@/components/Product';
 import SectionProducts from '@/components/SectionProducts';
 import { useCategoriesQuery } from '@/query/categories/getCategories';
-import { useProductsQuery } from '@/query/products/getDataProducts';
+import { useFilterProductsQuery, useProductsQuery } from '@/query/products/getDataProducts';
 import { Category } from '@/utils/type';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { BsFilterLeft, GrFormNext, GrFormPrevious, HiMinus, MdOutlineAdd } from '../../compound/icons/index';
+import { BsFilterLeft, GrFormNext, GrFormPrevious } from '../../compound/icons/index';
 import { slidesPerView, spaceBetween } from './contains';
 import { LoadingSkeletonCategory } from './loading';
 
@@ -22,8 +22,16 @@ const PageProducts = () => {
 	const defaultPageSize = 10;
 	const initialPage = parseInt(searchParams.get('page') || '1', 10);
 	const initialPageSize = parseInt(searchParams.get('pageSize') || `${defaultPageSize}`, 10);
+	const initialName = searchParams.get('name') || '';
+	const initialSort = searchParams.get('sort') || 'recommended';
+
 	const [currentPage, setCurrentPage] = useState<number>(initialPage);
 	const [pageSize, setPageSize] = useState<number>(initialPageSize);
+	const [name, setName] = useState<string>(initialName);
+	const [activeSize, setActiveSize] = useState<string | null>(null);
+	const [sort, setSort] = useState<string>(initialSort);
+
+	const [showFilters, setShowFilters] = useState<boolean>(true);
 	const { data: categoriesData, isLoading: loadingCategories, error: errorCategories } = useCategoriesQuery();
 	const {
 		data: productsData,
@@ -31,9 +39,19 @@ const PageProducts = () => {
 		error: errorProducts,
 	} = useProductsQuery(currentPage, pageSize);
 
-	const sizes: string[] = ['S', 'M', 'L', 'XL'];
-	const [activeSize, setActiveSize] = useState<string | null>(null);
-	const [showFilters, setShowFilters] = useState<boolean>(true);
+	const {
+		data: DATA_PRODUCT_FILTER,
+		isLoading: LOADING_PRODUCT_FILTER,
+		error: ERROR_PRODUCT_FILTER,
+	} = useFilterProductsQuery(name, sort);
+	console.log(DATA_PRODUCT_FILTER);
+
+	useEffect(() => {
+		const params = new URLSearchParams();
+		if (name) params.set('name', name);
+		if (sort) params.set('sort', sort);
+		router.push(`?${params.toString()}`);
+	}, [name, sort]);
 
 	const handleSizeClick = (size: string) => {
 		if (activeSize === size) {
@@ -128,9 +146,11 @@ const PageProducts = () => {
 									name="filter-select-products"
 									id="filter-select-products"
 									className="filter-select-products"
+									value={sort}
+									onChange={(e) => setSort(e.target.value)}
 								>
 									<option value="recommended">Recommended</option>
-									<option value="Price-Low-Hight">Price Low-High</option>
+									<option value="Price-Low-High">Price Low-High</option>
 									<option value="Price-High-Low">Price High-Low</option>
 								</select>
 							</div>
@@ -141,26 +161,7 @@ const PageProducts = () => {
 					<div className="products-wrapper">
 						<aside className="sidebar-wrapper">
 							<div className="sidebar-inner">
-								<div
-									className="sidebar-type"
-									onClick={handleToggleFilter}
-								>
-									Size
-									{showFilters ? <HiMinus size={20} /> : <MdOutlineAdd size={20} />}
-								</div>
-								{showFilters && (
-									<div className="list-filter _text-uppercase">
-										{sizes.map((size) => (
-											<p
-												key={size}
-												className={activeSize === size ? '-active' : ''}
-												onClick={() => handleSizeClick(size)}
-											>
-												{size}
-											</p>
-										))}
-									</div>
-								)}
+								<div className="sidebar-type"></div>
 							</div>
 						</aside>
 

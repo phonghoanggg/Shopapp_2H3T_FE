@@ -12,12 +12,12 @@ const cartSlice = createSlice({
 	reducers: {
 		// handle cart
 		addToCart: (state, action) => {
-			const { id, name, price, size, quantity, images, discountPrice } = action.payload;
+			const { id, name, price, size, quantity, images, discountPrice, slug } = action.payload;
 			const existingItemIndex = state.cartItems.findIndex((item: any) => item.id === id && item.size === size);
 			if (existingItemIndex !== -1) {
 				state.cartItems[existingItemIndex].quantity += quantity;
 			} else {
-				state.cartItems.push({ id, name, price, size, quantity, images, discountPrice });
+				state.cartItems.push({ id, name, price, size, quantity, images, discountPrice, slug });
 			}
 			saveCartToLocalStorage(state.cartItems);
 		},
