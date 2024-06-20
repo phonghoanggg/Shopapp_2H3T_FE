@@ -9,10 +9,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
+import { BsSearch } from 'react-icons/bs';
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { BsFilterLeft, GrFormNext, GrFormPrevious } from '../../compound/icons/index';
 import { slidesPerView, spaceBetween } from './contains';
+import { useDebounce } from './hooks';
 import { LoadingSkeletonCategory } from './loading';
 
 const PageProducts = () => {
@@ -23,15 +25,13 @@ const PageProducts = () => {
 	const initialPage = parseInt(searchParams.get('page') || '1', 10);
 	const initialPageSize = parseInt(searchParams.get('pageSize') || `${defaultPageSize}`, 10);
 	const initialName = searchParams.get('name') || '';
-	const initialSort = searchParams.get('sort') || 'recommended';
 
 	const [currentPage, setCurrentPage] = useState<number>(initialPage);
 	const [pageSize, setPageSize] = useState<number>(initialPageSize);
 	const [name, setName] = useState<string>(initialName);
-	const [activeSize, setActiveSize] = useState<string | null>(null);
-	const [sort, setSort] = useState<string>(initialSort);
 
-	const [showFilters, setShowFilters] = useState<boolean>(true);
+	const debouncedName = useDebounce(name, 1000); // Use custom hook for debounce
+
 	const { data: categoriesData, isLoading: loadingCategories, error: errorCategories } = useCategoriesQuery();
 	const {
 		data: productsData,
@@ -43,34 +43,25 @@ const PageProducts = () => {
 		data: DATA_PRODUCT_FILTER,
 		isLoading: LOADING_PRODUCT_FILTER,
 		error: ERROR_PRODUCT_FILTER,
-	} = useFilterProductsQuery(name, sort);
-	console.log(DATA_PRODUCT_FILTER);
-
-	useEffect(() => {
-		const params = new URLSearchParams();
-		if (name) params.set('name', name);
-		if (sort) params.set('sort', sort);
-		router.push(`?${params.toString()}`);
-	}, [name, sort]);
-
-	const handleSizeClick = (size: string) => {
-		if (activeSize === size) {
-			setActiveSize(null);
-		} else {
-			setActiveSize(size);
-		}
-	};
-
-	const handleToggleFilter = () => {
-		setShowFilters(!showFilters);
-	};
+	} = useFilterProductsQuery(debouncedName); // Use debounced name
 
 	const handleProductPageChange = (page: number) => {
 		setCurrentPage(page);
 		router.push(`?page=${page}&pageSize=${pageSize}`);
 	};
 
+	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setName(event.target.value);
+	};
+
+	useEffect(() => {
+		if (debouncedName) {
+			router.push(`?name=${debouncedName}`);
+		}
+	}, [debouncedName]);
+
 	const totalPages = productsData ? productsData?.totalPages : 0;
+	const DATA_PRODUCTS = DATA_PRODUCT_FILTER || productsData?.data;
 
 	return (
 		<Fragment>
@@ -146,8 +137,6 @@ const PageProducts = () => {
 									name="filter-select-products"
 									id="filter-select-products"
 									className="filter-select-products"
-									value={sort}
-									onChange={(e) => setSort(e.target.value)}
 								>
 									<option value="recommended">Recommended</option>
 									<option value="Price-Low-High">Price Low-High</option>
@@ -161,12 +150,43 @@ const PageProducts = () => {
 					<div className="products-wrapper">
 						<aside className="sidebar-wrapper">
 							<div className="sidebar-inner">
-								<div className="sidebar-type"></div>
+								{/* Search Input */}
+								<div className="search-wrapper">
+									<input
+										type="text"
+										placeholder="Search products..."
+										onChange={handleSearchChange}
+										defaultValue={initialName}
+									/>
+									<BsSearch />
+								</div>
+								<div className="sidebar-type">
+									{/* Render categories in the sidebar */}
+									{loadingCategories || !categoriesData || errorCategories ? (
+										<div>Loading...</div>
+									) : (
+										<div className="categories-list">
+											{categoriesData.map((category: Category) => (
+												<div
+													className="category-item"
+													key={category._id}
+												>
+													<Link
+														className="link-color"
+														href={`/product/category/${category._id}`}
+													>
+														{category.name}
+													</Link>
+												</div>
+											))}
+										</div>
+									)}
+								</div>
 							</div>
 						</aside>
 
 						<section className="wrapper-product-list">
-							{loadingProducts ? (
+							{loadingProducts || LOADING_PRODUCT_FILTER ? (
 								<div className="loading-skeleton-product">
 									{Array.from({ length: initialPageSize }).map((_, index) => (
 										<div
@@ -183,7 +203,7 @@ const PageProducts = () => {
 								</div>
 							) : (
 								<div className="main-products-list">
-									{productsData?.products.map((product: any) => (
+									{DATA_PRODUCTS?.map((product: any) => (
 										<Product
 											key={product._id}
 											id={product._id}
@@ -200,40 +220,43 @@ const PageProducts = () => {
 								</div>
 							)}
 
-							<div className="pagination-wrapper">
-								<button
-									type="button"
-									className="button"
-									onClick={() => handleProductPageChange(currentPage - 1)}
-									disabled={currentPage === 1}
-								>
-									<GrFormPrevious size={20} /> <p className="label">Prev</p>
-								</button>
+							{/* Pagination section */}
+							{productsData && productsData?.products ? (
+								<div className="pagination-wrapper">
+									<button
+										type="button"
+										className="button"
+										onClick={() => handleProductPageChange(currentPage - 1)}
+										disabled={currentPage === 1}
+									>
+										<GrFormPrevious size={20} /> <p className="label">Prev</p>
+									</button>
 
-								<div className="pagination-list">
-									{Array.from({ length: totalPages }).map((_, index) => {
-										const pageNumber = index + 1;
-										return (
-											<button
-												key={pageNumber}
-												onClick={() => handleProductPageChange(pageNumber)}
-												className={`item ${pageNumber === currentPage ? '-active' : ''}`}
-											>
-												{pageNumber}
-											</button>
-										);
-									})}
+									<div className="pagination-list">
+										{Array.from({ length: totalPages }).map((_, index) => {
+											const pageNumber = index + 1;
+											return (
+												<button
+													key={pageNumber}
+													onClick={() => handleProductPageChange(pageNumber)}
+													className={`item ${pageNumber === currentPage ? '-active' : ''}`}
+												>
+													{pageNumber}
+												</button>
+											);
+										})}
+									</div>
+
+									<button
+										type="button"
+										className="button"
+										onClick={() => handleProductPageChange(currentPage + 1)}
+										disabled={currentPage === totalPages}
+									>
+										<p className="label">Next</p> <GrFormNext size={20} />
+									</button>
 								</div>
-
-								<button
-									type="button"
-									className="button"
-									onClick={() => handleProductPageChange(currentPage + 1)}
-									disabled={currentPage === totalPages}
-								>
-									<p className="label">Next</p> <GrFormNext size={20} />
-								</button>
-							</div>
+							) : null}
 						</section>
 					</div>
 				</section>

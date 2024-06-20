@@ -78,7 +78,7 @@ const Sale = () => {
 					{productsToShow.map((item: Product) => (
 						<ProductSale
 							key={item._id}
-							id={item._id}
+							id={item.slug}
 							images={item.images && item.images.length > 0 ? item.images : ['']}
 							name={item.name}
 							price={item.price}

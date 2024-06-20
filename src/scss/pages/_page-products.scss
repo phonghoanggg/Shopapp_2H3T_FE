@@ -72,6 +72,24 @@
 	}
 }
 
+.link-color {
+	color: $black;
+	font-size: $fz-sm;
+	line-height: $leading-md;
+	font-weight: $fw-bold;
+}
+
+.sidebar-inner > .search-wrapper {
+	@include flex-center;
+	justify-content: space-between;
+	> input {
+		padding-block: 8px;
+	}
+	> svg {
+		color: $brow-light-75-color;
+	}
+}
+
 //  Products list
 
 .wrapper-product-list {

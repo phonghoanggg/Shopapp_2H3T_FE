@@ -23,14 +23,14 @@ export const useProductsQuery = (page: any, pageSize: any) => {
 		},
 	);
 };
-export const useFilterProductsQuery = (name: any, sort: any) => {
+export const useFilterProductsQuery = (name: any) => {
 	return useQuery(
-		[API_ENDPOINT.FILTER_PRODUCT, name, sort],
+		[API_ENDPOINT.FILTER_PRODUCT, name],
 		async (): Promise<any> => {
 			return await publicRequest.request({
 				method: 'GET',
 				url: API_ENDPOINT.FILTER_PRODUCT,
-				params: { name, sort },
+				params: { name },
 			});
 		},
 		{
