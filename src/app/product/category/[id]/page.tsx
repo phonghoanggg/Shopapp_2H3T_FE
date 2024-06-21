@@ -3,18 +3,17 @@
 import Product from '@/components/Product';
 import SectionProducts from '@/components/SectionProducts';
 import { slidesPerView, spaceBetween } from '@/containers/products/contains';
+import { useDebounce } from '@/containers/products/hooks';
 import { LoadingSkeletonCategory } from '@/containers/products/loading';
 import { useCategoriesQuery } from '@/query/categories/getCategories';
-import { useProductsByCategoryQuery } from '@/query/products/getDataProducts';
+import { useFilterProductsQuery, useProductsByCategoryQuery } from '@/query/products/getDataProducts';
 import { Category } from '@/utils/type';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
-import { BsFilterLeft } from 'react-icons/bs';
+import { BsFilterLeft, BsSearch } from 'react-icons/bs';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
-import { HiMinus } from 'react-icons/hi';
-import { MdOutlineAdd } from 'react-icons/md';
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -26,11 +25,14 @@ const PageProductsByCategory = () => {
 	const defaultPageSize = 9;
 	const initialPage = parseInt(searchParams.get('page') || '1', 10);
 	const initialPageSize = parseInt(searchParams.get('pageSize') || `${defaultPageSize}`, 10);
+	const initialName = searchParams.get('name') || '';
 
+	const [name, setName] = useState<string>(initialName);
 	const [currentPage, setCurrentPage] = useState<number>(initialPage);
 	const [pageSize, setPageSize] = useState<number>(initialPageSize);
 
 	const id = params.id;
+	const debouncedName = useDebounce(name, 1000);
 
 	const { data: categoriesData, isLoading: loadingCategories, error: errorCategories } = useCategoriesQuery();
 	const {
@@ -39,6 +41,12 @@ const PageProductsByCategory = () => {
 		error: ERROR_PRODUCTS_BY_CATEGORY,
 		refetch: REFETCH_DATA_PRODUCTS_BY_CATEGORY,
 	} = useProductsByCategoryQuery(id, currentPage, pageSize);
+
+	const {
+		data: DATA_PRODUCT_FILTER,
+		isLoading: LOADING_PRODUCT_FILTER,
+		error: ERROR_PRODUCT_FILTER,
+	} = useFilterProductsQuery(debouncedName);
 
 	useEffect(() => {
 		if (id) {
@@ -56,23 +64,23 @@ const PageProductsByCategory = () => {
 		router.push(`/product/category/${id}?page=${page}&pageSize=${pageSize}`);
 	};
 
-	const sizes: string[] = ['S', 'M', 'L', 'XL'];
-	const [activeSize, setActiveSize] = useState<string | null>(null);
-	const [showFilters, setShowFilters] = useState<boolean>(true);
+	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setName(event.target.value);
+	};
 
-	const handleSizeClick = (size: string) => {
-		if (activeSize === size) {
-			setActiveSize(null);
+	useEffect(() => {
+		const newPath = debouncedName ? `/product` : `/product/category/${id}`;
+		const newQuery = new URLSearchParams(searchParams);
+		if (debouncedName) {
+			newQuery.set('name', debouncedName);
 		} else {
-			setActiveSize(size);
+			newQuery.delete('name');
 		}
-	};
+		router.push(`${newPath}?${newQuery.toString()}`);
+	}, [debouncedName, id, router, searchParams]);
 
-	const handleToggleFilter = () => {
-		setShowFilters(!showFilters);
-	};
 	const totalPages = Math.ceil((DATA_PRODUCT_BY_CATEGORY?.totalProducts || 0) / pageSize);
-	const currentProducts = DATA_PRODUCT_BY_CATEGORY?.products || [];
+	const currentProducts = DATA_PRODUCT_BY_CATEGORY?.products || DATA_PRODUCT_FILTER;
 
 	return (
 		<Fragment>
@@ -159,26 +167,38 @@ const PageProductsByCategory = () => {
 					<div className="products-wrapper">
 						<aside className="sidebar-wrapper">
 							<div className="sidebar-inner">
-								<div
-									className="sidebar-type"
-									onClick={handleToggleFilter}
-								>
-									Size
-									{showFilters ? <HiMinus size={20} /> : <MdOutlineAdd size={20} />}
+								{/* Search Input */}
+								<div className="search-wrapper">
+									<input
+										type="text"
+										placeholder="Search products..."
+										onChange={handleSearchChange}
+										defaultValue={initialName}
+									/>
+									<BsSearch />
 								</div>
-								{showFilters && (
-									<div className="list-filter _text-uppercase">
-										{sizes.map((size) => (
-											<p
-												key={size}
-												className={activeSize === size ? '-active' : ''}
-												onClick={() => handleSizeClick(size)}
-											>
-												{size}
-											</p>
-										))}
-									</div>
-								)}
+								<div className="sidebar-type">
+									{/* Render categories in the sidebar */}
+									{loadingCategories || !categoriesData || errorCategories ? (
+										<div>Loading...</div>
+									) : (
+										<div className="categories-list">
+											{categoriesData.map((category: Category) => (
+												<div
+													className="category-item"
+													key={category._id}
+												>
+													<Link
+														className="link-color"
+														href={`/product/category/${category._id}`}
+													>
+														{category.name}
+													</Link>
+												</div>
+											))}
+										</div>
+									)}
+								</div>
 							</div>
 						</aside>
 						<section className="wrapper-product-list">
