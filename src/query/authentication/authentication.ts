@@ -26,10 +26,6 @@ export const useLoginMutation = () => {
 					dispatch(loginEmailFailure(error));
 				}
 			},
-
-			onError: (error: Error) => {
-				console.error('Login error:', error);
-			},
 		},
 	);
 };

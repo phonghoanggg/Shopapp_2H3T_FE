@@ -1,7 +1,7 @@
 'use client';
 
 // base
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // components
 import Button from '@/compound/demo-button/button/Button';
@@ -23,6 +23,7 @@ import { useLoginMutation } from '@/query/authentication/authentication';
 // Yup
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import ModalNotification from '../notification/Notification';
 const schema = yup.object().shape({
 	email: yup.string().email('Invalid email format').required('Email is required'),
 	password: yup.string().required('Password is required'),
@@ -33,6 +34,9 @@ interface ILoginProps {
 	password: string;
 }
 const Login = () => {
+	// state notification
+	const [modalVisible, setModalVisible] = useState(true);
+	const [modalMessage, setModalMessage] = useState('');
 	// redux handle modal
 	const isOpenToggleModalLogin = useAppSelector(selectIsToggleModalLogin);
 	const dispatch = useAppDispatch();
@@ -62,7 +66,18 @@ const Login = () => {
 
 	// handle hidden scroll body
 	useNoScrollBody(isOpenToggleModalLogin);
-
+	// handle close modal
+	useEffect(() => {
+		let timer: ReturnType<typeof setTimeout> | undefined;
+		if (modalVisible) {
+			timer = setTimeout(() => {
+				setModalVisible(false);
+			}, 3000); // Close modal after 2 seconds
+		}
+		return () => {
+			if (timer) clearTimeout(timer);
+		};
+	}, [modalVisible]);
 	const {
 		control,
 		handleSubmit,
@@ -81,15 +96,22 @@ const Login = () => {
 	// Handle form submission here
 	const { mutate: MUTATION_LOGIN, isLoading: LOADING_LOGIN } = useLoginMutation();
 	const onLoginSubmit = async (data: any) => {
-		try {
-			MUTATION_LOGIN(data);
-		} catch (error) {
-			console.error('Login error:', error);
-		}
+		MUTATION_LOGIN(data, {
+			onError: (error) => {
+				setModalMessage('Please double-check your password or account.');
+				setModalVisible(true);
+			},
+		});
 	};
 
 	return (
 		<section className={`login-wrapper _overlay ${isOpenToggleModalLogin ? '-show' : ''}`}>
+			{/* Modal Notification */}
+			<ModalNotification
+				stateModalVisible={modalVisible}
+				message={modalMessage}
+				onClose={() => setModalVisible(false)}
+			/>
 			{/* description */}
 			<div
 				className="login-inner _custom-scrollbar"

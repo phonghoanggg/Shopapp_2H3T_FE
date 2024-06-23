@@ -2,8 +2,8 @@
 // base
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Fragment } from 'react';
-//  Swiper
+import { Fragment, useEffect, useState } from 'react';
+// Swiper
 import { Autoplay, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // lodash
@@ -12,7 +12,7 @@ import { map } from 'lodash';
 import Logo from '@/compound/logo/Logo';
 import BagCart from '../BagCart';
 import HeaderMobile from './Header-mobile';
-//  icons
+// icons
 import { CgSearch, HiOutlineShoppingBag, IoLocationSharp, TbHeart, VscBell } from '../../compound/icons/index';
 // redux
 import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
@@ -20,7 +20,6 @@ import { logoutGoogle } from '@/redux/auth/slice';
 import { openCart } from '@/redux/cart/slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { openModalLogin, openModalRegister, openModalSale } from '@/redux/modal/slice';
-// react-query
 // modal
 import Login from '@/modals/login/Login';
 import Register from '@/modals/register/Register';
@@ -31,6 +30,9 @@ import { selectCartItems } from '@/redux/cart/selectors';
 import { isValidAccessToken } from '@/utils/cookies/cookieStorage';
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
+// hooks
+import { useDebounce } from '@/containers/products/hooks';
+import { useFilterProductsQuery } from '@/query/products/getDataProducts';
 
 interface IPropsSale {
 	id: number;
@@ -46,6 +48,16 @@ export const Header = () => {
 
 	const itemBagCart = useAppSelector(selectCartItems);
 
+	const [searchQuery, setSearchQuery] = useState<string>('');
+	const debouncedSearchQuery = useDebounce(searchQuery, 1000);
+
+	const {
+		data: DATA_PRODUCT_FILTER,
+		isLoading: LOADING_PRODUCT_FILTER,
+		error: ERROR_PRODUCT_FILTER,
+	} = useFilterProductsQuery(debouncedSearchQuery);
+	console.log(DATA_PRODUCT_FILTER);
+
 	const handleRedirectToFavoritePage = () => {
 		const isValidToken = isValidAccessToken();
 		if (isValidToken) {
@@ -55,6 +67,16 @@ export const Header = () => {
 		}
 	};
 	const handleLogOutGoogle = () => dispatch(logoutGoogle());
+
+	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchQuery(event.target.value);
+	};
+
+	useEffect(() => {
+		if (debouncedSearchQuery) {
+			router.push(`/product?name=${debouncedSearchQuery}`);
+		}
+	}, [debouncedSearchQuery, router]);
 
 	return (
 		<Fragment>
@@ -150,10 +172,13 @@ export const Header = () => {
 					</div>
 					<div className="search-site">
 						<div className="field">
+							{/* search */}
 							<CgSearch size={20} />
 							<input
 								type="text"
 								placeholder="What are you looking for ?"
+								onChange={handleSearchChange}
+								value={searchQuery}
 							/>
 						</div>
 						<div className="icons">

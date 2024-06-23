@@ -67,7 +67,6 @@ const PageProductDetail = () => {
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [modalMessage, setModalMessage] = useState('');
-	console.log(DATA_PRODUCT_DETAIL);
 
 	useEffect(() => {
 		if (slugProductDetail) {
