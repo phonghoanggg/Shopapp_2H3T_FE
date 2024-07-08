@@ -32,7 +32,6 @@ import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
 // hooks
 import { useDebounce } from '@/containers/products/hooks';
-import { useFilterProductsQuery } from '@/query/products/getDataProducts';
 
 interface IPropsSale {
 	id: number;
@@ -50,13 +49,6 @@ export const Header = () => {
 
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const debouncedSearchQuery = useDebounce(searchQuery, 1000);
-
-	const {
-		data: DATA_PRODUCT_FILTER,
-		isLoading: LOADING_PRODUCT_FILTER,
-		error: ERROR_PRODUCT_FILTER,
-	} = useFilterProductsQuery(debouncedSearchQuery);
-	console.log(DATA_PRODUCT_FILTER);
 
 	const handleRedirectToFavoritePage = () => {
 		const isValidToken = isValidAccessToken();

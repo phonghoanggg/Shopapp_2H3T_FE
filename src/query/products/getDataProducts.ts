@@ -3,7 +3,7 @@ import { CACHE_TIME, RETRY, STALE_TIME } from '@/utils/breakpoints/constants';
 
 import { API_ENDPOINT } from '@/utils/endpoint/api_endpoint';
 import { ProductDetail, ProductsByCategory } from '@/utils/type';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 export const useProductsQuery = (page: any, pageSize: any) => {
 	return useQuery(
@@ -34,6 +34,7 @@ export const useFilterProductsQuery = (name: any) => {
 			});
 		},
 		{
+			enabled: !!name,
 			staleTime: STALE_TIME, // 5 minutes
 			cacheTime: CACHE_TIME, // 10 minutes
 			retry: RETRY, // Number of retry attempts in case of failure
@@ -76,3 +77,25 @@ export const useProductsByCategoryQuery = (categoryId: any, page: any, pageSize:
 		},
 	);
 };
+
+// Add Rating and Comment
+export const useAddRatingAndCommentMutation = (slug: string) => {
+	const queryClient = useQueryClient();
+
+	return useMutation(
+		async (data: { userId: string; rating: number; comment: string }) => {
+			return await publicRequest.request({
+				method: 'POST',
+				url: `${API_ENDPOINT.PRODUCTDETAIL}/${slug}/ratings`,
+				data,
+			});
+		},
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries([API_ENDPOINT.PRODUCTDETAIL, slug]);
+			},
+		},
+	);
+};
+
+// Update Comment

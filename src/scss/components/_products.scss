@@ -40,8 +40,6 @@
 }
 
 .product {
-	> .image > .image-item {
-	}
 	> .desc {
 		color: $dark;
 		@include flex-column;

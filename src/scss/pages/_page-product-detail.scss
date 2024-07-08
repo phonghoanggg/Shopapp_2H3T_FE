@@ -461,14 +461,7 @@
 	@include breakpoint-down(phone) {
 		padding-bottom: 20px;
 	}
-	> .title {
-		$dark-color-51: rgb(51, 51, 51);
-		color: $dark-color-51;
-		font-size: $fz-sm;
-		line-height: $leading-md;
-		margin: 0px 0px 10px;
-		font-weight: $fw-bold;
-	}
+
 	> .name {
 		@include flex-center-ver;
 		gap: 4px;
@@ -492,7 +485,11 @@
 		color: $black;
 		width: 100%;
 		max-width: 580px;
-		padding-block: 10px;
+	}
+	> .rating {
+		@include flex-center-ver;
+		margin-top: 10px;
+		margin-bottom: 4px;
 	}
 }
 
@@ -500,5 +497,15 @@
 	border: 1px solid #ccc;
 	@include breakpoint-down(smalldesktop) {
 		border: 1px solid $primary-color;
+	}
+}
+
+.star-rating {
+	@include flex-center-ver;
+	gap: 8px;
+	margin-bottom: 20px;
+
+	> .item {
+		color: $primary-color;
 	}
 }

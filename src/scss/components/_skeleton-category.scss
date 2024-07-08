@@ -11,10 +11,16 @@
 }
 
 .loading-skeleton-product {
-	width: 1073px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 24px;
+	width: 1073px;
+	@include breakpoint-down(desktop) {
+		width: 100%;
+	}
+	@include breakpoint-down(tablet) {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 .loading-skeleton-card {
 	width: 100%;

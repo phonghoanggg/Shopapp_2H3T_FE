@@ -1,7 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
-		domains: ['lscoecomm.scene7.com', 'lsco.scene7.com', 'img2.thuthuatphanmem.vn'],
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'lscoecomm.scene7.com',
+				port: '',
+				pathname: '/**',
+			},
+			{
+				protocol: 'https',
+				hostname: 'lsco.scene7.com',
+				port: '',
+				pathname: '/**',
+			},
+			{
+				protocol: 'https',
+				hostname: 'img2.thuthuatphanmem.vn',
+				port: '',
+				pathname: '/**',
+			},
+		],
 	},
 };
 

@@ -9,7 +9,7 @@ import FormInput from '@/compound/formInput/FormInput';
 // icons
 import { GrFormClose } from '../../compound/icons/index';
 // redux
-import { loginWithGoogle } from '@/redux/auth/slice';
+import { loginEmailFailure, loginEmailSuccess, loginWithGoogle } from '@/redux/auth/slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { selectIsToggleModalLogin } from '@/redux/modal/selector';
 import { closeModalLogin, openModalRegister } from '@/redux/modal/slice';
@@ -97,13 +97,23 @@ const Login = () => {
 	const { mutate: MUTATION_LOGIN, isLoading: LOADING_LOGIN } = useLoginMutation();
 	const onLoginSubmit = async (data: any) => {
 		MUTATION_LOGIN(data, {
-			onError: (error) => {
-				setModalMessage('Please double-check your password or account.');
+			onSuccess: async (data) => {
+				try {
+					await setModalVisible(true);
+					await setModalMessage('Successfully logged in!');
+					const inforUser = data.data;
+					dispatch(loginEmailSuccess(inforUser));
+					dispatch(closeModalLogin());
+				} catch (error) {
+					dispatch(loginEmailFailure(error));
+				}
+			},
+			onError: () => {
 				setModalVisible(true);
+				setModalMessage('Please double-check your password or account.');
 			},
 		});
 	};
-
 	return (
 		<section className={`login-wrapper _overlay ${isOpenToggleModalLogin ? '-show' : ''}`}>
 			{/* Modal Notification */}

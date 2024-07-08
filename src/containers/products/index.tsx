@@ -61,7 +61,7 @@ const PageProducts = () => {
 	}, [debouncedName]);
 
 	const totalPages = productsData ? productsData?.totalPages : 0;
-	const DATA_PRODUCTS = DATA_PRODUCT_FILTER || productsData?.data;
+	const DATA_PRODUCTS = DATA_PRODUCT_FILTER || productsData?.products;
 
 	return (
 		<Fragment>
@@ -232,7 +232,7 @@ const PageProducts = () => {
 										<GrFormPrevious size={20} /> <p className="label">Prev</p>
 									</button>
 
-									<div className="pagination-list">
+									<div className="pagination-list ">
 										{Array.from({ length: totalPages }).map((_, index) => {
 											const pageNumber = index + 1;
 											return (

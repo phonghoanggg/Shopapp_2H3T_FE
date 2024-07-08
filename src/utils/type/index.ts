@@ -77,3 +77,16 @@ export type ProductsByCategory = {
 	totalProducts: number;
 	products: Product[];
 };
+
+export type CommentData = {
+	userId: {
+		_id: string;
+		firstName: string;
+		lastName: string;
+		email: string;
+	};
+	rating: number;
+	comment: string;
+	_id?: string;
+	createdAt: string | number | Date;
+};

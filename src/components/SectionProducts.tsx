@@ -41,11 +41,7 @@ const SectionProducts: React.FC<ProductListProps> = ({ title, productList, loadi
 		<section className="site-products">
 			<h6 className="title _text-center _text-uppercase">{title}</h6>
 			<Swiper {...configSwiper}>
-				{error ? (
-					<div className="error-message-server">
-						<p>Something went wrong. Please try again later.</p>
-					</div>
-				) : loading || error ? (
+				{error || loading ? (
 					<div className="loading-skeleton-card">
 						{Array.from({ length: 5 }).map((_, index) => (
 							<div

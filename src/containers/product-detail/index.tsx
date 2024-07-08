@@ -27,7 +27,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 
 // react-query
-import { useProductDetailQuery, useProductsQuery } from '@/query/products/getDataProducts';
+import {
+	useAddRatingAndCommentMutation,
+	useProductDetailQuery,
+	useProductsQuery,
+} from '@/query/products/getDataProducts';
 // constants
 import { addToCart } from '@/redux/cart/slice';
 import { BREAKPOINTS } from '@/utils/breakpoints/constants';
@@ -51,7 +55,7 @@ const PageProductDetail = () => {
 	const userId = inforUser?._id || null;
 	// get query id product
 	const params = useParams();
-	const slugProductDetail = params.slug;
+	const slugProductDetail = Array.isArray(params.slug) ? params.slug[0] : params.slug;
 
 	const {
 		data: DATA_PRODUCT_DETAIL,
@@ -59,6 +63,11 @@ const PageProductDetail = () => {
 		error,
 		refetch,
 	} = useProductDetailQuery(slugProductDetail as string);
+
+	const commentProduct = DATA_PRODUCT_DETAIL?.ratings || [];
+
+	const { mutate: addComment, isLoading: LoadingAddComment } = useAddRatingAndCommentMutation(slugProductDetail);
+
 	const [selectedSize, setSelectedSize] = useState<string>('');
 	const [showSizeError, setShowSizeError] = useState<boolean>(false);
 	const [activeThumb, setActiveThumb] = useState<any>(null);
@@ -167,6 +176,27 @@ const PageProductDetail = () => {
 			setModalMessage('Item successfully added to cart.');
 		}
 	};
+
+	const handleAddComment = (commentData: any) => {
+		const isValidToken = isValidAccessToken();
+		if (!isValidToken) {
+			dispatch(openModalLogin());
+			return;
+		}
+		addComment(commentData, {
+			onSuccess: () => {
+				refetch();
+				setModalMessage('Comment added successfully.');
+				setModalVisible(true);
+			},
+			onError: (error) => {
+				// Show an error message or handle error logic
+				setModalMessage('Failed to add comment. Please try again.');
+				setModalVisible(true);
+			},
+		});
+	};
+
 	if (LOADING_PRODUCT_DETAIL) {
 		return (
 			<div className="site-loading">
@@ -421,7 +451,11 @@ const PageProductDetail = () => {
 				error={ERROR_PRODUCT2}
 			/>
 			{/* comment */}
-			<Comment />
+			<Comment
+				userId={userId}
+				comments={commentProduct}
+				onAddComment={handleAddComment}
+			/>
 		</main>
 	);
 };
