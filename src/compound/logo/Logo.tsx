@@ -5,7 +5,7 @@ const Logo = () => {
 	return (
 		<>
 			<Link href={ROUTER.HOME}>
-				<div className="logo">SonTruong&#39;s</div>
+				<div className="logo">Hana&#39;s</div>
 			</Link>
 		</>
 	);
