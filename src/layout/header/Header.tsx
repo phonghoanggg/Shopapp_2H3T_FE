@@ -3,13 +3,14 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
+// images
+import LogoSrc from '../../assets/images/logo/logoSpeedTour.jpg';
 // Swiper
 import { Autoplay, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // lodash
 import { map } from 'lodash';
 // components
-import Logo from '@/compound/logo/Logo';
 import BagCart from '../BagCart';
 import HeaderMobile from './Header-mobile';
 // icons
@@ -31,6 +32,7 @@ import { isValidAccessToken } from '@/utils/cookies/cookieStorage';
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
 // hooks
+import CustomImage from '@/compound/customImage/CustomImage';
 import { useDebounce } from '@/containers/products/hooks';
 
 interface IPropsSale {
@@ -143,7 +145,6 @@ export const Header = () => {
 				<div className="main-menu container">
 					<div className="nav">
 						<div className="wrapper">
-							<Logo />
 							<ul className="main-menu-list">
 								{map(MENU_LIST, ({ label, route }) => (
 									<li
@@ -162,6 +163,14 @@ export const Header = () => {
 							</ul>
 						</div>
 					</div>
+
+					<CustomImage
+						width={80}
+						height={60}
+						src={LogoSrc.src}
+						alt="Logo-SpeedTour"
+					/>
+
 					<div className="search-site">
 						<div className="field">
 							{/* search */}

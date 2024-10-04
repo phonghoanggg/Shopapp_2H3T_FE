@@ -1,6 +1,8 @@
 'use client';
 // base
 import Link from 'next/link';
+// images
+import LogoSrc from '../../assets/images/logo/logoSpeedTour.jpg';
 // components
 import Logo from '@/compound/logo/Logo';
 // icons
@@ -23,6 +25,7 @@ import { openModalLogin, openModalRegister, openModalSale } from '@/redux/modal/
 import { ROUTER } from '@/utils/routes/routes';
 import { MENU_LIST, SALE } from '../constants';
 // custom-hook
+import CustomImage from '@/compound/customImage/CustomImage';
 import useNoScrollBody from '@/custom-hook/useNoScrollBody';
 import { useUserDetailQuery } from '@/query/user/handleApiUser';
 
@@ -80,7 +83,12 @@ const HeaderMobile = ({ handleRedirectToFavoritePage }: IPropsSale) => {
 						onClick={handleOpenNav}
 					/>
 				</div>
-				<Logo />
+				<CustomImage
+					width={80}
+					height={40}
+					src={LogoSrc.src}
+					alt="Logo-SpeedTour"
+				/>
 				<div className="actions">
 					<CgSearch size={22} />
 					<VscBell

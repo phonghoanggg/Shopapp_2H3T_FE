@@ -22,7 +22,7 @@ const CustomImage: React.FC<CustomImageProps> = ({ src, alt, defaultSrc = '', wi
 	};
 
 	return (
-		<div className="custom-image-wrapper">
+		<>
 			{error ? (
 				<Image
 					className="image-item"
@@ -44,7 +44,7 @@ const CustomImage: React.FC<CustomImageProps> = ({ src, alt, defaultSrc = '', wi
 					{...props}
 				/>
 			)}
-		</div>
+		</>
 	);
 };
 
