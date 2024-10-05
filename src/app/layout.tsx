@@ -7,7 +7,7 @@ import { ReactQueryProvider } from '@/query/ReactQueryProvider';
 import { ReduxProvider } from '@/redux/ReduxProvider';
 
 export const metadata: Metadata = {
-	title: 'Jeans | Denim Jackets & Clothing | SonTruong Official Site ',
+	title: 'Jeans | Denim Jackets & Clothing | 2H3T Official Site ',
 	description: 'Clothing for Men | Women | Kids',
 };
 

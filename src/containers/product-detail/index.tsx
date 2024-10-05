@@ -321,7 +321,7 @@ const PageProductDetail = () => {
 				{/* information product */}
 				<div className="detail-info ">
 					<div className="detail-title">
-						<p>SonTruong&#39;s® Premium</p>
+						<p>2H3T&#39;s® Premium</p>
 						<h3 className="name">{DATA_PRODUCT_DETAIL.name}</h3>
 						<div className="detail-icons">
 							<div className="detail-icon">

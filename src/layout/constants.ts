@@ -111,7 +111,7 @@ export const FOOTER_LIST = [
 		label: 'Our Brands',
 		link: [
 			{
-				pathname: 'SonTruongs®',
+				pathname: '2H3Ts®',
 			},
 			{
 				pathname: 'Dockers®',
@@ -153,6 +153,6 @@ export const SALE = [
 	},
 	{
 		id: 5,
-		label: "The Best Of SonTruong's® - Now On Our App ",
+		label: "The Best Of 2H3T's® - Now On Our App ",
 	},
 ] as const;

@@ -133,7 +133,7 @@ const Login = () => {
 				/>
 				<div className="desc _text-center">
 					<h4 className="title _text-uppercase">
-						<p>SonTruong&#39;s</p>REDTAB™
+						<p>2H3T&#39;s</p>REDTAB™
 					</h4>
 					<p className="content">Welcome back!</p>
 					<p className="description ">Log in for faster checkout and see all your benefits.</p>

@@ -5,7 +5,7 @@ const Contact = () => {
 		<section className="contact">
 			<div className="sale-box">
 				<p className="sale">20% OFF + FREE SHIPPING</p>
-				<p className="content">For All New SonTruong&#39;s® Email Subscribers.</p>
+				<p className="content">For All New 2H3T&#39;s® Email Subscribers.</p>
 			</div>
 			<div className="field-box">
 				<div className="field">

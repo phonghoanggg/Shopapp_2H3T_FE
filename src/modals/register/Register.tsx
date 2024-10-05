@@ -99,7 +99,7 @@ const Register = () => {
 				{/* description */}
 				<div className="desc _text-center">
 					<h4 className="title _text-uppercase">
-						<p>SonTruong&#39;s</p>REDTAB™
+						<p>2H3T&#39;s</p>REDTAB™
 					</h4>
 					<p className="content">JOIN OUR RED TAB™ PROGRAM AND GET FREE SHIPPING ON EVERY ORDER.</p>
 					<p className="description ">

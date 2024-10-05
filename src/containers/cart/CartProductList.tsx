@@ -100,7 +100,7 @@ const CartProductList = () => {
 							</Link>
 							<div className="shopping-cart-desc">
 								<div className="item-infor">
-									<p className="brand">SonTruong&#39;s® Premium</p>
+									<p className="brand">2H3T&#39;s® Premium</p>
 									<div className="name-inner">
 										<Link
 											className="name"
