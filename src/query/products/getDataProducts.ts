@@ -23,6 +23,7 @@ export const useProductsQuery = (page: any, pageSize: any) => {
 		},
 	);
 };
+
 export const useFilterProductsQuery = (name: any) => {
 	return useQuery(
 		[API_ENDPOINT.FILTER_PRODUCT, name],
