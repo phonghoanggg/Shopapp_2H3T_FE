@@ -4,7 +4,6 @@ import Link from 'next/link';
 // images
 import LogoSrc from '../../assets/images/logo/logoSpeedTour.jpg';
 // components
-import Logo from '@/compound/logo/Logo';
 // icons
 import { CgSearch, GrFormClose, HiOutlineMenuAlt4, HiOutlineShoppingBag, VscBell } from '../../compound/icons/index';
 // base
@@ -83,12 +82,16 @@ const HeaderMobile = ({ handleRedirectToFavoritePage }: IPropsSale) => {
 						onClick={handleOpenNav}
 					/>
 				</div>
-				<CustomImage
-					width={80}
-					height={40}
-					src={LogoSrc.src}
-					alt="Logo-SpeedTour"
-				/>
+				<div style={{ width: 60, height: 40 }}>
+					<Link href={ROUTER.HOME}>
+						<CustomImage
+							width={80}
+							height={60}
+							src={LogoSrc.src}
+							alt="Logo-SpeedTour"
+						/>
+					</Link>
+				</div>
 				<div className="actions">
 					<CgSearch size={22} />
 					<VscBell
@@ -136,7 +139,16 @@ const HeaderMobile = ({ handleRedirectToFavoritePage }: IPropsSale) => {
 					className={`wrapper-mobile  ${openNav ? 'show-nav' : 'hidden-nav'}`}
 				>
 					<div className="top">
-						<Logo />
+						<div style={{ width: 80, height: 60 }}>
+							<Link href={ROUTER.HOME}>
+								<CustomImage
+									width={80}
+									height={60}
+									src={LogoSrc.src}
+									alt="Logo-SpeedTour"
+								/>
+							</Link>
+						</div>
 						<GrFormClose
 							size={28}
 							onClick={handleCloseNav}

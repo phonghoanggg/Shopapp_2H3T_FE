@@ -164,12 +164,16 @@ export const Header = () => {
 						</div>
 					</div>
 
-					<CustomImage
-						width={80}
-						height={60}
-						src={LogoSrc.src}
-						alt="Logo-SpeedTour"
-					/>
+					<div style={{ width: 80, height: 60 }}>
+						<Link href={ROUTER.HOME}>
+							<CustomImage
+								width={80}
+								height={60}
+								src={LogoSrc.src}
+								alt="Logo-SpeedTour"
+							/>
+						</Link>
+					</div>
 
 					<div className="search-site">
 						<div className="field">
