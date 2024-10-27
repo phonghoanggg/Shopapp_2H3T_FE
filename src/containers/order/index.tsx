@@ -1,4 +1,5 @@
 'use client';
+
 import { selectCartItems } from '@/redux/cart/selectors';
 import { useAppSelector } from '@/redux/hook';
 import { map } from 'lodash';
@@ -54,7 +55,7 @@ export default function PageOrder() {
 								{map(itemBagCart, (item) => (
 									<div className="item">
 										<Link
-											href={`/product/${item.slug}`}
+											href={`/product/${item?.slug}`}
 											className="image"
 										>
 											<Image

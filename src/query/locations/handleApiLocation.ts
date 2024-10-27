@@ -39,6 +39,7 @@ export const useGetDistrictLocation = (idProvince: any) => {
 		},
 	);
 };
+
 export const useGetCommuneLocation = (idDistrict: any) => {
 	return useQuery(
 		['commune', idDistrict],

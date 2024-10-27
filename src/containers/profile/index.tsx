@@ -16,9 +16,9 @@ import { MENU_PROFILE } from './constants';
 import Button from '@/compound/demo-button/button/Button';
 import ModalNotification from '@/modals/notification/Notification';
 import {
-	useGetCommuneLocation,
-	useGetDistrictLocation,
-	useGetProvinceLocation,
+    useGetCommuneLocation,
+    useGetDistrictLocation,
+    useGetProvinceLocation,
 } from '@/query/locations/handleApiLocation';
 
 const schema = yup.object().shape({
@@ -35,11 +35,15 @@ export default function PageProfile() {
 	const router = useRouter();
 	const inforUser = useAppSelector(selectInformationUserLoginEmail);
 	const id_User = inforUser?._id;
+
+
 	const {
 		data: DATA_USER,
 		isLoading: LOADING_USER,
 		refetch: REFETCH_DATA_USER,
 	} = useUserDetailQuery(id_User as string);
+
+
 	const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
 	const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
 	const [selectedProvinceName, setSelectedProvinceName] = useState<string | null>(null);

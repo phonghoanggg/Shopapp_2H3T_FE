@@ -33,6 +33,7 @@ const PageProducts = () => {
 	const debouncedName = useDebounce(name, 1000); // Use custom hook for debounce
 
 	const { data: categoriesData, isLoading: loadingCategories, error: errorCategories } = useCategoriesQuery();
+
 	const {
 		data: productsData,
 		isLoading: loadingProducts,

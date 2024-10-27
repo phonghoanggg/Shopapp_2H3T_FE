@@ -55,7 +55,8 @@ const PageProductDetail = () => {
 	const userId = inforUser?._id || null;
 	// get query id product
 	const params = useParams();
-	const slugProductDetail = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+
+	const slugProductDetail = params.slug;
 
 	const {
 		data: DATA_PRODUCT_DETAIL,
@@ -66,7 +67,9 @@ const PageProductDetail = () => {
 
 	const commentProduct = DATA_PRODUCT_DETAIL?.ratings || [];
 
-	const { mutate: addComment, isLoading: LoadingAddComment } = useAddRatingAndCommentMutation(slugProductDetail);
+	const { mutate: addComment, isLoading: LoadingAddComment } = useAddRatingAndCommentMutation(
+		slugProductDetail as string,
+	);
 
 	const [selectedSize, setSelectedSize] = useState<string>('');
 	const [showSizeError, setShowSizeError] = useState<boolean>(false);

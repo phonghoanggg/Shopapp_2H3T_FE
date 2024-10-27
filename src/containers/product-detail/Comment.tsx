@@ -40,7 +40,7 @@ const Comment: React.FC<CommentProps> = ({ userId, comments, onAddComment }) => 
 	return (
 		<section className="comment-wrapper container">
 			<h6 className="title">Reviews</h6>
-			<p className="qty-comment">{Array.isArray(comments) ? comments.length : 0} Reviews</p>
+			<p className="qty-comment">{Array.isArray(comments) ? comments?.length : 0} Reviews</p>
 			<StarRatingComment
 				rating={rating}
 				onRatingChange={handleSetRating}
@@ -63,13 +63,13 @@ const Comment: React.FC<CommentProps> = ({ userId, comments, onAddComment }) => 
 			</div>
 			<div className="comment-lists">
 				{Array.isArray(comments) &&
-					comments.map((comment: CommentData) => (
+					comments?.map((comment: CommentData) => (
 						<div
 							className="comment-item _border-bottom"
-							key={comment._id}
+							key={comment?._id}
 						>
 							<p className="name">
-								{comment.userId.email}
+								{comment?.userId?.email}
 								<RiVerifiedBadgeFill className="icon" />
 							</p>
 							<div className="rating">
@@ -82,8 +82,8 @@ const Comment: React.FC<CommentProps> = ({ userId, comments, onAddComment }) => 
 									/>
 								))}
 							</div>
-							<p className="content">{comment.comment}</p>
-							<p className="date">{new Date(comment.createdAt).toDateString()}</p>
+							<p className="content">{comment?.comment}</p>
+							<p className="date">{new Date(comment?.createdAt).toDateString()}</p>
 						</div>
 					))}
 			</div>
