@@ -26,6 +26,7 @@ const PageFavorite = () => {
 	const [modalVisible, setModalVisible] = useState(true);
 	const [modalMessage, setModalMessage] = useState('');
 
+	// xóa sản phẩm yêu thích
 	const { mutate: DELETE_FAVORITE_BY_USER_MUTATION, isLoading: DELETE_FAVORITE_BY_USER_LOADING } =
 		useDeleteFavorite(userId);
 

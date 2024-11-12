@@ -10,15 +10,15 @@ import Comment from './Comment';
 import { map } from 'lodash';
 // icons
 import {
-	BsStarFill,
-	BsStarHalf,
-	HiOutlineMinusSm,
-	IoIosArrowDown,
-	IoIosArrowUp,
-	MdOutlineAdd,
-	MdReportGmailerrorred,
-	PiShoppingBagOpenBold,
-	TbHeart,
+    BsStarFill,
+    BsStarHalf,
+    HiOutlineMinusSm,
+    IoIosArrowDown,
+    IoIosArrowUp,
+    MdOutlineAdd,
+    MdReportGmailerrorred,
+    PiShoppingBagOpenBold,
+    TbHeart,
 } from '../../compound/icons/index';
 // swiper
 import { Navigation, Thumbs } from 'swiper';
@@ -28,9 +28,9 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 
 // react-query
 import {
-	useAddRatingAndCommentMutation,
-	useProductDetailQuery,
-	useProductsQuery,
+    useAddRatingAndCommentMutation,
+    useProductDetailQuery,
+    useProductsQuery,
 } from '@/query/products/getDataProducts';
 // constants
 import { addToCart } from '@/redux/cart/slice';
@@ -46,7 +46,9 @@ import { isValidAccessToken } from '@/utils/cookies/cookieStorage';
 import { HiMiniHeart } from '../../compound/icons/index';
 
 const PageProductDetail = () => {
+	//  xử lí thêm sản phẩm yêu thíc
 	const { mutate: MUTATION_FAVORITE, isLoading: LOADING_FAVORITE } = usePostFavorite();
+
 	const { data: DATA_PRODUCTS1, isLoading: LOADING_PRODUCT1, error: ERROR_PRODUCT1 } = useProductsQuery(1, 10);
 	const { data: DATA_PRODUCTS2, isLoading: LOADING_PRODUCT2, error: ERROR_PRODUCT2 } = useProductsQuery(2, 10);
 
@@ -104,7 +106,9 @@ const PageProductDetail = () => {
 	};
 
 	const handleAddToFavorites = () => {
+        // kiểm tra người dùng đăng nhập chưa
 		const isValidToken = isValidAccessToken();
+
 		if (!isValidToken) {
 			dispatch(openModalLogin());
 			return;

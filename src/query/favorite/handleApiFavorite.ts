@@ -7,6 +7,7 @@ interface FavoriteData {
 	productId: string;
 }
 
+// thêm sản phẩm yêu thích
 export const usePostFavorite = () => {
 	return useMutation(API_ENDPOINT.FAVORITE, async (data: FavoriteData): Promise<any> => {
 		return await publicRequest.request({
@@ -16,6 +17,7 @@ export const usePostFavorite = () => {
 		});
 	});
 };
+// xóa sản phẩm yêu thích
 
 export const useDeleteFavorite = (userId: any) => {
 	return useMutation(API_ENDPOINT.DELETE_FAVORITE, async (productId: string): Promise<void> => {
@@ -25,6 +27,8 @@ export const useDeleteFavorite = (userId: any) => {
 		});
 	});
 };
+
+// lấy sản phẩm yêu thích của mỗi người sản phẩm  yêu thích
 
 export const useGetFavoriteByUser = (userId: any) => {
 	return useQuery([API_ENDPOINT.GET_FAVORITE_BY_USER, userId], async (): Promise<any> => {
