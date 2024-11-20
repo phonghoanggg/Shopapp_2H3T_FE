@@ -10,15 +10,15 @@ import Comment from './Comment';
 import { map } from 'lodash';
 // icons
 import {
-    BsStarFill,
-    BsStarHalf,
-    HiOutlineMinusSm,
-    IoIosArrowDown,
-    IoIosArrowUp,
-    MdOutlineAdd,
-    MdReportGmailerrorred,
-    PiShoppingBagOpenBold,
-    TbHeart,
+	BsStarFill,
+	BsStarHalf,
+	HiOutlineMinusSm,
+	IoIosArrowDown,
+	IoIosArrowUp,
+	MdOutlineAdd,
+	MdReportGmailerrorred,
+	PiShoppingBagOpenBold,
+	TbHeart,
 } from '../../compound/icons/index';
 // swiper
 import { Navigation, Thumbs } from 'swiper';
@@ -28,9 +28,9 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 
 // react-query
 import {
-    useAddRatingAndCommentMutation,
-    useProductDetailQuery,
-    useProductsQuery,
+	useAddRatingAndCommentMutation,
+	useProductDetailQuery,
+	useProductsQuery,
 } from '@/query/products/getDataProducts';
 // constants
 import { addToCart } from '@/redux/cart/slice';
@@ -106,7 +106,7 @@ const PageProductDetail = () => {
 	};
 
 	const handleAddToFavorites = () => {
-        // kiểm tra người dùng đăng nhập chưa
+		// kiểm tra người dùng đăng nhập chưa
 		const isValidToken = isValidAccessToken();
 
 		if (!isValidToken) {

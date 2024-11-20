@@ -221,6 +221,7 @@ const PageProductsByCategory = () => {
 								<div className="main-products-list">
 									{currentProducts.map((product: any) => (
 										<Product
+											slug={product.slug}
 											key={product._id}
 											id={product._id}
 											name={product.name}
