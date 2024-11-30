@@ -39,10 +39,10 @@ const CampaignSwiper = () => {
 									alt={campaign.title}
 									style={{ width: '100%', borderRadius: '8px' }}
 								/>
-								<p className="date">{campaign.date}</p>
-								<h3 className="title">{campaign.title}</h3>
-								<p className="description">{campaign.description}</p>
 							</Link>
+							<p className="date">{campaign.date}</p>
+							<h3 className="title">{campaign.title}</h3>
+							<p className="description">{campaign.description}</p>
 						</div>
 					</SwiperSlide>
 				))}
