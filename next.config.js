@@ -26,6 +26,12 @@ const nextConfig = {
 				port: '',
 				pathname: '/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'lscoglobal.scene7.com',
+				port: '',
+				pathname: '/**',
+			},
 		],
 	},
 };
