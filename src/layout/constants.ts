@@ -7,10 +7,6 @@ export const MENU_LIST = [
 		label: 'Products',
 		route: { pathname: '/product' },
 	},
-	{
-		label: 'Blog',
-		route: { pathname: '/blog' },
-	},
 ] as const;
 
 export const FOOTER_LIST = [
