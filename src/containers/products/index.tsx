@@ -75,7 +75,7 @@ const PageProducts = () => {
 								<p>/</p>
 								<p className="sub-content">Woman</p>
 							</h4>
-							<p className="title _text-center">WOMANS/MEN CLOTHES </p>
+							<p className="title _text-center">WOMANS/MEN/CHILD CLOTHES </p>
 							<div className="categories-list">
 								{loadingCategories || !categoriesData || errorCategories ? (
 									<LoadingSkeletonCategory />
