@@ -12,6 +12,7 @@ interface ProductListProps {
 }
 
 const SectionProducts: React.FC<ProductListProps> = ({ title, productList, loading, error }) => {
+	console.log("productList",productList)
 	const configSwiper = {
 		slidesPerView: 2.2,
 		spaceBetween: 12,
@@ -65,13 +66,15 @@ const SectionProducts: React.FC<ProductListProps> = ({ title, productList, loadi
 							key={`product-item-${product._id}`}
 						>
 							<Product
-								brand="Son's Premium"
-								id={product._id}
-								slug={product.slug}
-								name={product.name}
-								images={product.images}
-								price={product.price}
-								discount={product.discount}
+								// brand="Son's Premium"
+								// id={product._id}
+								// slug={product.slug}
+								// name={product.name}
+								// images={product.images}
+								// price={product.price}
+								// newprice={product.newprice}
+								// discount={product.discount}
+								product={product}
 							/>
 						</SwiperSlide>
 					))

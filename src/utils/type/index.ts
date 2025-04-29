@@ -38,7 +38,7 @@ export type ProductDetail = {
 		updatedAt: string;
 		__v: number;
 	};
-	images: string[];
+	images: ImageUrl[];
 	stock: number;
 	size: string[];
 	ratings: any[];
@@ -90,3 +90,7 @@ export type CommentData = {
 	_id?: string;
 	createdAt: string | number | Date;
 };
+export type ImageUrl = {
+	url:string;
+	publicId?:string
+}

@@ -1,22 +1,25 @@
 import { ROUTER } from '@/utils/routes/routes';
+import { ImageUrl } from '@/utils/type';
 import Image from 'next/image';
 import Link from 'next/link';
-
 interface IProductProps {
 	id?: string;
-	images: string | string[];
+	images: ImageUrl[];
 	name: string;
 	price: number;
 	discount?: number;
-	sale?: string;
+	newprice?: string;
 	brand?: string;
 	button?: string;
 	slug?: string;
 }
+type ProductType = { 
+	product: IProductProps;
+}
 
-const Product = ({ id, images, name, price, discount, sale, button, brand, slug }: IProductProps) => {
+const Product = ({ product }: ProductType) => {
 	// Convert images to an array if it's a string
-	const imageArray = typeof images === 'string' ? [images] : images;
+	const imageArray = product.images.map((item) => item.url)
 
 	// When the figure has a quantity greater than 2, take the first element
 	const imageUrl =
@@ -24,23 +27,21 @@ const Product = ({ id, images, name, price, discount, sale, button, brand, slug 
 			? imageArray[0]
 			: 'https://img2.thuthuatphanmem.vn/uploads/2018/11/30/hinh-nen-trang-ban-do-the-gioi_104325245.jpg';
 
-	// Calculate discounted price
-	const discountedPrice = discount ? (price - (price * discount) / 100).toFixed(2) : price?.toFixed(2);
-
+	console.log("product333",product)
 	return (
 		<div
 			className="product"
-			key={id}
+			key={product.id}
 		>
 			<Link
-				href={`/${ROUTER.PRODUCT_DETAIL}/${[slug]}`}
-				as={`/${ROUTER.PRODUCT_DETAIL}/${slug}`}
+				href={`/${ROUTER.PRODUCT_DETAIL}/${[product.slug]}`}
+				as={`/${ROUTER.PRODUCT_DETAIL}/${product.slug}`}
 				className="image"
 			>
 				<Image
 					className="image-item"
 					width={500}
-					height={500}
+					height={200}
 					src={imageUrl}
 					alt="image-item"
 					loading="lazy"
@@ -49,21 +50,21 @@ const Product = ({ id, images, name, price, discount, sale, button, brand, slug 
 					type="button"
 					className="btn"
 				>
-					{button}
+					{product.button}
 				</button>
 			</Link>
 			<div className="desc">
-				<p className="brand _text-capitalize">{brand}</p>
+				<p className="brand _text-capitalize">{product.brand}</p>
 				<Link
-					href={`${ROUTER.PRODUCT_DETAIL}/${id}`}
+					href={`${ROUTER.PRODUCT_DETAIL}/${product.id}`}
 					className="name"
 				>
-					{name}
+					{product.name}
 				</Link>
 				<p className="new-price">
-					${discountedPrice} <del className="old-price">${price}</del>
+					${product.price} <del className="old-price">${product.newprice}</del>
 				</p>
-				<p className="sale">{sale}</p>
+				{/* <p className="sale">{product.newprice}</p> */}
 			</div>
 		</div>
 	);

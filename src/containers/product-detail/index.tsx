@@ -44,6 +44,7 @@ import { selectInformationUserLoginEmail } from '@/redux/auth/selectors';
 import { openModalLogin } from '@/redux/modal/slice';
 import { isValidAccessToken } from '@/utils/cookies/cookieStorage';
 import { HiMiniHeart } from '../../compound/icons/index';
+import { ImageUrl } from '@/utils/type';
 
 const PageProductDetail = () => {
 	//  xử lí thêm sản phẩm yêu thíc
@@ -66,7 +67,7 @@ const PageProductDetail = () => {
 		error,
 		refetch,
 	} = useProductDetailQuery(slugProductDetail as string);
-
+	console.log("DATA_PRODUCT_DETAIL",DATA_PRODUCT_DETAIL)
 	const commentProduct = DATA_PRODUCT_DETAIL?.ratings || [];
 
 	const { mutate: addComment, isLoading: LoadingAddComment } = useAddRatingAndCommentMutation(
@@ -262,7 +263,7 @@ const PageProductDetail = () => {
 							}}
 						>
 							{DATA_PRODUCT_DETAIL.images &&
-								DATA_PRODUCT_DETAIL.images.map((image: string, index: number) => (
+								DATA_PRODUCT_DETAIL.images.map((image: ImageUrl, index: number) => (
 									<SwiperSlide
 										className="gallery-product-detail-item"
 										key={index}
@@ -271,7 +272,7 @@ const PageProductDetail = () => {
 											className="slide-image"
 											width={150}
 											height={150}
-											src={image}
+											src={image.url}
 											alt={`Thumbnail ${index}`}
 										/>
 									</SwiperSlide>
@@ -303,7 +304,7 @@ const PageProductDetail = () => {
 								swiper: activeThumb && !activeThumb.destroyed ? activeThumb : null,
 							}}
 						>
-							{map(DATA_PRODUCT_DETAIL.images, (image: string, index: number) => (
+							{map(DATA_PRODUCT_DETAIL.images, (image: ImageUrl, index: number) => (
 								<SwiperSlide
 									key={index}
 									className="main-swiper-slide"
@@ -312,7 +313,7 @@ const PageProductDetail = () => {
 										<Image
 											width={600}
 											height={740}
-											src={image}
+											src={image.url}
 											alt=""
 										/>
 										<div onClick={handleAddToFavorites}>

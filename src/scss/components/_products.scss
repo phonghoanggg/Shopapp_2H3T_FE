@@ -40,10 +40,15 @@
 }
 
 .product {
+	.image {
+    .image-item {
+      height: 300px;
+      max-height: 300px !important;
+    }
+  }
 	> .desc {
 		color: $dark;
 		@include flex-column;
-
 		> .name {
 			color: $dark;
 			text-transform: capitalize;
