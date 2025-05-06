@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 const publicRequest: AxiosInstance = axios.create({
 	// baseURL: 'https://shopapp-2h3t-be.onrender.com',
 	baseURL: process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5000'
+    ? 'http://localhost:8000'
     : process.env.NEXT_PUBLIC_API_BASE_URL,
 	timeout: 10000,
 	headers: {

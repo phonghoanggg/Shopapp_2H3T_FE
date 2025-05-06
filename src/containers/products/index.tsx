@@ -8,7 +8,7 @@ import { Category } from '@/utils/type';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -62,8 +62,11 @@ const PageProducts = () => {
 	}, [debouncedName]);
 
 	const totalPages = productsData ? productsData?.totalPages : 0;
-	const DATA_PRODUCTS = DATA_PRODUCT_FILTER || productsData?.products;
-
+	const DATA_PRODUCTS = useMemo(() => {
+		return DATA_PRODUCT_FILTER || productsData?.products
+	},[productsData, DATA_PRODUCT_FILTER]);
+	console.log("productsData",DATA_PRODUCTS)
+	
 	return (
 		<Fragment>
 			<main className="site-products-page container">
@@ -186,7 +189,7 @@ const PageProducts = () => {
 							</div>
 						</aside>
 
-						<section className="wrapper-product-list">
+						<div className="wrapper-product-list">
 							{loadingProducts || LOADING_PRODUCT_FILTER ? (
 								<div className="loading-skeleton-product">
 									{Array.from({ length: initialPageSize }).map((_, index) => (
@@ -204,7 +207,8 @@ const PageProducts = () => {
 								</div>
 							) : (
 								<div className="main-products-list">
-									{DATA_PRODUCTS?.map((product: any) => (
+									{console.log("DATA_PRODUCTS",DATA_PRODUCTS)}
+									{DATA_PRODUCTS.length > 0 && DATA_PRODUCTS?.map((product: any,index:number) => (
 										<Product
 											key={product._id}
 											id={product._id}
@@ -213,8 +217,9 @@ const PageProducts = () => {
 											images={product.images}
 											price={product.price}
 											discount={product.discount}
+											newprice={product.newprice}
 											brand="Son's Premium"
-											sale="30% off $125+ Applied at Checkout"
+											// sale="30% off $125+ Applied at Checkout"
 											button="Quick Add"
 										/>
 									))}
@@ -258,7 +263,7 @@ const PageProducts = () => {
 									</button>
 								</div>
 							) : null}
-						</section>
+						</div>
 					</div>
 				</section>
 			</main>

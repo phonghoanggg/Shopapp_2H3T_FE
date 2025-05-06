@@ -8,9 +8,10 @@ export type Product = {
 	slug?: string;
 	description?: string;
 	price?: number;
+	newprice?:number;
 	discount?: number;
 	category?: string;
-	images?: string[];
+	images?: ImageUrl[];
 	stock?: number;
 	size?: string[] | string;
 	ratings?: number[];
@@ -30,6 +31,7 @@ export type ProductDetail = {
 	description: string;
 	price: number;
 	discount: number;
+	newprice:number;
 	category: {
 		_id: string;
 		name: string;

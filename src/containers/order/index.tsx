@@ -62,7 +62,7 @@ export default function PageOrder() {
 												width={500}
 												height={500}
 												loading="lazy"
-												src={item.images[0]}
+												src={item.images[0].url}
 												alt={`product cart item-${item.id}`}
 											/>
 										</Link>

@@ -66,15 +66,14 @@ const SectionProducts: React.FC<ProductListProps> = ({ title, productList, loadi
 							key={`product-item-${product._id}`}
 						>
 							<Product
-								// brand="Son's Premium"
-								// id={product._id}
-								// slug={product.slug}
-								// name={product.name}
-								// images={product.images}
-								// price={product.price}
-								// newprice={product.newprice}
-								// discount={product.discount}
-								product={product}
+								brand="Son's Premium"
+								id={product._id}
+								slug={product.slug}
+								name={product.name}
+								images={product.images}
+								price={product.price}
+								discount={product.discount}
+								newprice={product.newprice}
 							/>
 						</SwiperSlide>
 					))

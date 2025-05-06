@@ -4,7 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const ProductSale = ({ images, name, size, price, id }: Product) => {
-	const imageSrc = images && images.length > 0 ? images[0] : '/default-image.jpg';
+	const imageSrc = images && images.length > 0 ? images[0].url : '/default-image.jpg';
+	 console.log("imageSrc",imageSrc)
 	return (
 		<div
 			className="product-sale-item"

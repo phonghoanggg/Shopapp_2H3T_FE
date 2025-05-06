@@ -30,7 +30,7 @@ const YourOrder = () => {
 	};
 
 	const FILTERED_ORDERS = Array.isArray(DATA_ORDER) ? filterOrders(DATA_ORDER) : [];
-
+	console.log("FILTERED_ORDERS",FILTERED_ORDERS)
 	return (
 		<main className="container">
 			<div className="bag-cart-box mt-15">
@@ -96,7 +96,7 @@ const YourOrder = () => {
 								</div>
 								<div className="order-list-items">
 									<h4>ORDER ITEMS</h4>
-
+							
 									{order.cartItems.map((cartItem: CartItem) => (
 										<div
 											key={cartItem.productId?._id}
@@ -110,7 +110,7 @@ const YourOrder = () => {
 													width={150}
 													height={150}
 													alt="order image-item"
-													src={cartItem.productId?.images?.[0] ?? ''}
+													src={cartItem?.productId?.images?.length  ? cartItem.productId.images[0].url  :''}
 												/>
 											</Link>
 											<div className="desc">

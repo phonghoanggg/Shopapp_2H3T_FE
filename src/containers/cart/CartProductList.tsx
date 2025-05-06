@@ -94,7 +94,7 @@ const CartProductList = () => {
 								<Image
 									width={500}
 									height={500}
-									src={item.images[0]}
+									src={item.images[0].url}
 									alt={`cart item ${item.id}`}
 								/>
 							</Link>
@@ -112,7 +112,7 @@ const CartProductList = () => {
 									<p className="color">Luxor Heat Light Wash</p>
 									<p className="price">${item.discountPrice.toFixed(2)}</p>
 									<div className="infor">
-										<div className="size">{item.size}</div>
+										<div className="size">Size: {item.size}</div>
 										<button
 											className="qty"
 											type="button"

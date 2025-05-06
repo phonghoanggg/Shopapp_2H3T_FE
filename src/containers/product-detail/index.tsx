@@ -341,7 +341,7 @@ const PageProductDetail = () => {
 							</div>
 							<p>(39)</p>
 						</div>
-						<p className="detail-price">${discountedPrice.toFixed(2)}</p>
+						<p className="detail-price">${DATA_PRODUCT_DETAIL.newprice}</p>
 						<div className="detail-content">2+ for $49 Each: Applied at Checkout</div>
 					</div>
 					<div className="detail-size">

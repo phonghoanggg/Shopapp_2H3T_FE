@@ -104,7 +104,7 @@ const BagCart = () => {
 												width={500}
 												height={500}
 												loading="lazy"
-												src={item.images[0]}
+												src={item.images[0].url}
 												alt="product cart item"
 											/>
 										)}
@@ -119,10 +119,10 @@ const BagCart = () => {
 										<p className="sub-name">Wild Bunch - Medium Wash</p>
 										<p className="price">
 											{item.discountPrice ? `$${item.discountPrice.toFixed(2)}` : 'N/A'}
-											{item.price && <del className="old-price">${item.price.toFixed(2)}</del>}
+											{item.price && <del className="old-price" style={{marginLeft:"3px", fontSize:15}} >${item.price.toFixed(2)}</del>}
 										</p>
 										<div className="type-wrapper">
-											<p className="size">{item.size}</p>
+											<p className="size">Size: {item.size}</p>
 											<div className="quantity">Qty: {item.quantity || 1}</div>
 										</div>
 										<div className="sub-title">

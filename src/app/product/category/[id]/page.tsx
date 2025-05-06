@@ -228,8 +228,9 @@ const PageProductsByCategory = () => {
 											images={product.images}
 											price={product.price}
 											discount={product.discount}
+											newprice={product.newprice}
 											brand="Son's Premium"
-											sale="30% off $125+ Applied at Checkout"
+											// sale="30% off $125+ Applied at Checkout"
 											button="Quick Add"
 										/>
 									))}

@@ -2,32 +2,30 @@ import { ROUTER } from '@/utils/routes/routes';
 import { ImageUrl } from '@/utils/type';
 import Image from 'next/image';
 import Link from 'next/link';
-interface IProductProps {
-	id?: string;
+
+type ProductType = { 
+	id: string;
 	images: ImageUrl[];
 	name: string;
 	price: number;
-	discount?: number;
-	newprice?: string;
-	brand?: string;
+	discount: number;
+	newprice: number;
+	brand: string;
 	button?: string;
-	slug?: string;
-}
-type ProductType = { 
-	product: IProductProps;
+	slug: string;
 }
 
-const Product = ({ product }: ProductType) => {
-	// Convert images to an array if it's a string
-	const imageArray = product.images.map((item) => item.url)
-
+const Product = (product : ProductType) => {
+	// Convert images to an array if it's a stringß
+	const imageArray = product && product?.images?.map((item) => item.url) || []
+	console.log("imageArray1111",product,imageArray, typeof(product.newprice))
 	// When the figure has a quantity greater than 2, take the first element
 	const imageUrl =
 		imageArray && imageArray.length > 0
 			? imageArray[0]
 			: 'https://img2.thuthuatphanmem.vn/uploads/2018/11/30/hinh-nen-trang-ban-do-the-gioi_104325245.jpg';
 
-	console.log("product333",product)
+	console.log("product333",imageUrl)
 	return (
 		<div
 			className="product"
@@ -62,7 +60,7 @@ const Product = ({ product }: ProductType) => {
 					{product.name}
 				</Link>
 				<p className="new-price">
-					${product.price} <del className="old-price">${product.newprice}</del>
+					${product.newprice} <del className="old-price">${product.price}</del>
 				</p>
 				{/* <p className="sale">{product.newprice}</p> */}
 			</div>
