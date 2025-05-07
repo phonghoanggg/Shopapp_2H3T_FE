@@ -79,7 +79,7 @@ const Sale = () => {
 						<ProductSale
 							key={item._id}
 							id={item.slug}
-							images={item.images && item.images.length > 0 ? item.images : ['']}
+							images={item.images && item.images.length > 0 ? item.images : []}
 							name={item.name}
 							price={item.price}
 							size="Sale up to30%"
