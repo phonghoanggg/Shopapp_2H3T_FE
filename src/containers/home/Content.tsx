@@ -1,18 +1,27 @@
 import ButtonLink from '@/compound/demo-button/button-link/ButtonLink';
-import Image from 'next/image';
 
 const Content = () => {
 	return (
 		<section className="section-content">
-			<Image
-				className="image"
-				width={2200}
-				height={400}
-				src="https://lscoecomm.scene7.com/is/image/lscoecomm/23_OCT_REFRESH_HERO_501_16_6?fmt=avif&qlt=40&resMode=bisharp&fit=crop,0&op_usm=0.6,0.6,8&wid=2000&hei=750"
-				alt="Banner"
-				loading="lazy"
-			/>
-
+			<div className="section-content-wrapper">
+				<video
+					className="video"
+					autoPlay
+					muted
+					loop
+					playsInline
+				>
+					<source
+						src="https://sustainability.dolcegabbana.com/wp-content/uploads/2024/12/dolce-and-gabbana-sustainability-home-page-video-banner-desk.mp4"
+						type="video/webm"
+					/>
+					Your browser does not support the video tag.
+				</video>
+				<div className="text-wrap">
+					<h1 className='text-top'>Our Sustainability Journey</h1>
+					<h2 className='text-bot'>A commitment to crafting a more responsible future </h2>
+				</div>
+			</div>
 			<p className="title _text-center">You know it. You love it. You got to have it.</p>
 			<div className="links container">
 				<ButtonLink className="site-button _text-capitalize _text-center">Shop Men</ButtonLink>

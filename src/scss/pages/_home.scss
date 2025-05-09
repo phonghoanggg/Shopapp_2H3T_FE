@@ -1,3 +1,77 @@
+.home-banner-section-top {
+	background: $skin-green-light !important; 
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	color:$black;
+	padding-block: 32px;
+
+	> .subtitle {
+		font-size: $fz-sm;
+		font-weight: $fw-bold;
+		line-height: $leading-sm;
+		margin-bottom: 24px;
+		color:$black;
+	}
+
+	> .title {
+		font-size: 40px;
+		font-weight: 800;
+		line-height: 40px;
+		letter-spacing: 1.4px;
+		padding-bottom: 16px;
+		color:$black;
+		@include breakpoint-down(smalldesktop) {
+			font-size: $fz-lg;
+			line-height: $leading-lg;
+		}
+	}
+
+	> .description {
+		font-size: $fz-base;
+		line-height: $leading-md;
+		width: 100%;
+		max-width: 530px;
+		margin-left: auto;
+		margin-right: auto;
+		padding-bottom: 24px;
+		color:$black;
+		@include breakpoint-down(smalldesktop) {
+			font-size: $fz-sm;
+		}
+	}
+
+	> .links {
+		@include flex-center;
+		gap: 32px;
+		padding-bottom: 16px;
+		@include breakpoint-down(smalldesktop) {
+			@include flex-center-column;
+		}
+	}
+
+	> .links > * {
+		position: relative;
+		color:$black;
+		&::before {
+			@include transition;
+			position: absolute;
+			content: '';
+			width: 100%;
+			height: 2px;
+			bottom: -8px;
+			border-radius: 4px;
+			background: $black;
+		}
+		&:hover::before {
+			bottom: -6px;
+		}
+	}
+	> .footer {
+		padding-top: 12px;
+		fill: #fff;
+	}
+}
 .home-banner-section {
 	background: $success-color;
 	background-size: cover;
@@ -72,7 +146,35 @@
 
 .section-content {
 	margin-block: 24px;
-
+	margin-top: 0;
+	> .section-content-wrapper {
+		position: relative;
+		> .text-wrap {
+			position: absolute;
+			top: 0;
+			margin: 0 auto;
+			height: 100%;
+			width: 100%;
+			@include flex-column;
+			align-items: center;
+			justify-content: center;
+			> .text-top {
+				font-size: 60px;
+				margin-bottom: 20px;
+				font-family: 'FuturaLTPro-Regular', Arial, Helvetica, sans-serif;
+				@include breakpoint-down(smalldesktop) {
+					font-size: 30px;
+				}
+			}
+			> .text-bot {
+				font-size: 26px;
+				font-family: 'FuturaLTPro-Regular', Arial, Helvetica, sans-serif;
+				@include breakpoint-down(smalldesktop) {
+					font-size: 18px;
+				}
+			}
+		}
+	}
 	> .title {
 		font-size: $fz-base;
 		margin-block: 24px;

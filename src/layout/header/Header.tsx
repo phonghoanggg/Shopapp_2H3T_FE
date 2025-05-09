@@ -176,8 +176,7 @@ export const Header = () => {
 					</div>
 
 					<div className="search-site">
-						<div className="field">
-							{/* search */}
+						{/* <div className="field">
 							<CgSearch size={20} />
 							<input
 								type="text"
@@ -185,7 +184,7 @@ export const Header = () => {
 								onChange={handleSearchChange}
 								value={searchQuery}
 							/>
-						</div>
+						</div> */}
 						<div className="icons">
 							<button
 								type="button"

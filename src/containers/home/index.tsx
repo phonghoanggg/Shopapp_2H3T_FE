@@ -6,6 +6,7 @@ import BannerSection from './BannerSection';
 import Carousel from './Carousel';
 import Content from './Content';
 import Discovers from './Discovers';
+import BannerSectionTop from './BannerSectionTop';
 
 export default function Home() {
 	// Define state variables or constants for different sections
@@ -29,7 +30,7 @@ export default function Home() {
 
 	return (
 		<main className="home-page">
-			<BannerSection
+			<BannerSectionTop
 				footer="Discount auto-applied at checkout. Online & in select stores."
 				className="bg-light-orange"
 				title="30-70% OFF + FREE SHIPPING"
